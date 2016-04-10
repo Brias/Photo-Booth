@@ -1,0 +1,12 @@
+Flashing Router:
+	- https://wiki.openwrt.org/toh/tp-link/tl-mr3040
+
+Connect to Router via SSH/Telnet:
+	- https://www.youtube.com/watch?v=C8DJSZLRFOg
+
+Enable LuCi again:
+	- /etc/init.d/uhttpd enable
+	- /etc/init.d/uhttpd start
+	-from: https://forum.openwrt.org/viewtopic.php?id=41250
+
+connect with LuCi over 192.168.1.1
