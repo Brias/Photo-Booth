@@ -62,7 +62,6 @@ public class EmailAddressArrayAdapter extends ArrayAdapter<String> {
         holder.getButton().setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                Log.d("ONCLICK", "" + index);
                 data.remove(index);
                 notifyDataSetChanged();
             }

@@ -3,7 +3,7 @@ package de.braeuer.matthias.photobooth.dialogs;
 import android.app.Activity;
 import android.app.DialogFragment;
 import android.app.FragmentTransaction;
-import android.content.DialogInterface;
+import android.app.ProgressDialog;
 import android.graphics.Bitmap;
 import android.os.Bundle;
 import android.view.LayoutInflater;
@@ -12,7 +12,12 @@ import android.view.ViewGroup;
 import android.widget.Button;
 import android.widget.ImageView;
 
+import java.util.Calendar;
+
+import de.braeuer.matthias.photobooth.CameraViewActivity;
 import de.braeuer.matthias.photobooth.R;
+import de.braeuer.matthias.photobooth.UploadImage;
+import de.braeuer.matthias.photobooth.listener.OnDialogFragmentClosedListener;
 
 /**
  * Created by Matze on 09.06.2016.
@@ -20,11 +25,10 @@ import de.braeuer.matthias.photobooth.R;
 public class ImageDialogFragment extends DialogFragment implements View.OnClickListener {
 
     private static String IMAGE_BUNDLE_KEY = "image";
-    private static String EDIT_ADDRESS_DIALOG_FRAGMENT = "EditAddressDialogFragment";
+
+    private static final String EDIT_ADDRESS_DIALOG_FRAGMENT = "EditAddressDialogFragment";
 
     private Bitmap bm;
-
-    private ImageView iv;
 
     public static ImageDialogFragment newInstance(Bitmap bm) {
         ImageDialogFragment idf = new ImageDialogFragment();
@@ -55,7 +59,7 @@ public class ImageDialogFragment extends DialogFragment implements View.OnClickL
     }
 
     private void initImagePreview(View v) {
-        iv = (ImageView) v.findViewById(R.id.imagePreview);
+        ImageView iv = (ImageView) v.findViewById(R.id.imagePreview);
 
         iv.setImageBitmap(bm);
     }
@@ -71,20 +75,6 @@ public class ImageDialogFragment extends DialogFragment implements View.OnClickL
 
     }
 
-    @Override
-    public void dismiss() {
-        super.dismiss();
-    }
-
-    @Override
-    public void onDismiss(final DialogInterface dialog) {
-        super.onDismiss(dialog);
-        final Activity activity = getActivity();
-        if (activity instanceof DialogInterface.OnDismissListener) {
-         //   ((DialogInterface.OnDismissListener) activity).onDismiss(dialog);
-        }
-    }
-
     public void editEmailAddress() {
         FragmentTransaction ft = getFragmentManager().beginTransaction();
 
@@ -97,14 +87,33 @@ public class ImageDialogFragment extends DialogFragment implements View.OnClickL
         edf.show(ft, EDIT_ADDRESS_DIALOG_FRAGMENT);
     }
 
+    private void startUploadImage() {
+        ProgressDialog pd = new ProgressDialog(getActivity());
+
+        Calendar rightNow = Calendar.getInstance();
+        rightNow.add(Calendar.DAY_OF_YEAR, 25);
+
+        new UploadImage(pd, bm, rightNow.toString(), CameraViewActivity.SERVER).execute();
+    }
+
+    private void cancel() {
+        Activity activity = getActivity();
+
+        if (activity instanceof OnDialogFragmentClosedListener) {
+            ((OnDialogFragmentClosedListener) getActivity()).onDialogFragmentClosed();
+        }
+
+        dismiss();
+    }
+
     @Override
     public void onClick(View v) {
         switch (v.getId()) {
             case R.id.btnCancel:
-                dismiss();
+                cancel();
                 break;
             case R.id.btnOk:
-
+                startUploadImage();
                 break;
             case R.id.btnEditEmailAddress:
                 editEmailAddress();

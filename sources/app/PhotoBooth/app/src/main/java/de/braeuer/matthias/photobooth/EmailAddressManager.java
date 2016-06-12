@@ -12,12 +12,12 @@ public class EmailAddressManager {
         emailAddresses = new ArrayList<String>();
     }
 
-    public static ArrayList<String> getEmailAddresses(){
-        return emailAddresses;
+    public static ArrayList<String> getEmailAddressesCopy(){
+        return new ArrayList<>(emailAddresses);
     }
 
-    public static void setEmailAdresses(String[] emails){
-
+    public static void setEmailAdresses(ArrayList<String> emails){
+        emailAddresses = emails;
     }
 
     public static void addEmailAddress(String emailAddress){

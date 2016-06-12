@@ -3,7 +3,6 @@ package de.braeuer.matthias.photobooth;
 import android.app.Activity;
 import android.app.FragmentTransaction;
 import android.content.Context;
-import android.content.DialogInterface;
 import android.graphics.Bitmap;
 import android.hardware.usb.UsbDevice;
 import android.hardware.usb.UsbManager;
@@ -12,15 +11,17 @@ import android.widget.ImageView;
 import android.widget.Toast;
 
 import de.braeuer.matthias.photobooth.dialogs.ImageDialogFragment;
+import de.braeuer.matthias.photobooth.listener.OnDialogFragmentClosedListener;
 import usbcamera.BaselineInitiator;
 import usbcamera.PTPException;
 import usbcamera.Session;
 import usbcamera.eos.EosInitiator;
 import usbcamera.nikon.NikonInitiator;
 
-public class CameraViewActivity extends Activity implements DialogInterface.OnDismissListener {
+public class CameraViewActivity extends Activity implements OnDialogFragmentClosedListener {
 
-    private static final String TAG = "CAMERA_VIEW_ACTIVITY";
+    public static final String SERVER = "http://homepages.uni-regensburg.de/~brm08652/photo_booth/index.php";
+
     private static final String IMAGE_DIALOG_FRAGMENT = "ImageDialogFragment";
 
     public Thread thread; //From USBCameraTest.java
@@ -222,7 +223,7 @@ public class CameraViewActivity extends Activity implements DialogInterface.OnDi
                 liveViewFetchFailCounter++;
             }
 
-            if(liveViewFetchFailCounter == 5){
+            if (liveViewFetchFailCounter == 5) {
                 liveViewFetchFailCounter = 0;
                 startUpdatingLiveView();
             }
@@ -236,13 +237,15 @@ public class CameraViewActivity extends Activity implements DialogInterface.OnDi
     private void getTakenPicture() {
         if (currentBitmap != null) {
             showImageFragmentDialog(currentBitmap);
-        }else{
+        } else {
             runOnUiThread(new Runnable() {
                 @Override
                 public void run() {
-                    Toast.makeText(CameraViewActivity.this, "BITMAP IS NULL", Toast.LENGTH_SHORT).show();
+                    Toast.makeText(CameraViewActivity.this, "Could not get Picture from Camera", Toast.LENGTH_SHORT).show();
                 }
             });
+
+            startUpdatingLiveView();
         }
     }
 
@@ -269,7 +272,7 @@ public class CameraViewActivity extends Activity implements DialogInterface.OnDi
     }
 
     @Override
-    public void onDismiss(DialogInterface dialog) {
+    public void onDialogFragmentClosed() {
         startUpdatingLiveView();
     }
 
@@ -289,12 +292,12 @@ public class CameraViewActivity extends Activity implements DialogInterface.OnDi
                 liveViewTurnedOn = updateLiveView();
             }
 
-            //try {
-                //Thread.sleep(1000);
+            try {
+                Thread.sleep(2000);
                 getTakenPicture();
-            //} catch (InterruptedException e) {
-            //    e.printStackTrace();
-            //}
+            } catch (InterruptedException e) {
+                e.printStackTrace();
+            }
         }
     }
 }

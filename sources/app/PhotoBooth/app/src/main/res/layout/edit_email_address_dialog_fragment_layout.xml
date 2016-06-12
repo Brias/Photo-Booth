@@ -30,20 +30,10 @@
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:layout_below="@+id/addEmailAddress"
-        android:layout_above="@+id/button2" />
+        android:layout_above="@+id/btnOk" />
 
     <Button
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:layout_alignTop="@+id/button"
-        android:layout_toLeftOf="@+id/button"
-        android:layout_toStartOf="@+id/button"
-        android:gravity="end"
-        android:text="@string/btn_cancel"
-        android:id="@+id/button2" />
-
-    <Button
-        android:id="@+id/button"
+        android:id="@+id/btnOk"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:layout_alignParentBottom="true"

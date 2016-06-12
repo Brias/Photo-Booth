@@ -19,10 +19,11 @@ import de.braeuer.matthias.photobooth.R;
 /**
  * Created by Matze on 09.06.2016.
  */
-public class EditEmailAddressDialogFragment extends DialogFragment {
+public class EditEmailAddressDialogFragment extends DialogFragment implements View.OnClickListener {
 
     private EmailAddressArrayAdapter adapter;
-    private Button btn;
+    private Button btnAddEmail;
+    private Button btnOk;
     private EditText et;
 
     public static EditEmailAddressDialogFragment newInstance() {
@@ -38,12 +39,14 @@ public class EditEmailAddressDialogFragment extends DialogFragment {
     public View onCreateView(LayoutInflater inflater, ViewGroup container, Bundle icicle) {
         View v = inflater.inflate(R.layout.edit_email_address_dialog_fragment_layout, container, false);
 
-        adapter = new EmailAddressArrayAdapter(getActivity(), R.layout.email_list_view_item, EmailAddressManager.getEmailAddresses());
+        adapter = new EmailAddressArrayAdapter(getActivity(), R.layout.email_list_view_item, EmailAddressManager.getEmailAddressesCopy());
 
         et = (EditText) v.findViewById(R.id.editEmailAddress);
 
-        btn = (Button) v.findViewById(R.id.btnAddEmail);
-        btn.setEnabled(false);
+        btnOk = (Button) v.findViewById(R.id.btnOk);
+
+        btnAddEmail = (Button) v.findViewById(R.id.btnAddEmail);
+        btnAddEmail.setEnabled(false);
 
         initButtonListener();
         initEditTextListener();
@@ -55,39 +58,53 @@ public class EditEmailAddressDialogFragment extends DialogFragment {
     private void initEditTextListener(){
         et.addTextChangedListener(new TextWatcher() {
             @Override
-            public void beforeTextChanged(CharSequence s, int start, int count, int after) {}
+            public void beforeTextChanged(CharSequence s, int start, int count, int after) {
+            }
 
             @Override
             public void onTextChanged(CharSequence s, int start, int before, int count) {
-                if(Patterns.EMAIL_ADDRESS.matcher(s).matches()){
-                    btn.setEnabled(true);
-                }else{
-                    btn.setEnabled(false);
+                if (Patterns.EMAIL_ADDRESS.matcher(s).matches()) {
+                    btnAddEmail.setEnabled(true);
+                } else {
+                    btnAddEmail.setEnabled(false);
                 }
             }
 
             @Override
-            public void afterTextChanged(Editable s) {}
+            public void afterTextChanged(Editable s) {
+            }
         });
     }
 
     private void initButtonListener(){
-        btn.setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View v) {
-                String emailAddress = et.getText().toString();
-
-                if(Patterns.EMAIL_ADDRESS.matcher(emailAddress).matches()){
-                    EmailAddressManager.addEmailAddress(emailAddress);
-                    adapter.notifyDataSetChanged();
-                }
-            }
-        });
+        btnAddEmail.setOnClickListener(this);
+        btnOk.setOnClickListener(this);
     }
 
     private void initListView(View v) {
         final ListView lv = (ListView) v.findViewById(R.id.emailAddressList);
 
         lv.setAdapter(adapter);
+    }
+
+    @Override
+    public void onClick(View v) {
+        switch (v.getId()) {
+            case R.id.btnOk:
+                dismiss();
+                break;
+            case R.id.btnAddEmail:
+                addEmail();
+                break;
+        }
+    }
+
+    private void addEmail(){
+        String emailAddress = et.getText().toString();
+
+        if(Patterns.EMAIL_ADDRESS.matcher(emailAddress).matches()){
+            EmailAddressManager.addEmailAddress(emailAddress);
+            adapter.notifyDataSetChanged();
+        }
     }
 }
