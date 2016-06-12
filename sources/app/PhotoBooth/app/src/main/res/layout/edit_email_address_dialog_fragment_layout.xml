@@ -4,20 +4,51 @@
     android:layout_height="match_parent">
 
     <LinearLayout
+        android:id="@+id/addEmailAddress"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
-        android:orientation="horizontal">
+        android:orientation="horizontal"
+        android:weightSum="1">
+
+        <EditText
+            android:id="@+id/editEmailAddress"
+            android:layout_width="314dp"
+            android:layout_height="match_parent"
+            android:inputType="textEmailAddress"
+            android:singleLine="true"
+            android:layout_weight="0.60" />
 
         <Button
+            android:id="@+id/btnAddEmail"
             android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:gravity="end"
-            android:text="@string/btn_cancel" />
-
-        <Button
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:gravity="end"
-            android:text="@string/btn_ok" />
+            android:layout_height="match_parent"
+            android:layout_weight="0.49" />
     </LinearLayout>
+
+    <ListView
+        android:id="@+id/emailAddressList"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_below="@+id/addEmailAddress"
+        android:layout_above="@+id/button2" />
+
+    <Button
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_alignTop="@+id/button"
+        android:layout_toLeftOf="@+id/button"
+        android:layout_toStartOf="@+id/button"
+        android:gravity="end"
+        android:text="@string/btn_cancel"
+        android:id="@+id/button2" />
+
+    <Button
+        android:id="@+id/button"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_alignParentBottom="true"
+        android:layout_alignParentEnd="true"
+        android:layout_alignParentRight="true"
+        android:gravity="end"
+        android:text="@string/btn_ok" />
 </RelativeLayout>

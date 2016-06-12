@@ -81,7 +81,7 @@ public class ImageDialogFragment extends DialogFragment implements View.OnClickL
         super.onDismiss(dialog);
         final Activity activity = getActivity();
         if (activity instanceof DialogInterface.OnDismissListener) {
-            ((DialogInterface.OnDismissListener) activity).onDismiss(dialog);
+         //   ((DialogInterface.OnDismissListener) activity).onDismiss(dialog);
         }
     }
 
