@@ -1,8 +1,11 @@
 package de.braeuer.matthias.photobooth;
 
 import android.app.Activity;
+import android.app.AlarmManager;
 import android.app.FragmentTransaction;
+import android.app.PendingIntent;
 import android.content.Context;
+import android.content.Intent;
 import android.graphics.Bitmap;
 import android.hardware.usb.UsbDevice;
 import android.hardware.usb.UsbManager;
@@ -211,6 +214,8 @@ public class CameraViewActivity extends Activity implements OnDialogFragmentClos
 
         if (bm != null) {
             if (bm.getWidth() != 1 && bm.getHeight() != 1) {
+                liveViewFetchFailCounter = 0;
+
                 liveViewHolder.post(new Runnable() {
                     @Override
                     public void run() {
@@ -223,9 +228,8 @@ public class CameraViewActivity extends Activity implements OnDialogFragmentClos
                 liveViewFetchFailCounter++;
             }
 
-            if (liveViewFetchFailCounter == 5) {
-                liveViewFetchFailCounter = 0;
-                startUpdatingLiveView();
+            if (liveViewFetchFailCounter >= 5) {
+                restartApplication();
             }
 
             return true;
@@ -299,5 +303,17 @@ public class CameraViewActivity extends Activity implements OnDialogFragmentClos
                 e.printStackTrace();
             }
         }
+    }
+
+    private void restartApplication() {
+        Intent mStartActivity = new Intent(this, CameraViewActivity.class);
+        int mPendingIntentId = 0b10000001; // random id
+
+        PendingIntent mPendingIntent = PendingIntent.getActivity(this, mPendingIntentId, mStartActivity, PendingIntent.FLAG_CANCEL_CURRENT);
+
+        AlarmManager mgr = (AlarmManager) this.getSystemService(Context.ALARM_SERVICE);
+
+        mgr.set(AlarmManager.RTC, System.currentTimeMillis() + 100, mPendingIntent);
+        System.exit(0);
     }
 }
