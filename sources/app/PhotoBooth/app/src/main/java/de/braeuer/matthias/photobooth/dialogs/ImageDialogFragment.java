@@ -3,7 +3,6 @@ package de.braeuer.matthias.photobooth.dialogs;
 import android.app.Activity;
 import android.app.DialogFragment;
 import android.app.FragmentTransaction;
-import android.app.ProgressDialog;
 import android.graphics.Bitmap;
 import android.os.Bundle;
 import android.view.LayoutInflater;
@@ -12,21 +11,21 @@ import android.view.ViewGroup;
 import android.widget.Button;
 import android.widget.ImageView;
 
-import java.util.Calendar;
-
 import de.braeuer.matthias.photobooth.CameraViewActivity;
+import de.braeuer.matthias.photobooth.EmailAddressManager;
 import de.braeuer.matthias.photobooth.R;
 import de.braeuer.matthias.photobooth.UploadImage;
 import de.braeuer.matthias.photobooth.listener.OnDialogFragmentClosedListener;
+import de.braeuer.matthias.photobooth.listener.OnHttpRequestDoneListener;
 
 /**
  * Created by Matze on 09.06.2016.
  */
 public class ImageDialogFragment extends DialogFragment implements View.OnClickListener {
 
-    private static String IMAGE_BUNDLE_KEY = "image";
+    public static final String IMAGE_DIALOG_FRAGMENT = "ImageDialogFragment";
 
-    private static final String EDIT_ADDRESS_DIALOG_FRAGMENT = "EditAddressDialogFragment";
+    private static String IMAGE_BUNDLE_KEY = "image";
 
     private Bitmap bm;
 
@@ -43,13 +42,16 @@ public class ImageDialogFragment extends DialogFragment implements View.OnClickL
     }
 
     @Override
-    public void onCreate(Bundle icicle) {
-        super.onCreate(icicle);
+    public void onCreate(Bundle savedInstanceState) {
+        super.onCreate(savedInstanceState);
 
         bm = getArguments().getParcelable(IMAGE_BUNDLE_KEY);
     }
 
     public View onCreateView(LayoutInflater inflater, ViewGroup container, Bundle savedInstanceState) {
+        getDialog().setTitle(getResources().getString(R.string.image_preview_dialog_title));
+        setCancelable(false);
+
         View v = inflater.inflate(R.layout.image_dialog_fragment_layout, container, false);
 
         initImagePreview(v);
@@ -69,6 +71,10 @@ public class ImageDialogFragment extends DialogFragment implements View.OnClickL
         Button btnOk = (Button) v.findViewById(R.id.btnOk);
         Button btnEditEmailAddress = (Button) v.findViewById(R.id.btnEditEmailAddress);
 
+        if (EmailAddressManager.getEmailAddresses().size() == 0) {
+            btnOk.setEnabled(false);
+        }
+
         btnCancel.setOnClickListener(this);
         btnOk.setOnClickListener(this);
         btnEditEmailAddress.setOnClickListener(this);
@@ -84,16 +90,15 @@ public class ImageDialogFragment extends DialogFragment implements View.OnClickL
 
         EditEmailAddressDialogFragment edf = EditEmailAddressDialogFragment.newInstance();
 
-        edf.show(ft, EDIT_ADDRESS_DIALOG_FRAGMENT);
+        edf.show(ft, EditEmailAddressDialogFragment.EDIT_ADDRESS_DIALOG_FRAGMENT);
     }
 
     private void startUploadImage() {
-        ProgressDialog pd = new ProgressDialog(getActivity());
+        UploadDialog up = new UploadDialog(getActivity());
 
-        Calendar rightNow = Calendar.getInstance();
-        rightNow.add(Calendar.DAY_OF_YEAR, 25);
+        new UploadImage(((OnHttpRequestDoneListener) getActivity()), up, bm, CameraViewActivity.SERVER).execute();
 
-        new UploadImage(pd, bm, rightNow.toString(), CameraViewActivity.SERVER).execute();
+        dismiss();
     }
 
     private void cancel() {

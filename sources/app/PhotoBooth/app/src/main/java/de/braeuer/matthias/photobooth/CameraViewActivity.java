@@ -10,18 +10,21 @@ import android.graphics.Bitmap;
 import android.hardware.usb.UsbDevice;
 import android.hardware.usb.UsbManager;
 import android.os.Bundle;
+import android.view.Window;
 import android.widget.ImageView;
 import android.widget.Toast;
 
 import de.braeuer.matthias.photobooth.dialogs.ImageDialogFragment;
+import de.braeuer.matthias.photobooth.dialogs.KeepEmailAddressesDialogFragment;
 import de.braeuer.matthias.photobooth.listener.OnDialogFragmentClosedListener;
+import de.braeuer.matthias.photobooth.listener.OnHttpRequestDoneListener;
 import usbcamera.BaselineInitiator;
 import usbcamera.PTPException;
 import usbcamera.Session;
 import usbcamera.eos.EosInitiator;
 import usbcamera.nikon.NikonInitiator;
 
-public class CameraViewActivity extends Activity implements OnDialogFragmentClosedListener {
+public class CameraViewActivity extends Activity implements OnDialogFragmentClosedListener, OnHttpRequestDoneListener {
 
     public static final String SERVER = "http://homepages.uni-regensburg.de/~brm08652/photo_booth/index.php";
 
@@ -43,6 +46,8 @@ public class CameraViewActivity extends Activity implements OnDialogFragmentClos
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
+
+        this.requestWindowFeature(Window.FEATURE_NO_TITLE);
 
         setContentView(R.layout.activity_camera_view_layout);
 
@@ -239,8 +244,14 @@ public class CameraViewActivity extends Activity implements OnDialogFragmentClos
     }
 
     private void getTakenPicture() {
-        if (currentBitmap != null) {
-            showImageFragmentDialog(currentBitmap);
+        Bitmap bm = getCurrentViewBitmap();
+
+        if(bm == null){
+            bm = currentBitmap;
+        }
+
+        if (bm != null) {
+            showImageFragmentDialog(bm);
         } else {
             runOnUiThread(new Runnable() {
                 @Override
@@ -278,6 +289,26 @@ public class CameraViewActivity extends Activity implements OnDialogFragmentClos
     @Override
     public void onDialogFragmentClosed() {
         startUpdatingLiveView();
+    }
+
+    @Override
+    public void onHttpRequestError(Bitmap bm, String errorMsg) {
+        errorMsg = errorMsg != null ? errorMsg : getResources().getString(R.string.http_request_error);
+
+        showImageFragmentDialog(bm);
+
+        Toast.makeText(this, errorMsg, Toast.LENGTH_LONG).show();
+    }
+
+    @Override
+    public void onHttpRequestSuccess() {
+        Toast.makeText(this, getResources().getString(R.string.http_request_success), Toast.LENGTH_LONG).show();
+
+        FragmentTransaction ft = getFragmentManager().beginTransaction();
+
+        KeepEmailAddressesDialogFragment kdf = KeepEmailAddressesDialogFragment.newInstance();
+
+        kdf.show(ft, KeepEmailAddressesDialogFragment.KEEP_EMAIL_ADDRESSES_DIALOG_FRAGMENT);
     }
 
     private class LiveViewThread extends Thread {

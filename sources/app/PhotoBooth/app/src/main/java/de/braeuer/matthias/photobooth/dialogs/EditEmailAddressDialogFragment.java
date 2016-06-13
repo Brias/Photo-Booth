@@ -21,6 +21,8 @@ import de.braeuer.matthias.photobooth.R;
  */
 public class EditEmailAddressDialogFragment extends DialogFragment implements View.OnClickListener {
 
+    public static final String EDIT_ADDRESS_DIALOG_FRAGMENT = "EditAddressDialogFragment";
+
     private EmailAddressArrayAdapter adapter;
     private Button btnAddEmail;
     private Button btnOk;
@@ -37,9 +39,12 @@ public class EditEmailAddressDialogFragment extends DialogFragment implements Vi
     }
 
     public View onCreateView(LayoutInflater inflater, ViewGroup container, Bundle icicle) {
+        getDialog().setTitle(getResources().getString(R.string.email_edit_dialog_title));
+        setCancelable(false);
+
         View v = inflater.inflate(R.layout.edit_email_address_dialog_fragment_layout, container, false);
 
-        adapter = new EmailAddressArrayAdapter(getActivity(), R.layout.email_list_view_item, EmailAddressManager.getEmailAddressesCopy());
+        adapter = new EmailAddressArrayAdapter(getActivity(), R.layout.email_list_view_item, EmailAddressManager.getEmailAddresses());
 
         et = (EditText) v.findViewById(R.id.editEmailAddress);
 
@@ -55,7 +60,7 @@ public class EditEmailAddressDialogFragment extends DialogFragment implements Vi
         return v;
     }
 
-    private void initEditTextListener(){
+    private void initEditTextListener() {
         et.addTextChangedListener(new TextWatcher() {
             @Override
             public void beforeTextChanged(CharSequence s, int start, int count, int after) {
@@ -76,7 +81,7 @@ public class EditEmailAddressDialogFragment extends DialogFragment implements Vi
         });
     }
 
-    private void initButtonListener(){
+    private void initButtonListener() {
         btnAddEmail.setOnClickListener(this);
         btnOk.setOnClickListener(this);
     }
@@ -99,10 +104,10 @@ public class EditEmailAddressDialogFragment extends DialogFragment implements Vi
         }
     }
 
-    private void addEmail(){
+    private void addEmail() {
         String emailAddress = et.getText().toString();
 
-        if(Patterns.EMAIL_ADDRESS.matcher(emailAddress).matches()){
+        if (Patterns.EMAIL_ADDRESS.matcher(emailAddress).matches()) {
             EmailAddressManager.addEmailAddress(emailAddress);
             adapter.notifyDataSetChanged();
         }

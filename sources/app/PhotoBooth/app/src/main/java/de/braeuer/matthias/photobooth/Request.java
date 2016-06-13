@@ -42,8 +42,6 @@ public class Request {
 
             int responseCode = con.getResponseCode();
 
-            Log.d("UPLOADIMAGE", ""+responseCode);
-
             if (responseCode == HttpURLConnection.HTTP_OK) {
                 StringBuilder sb = new StringBuilder();
 
@@ -51,7 +49,11 @@ public class Request {
                 String line;
 
                 while ((line = reader.readLine()) != null) {
-                    sb.append(line).append("\n");
+                    if (sb.length() > 0) {
+                        sb.append("\n");
+                    }
+
+                    sb.append(line);
                 }
 
                 return sb.toString();

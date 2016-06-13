@@ -12,8 +12,8 @@ public class EmailAddressManager {
         emailAddresses = new ArrayList<String>();
     }
 
-    public static ArrayList<String> getEmailAddressesCopy(){
-        return new ArrayList<>(emailAddresses);
+    public static ArrayList<String> getEmailAddresses(){
+        return emailAddresses;
     }
 
     public static void setEmailAdresses(ArrayList<String> emails){
@@ -22,5 +22,9 @@ public class EmailAddressManager {
 
     public static void addEmailAddress(String emailAddress){
         emailAddresses.add(emailAddress);
+    }
+
+    public static void reset(){
+        emailAddresses.clear();
     }
 }

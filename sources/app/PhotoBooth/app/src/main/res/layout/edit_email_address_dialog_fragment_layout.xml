@@ -1,7 +1,10 @@
 <?xml version="1.0" encoding="utf-8"?>
 <RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
     android:layout_width="match_parent"
-    android:layout_height="match_parent">
+    android:layout_height="match_parent"
+    android:paddingTop="10dp"
+    android:paddingLeft="10dp"
+    android:paddingRight="10dp">
 
     <LinearLayout
         android:id="@+id/addEmailAddress"
@@ -14,23 +17,31 @@
             android:id="@+id/editEmailAddress"
             android:layout_width="314dp"
             android:layout_height="match_parent"
+            android:layout_weight="0.60"
+            android:hint="@string/add_email_hint"
             android:inputType="textEmailAddress"
-            android:singleLine="true"
-            android:layout_weight="0.60" />
+            android:singleLine="true" />
 
         <Button
             android:id="@+id/btnAddEmail"
             android:layout_width="wrap_content"
             android:layout_height="match_parent"
-            android:layout_weight="0.49" />
+            android:layout_weight="0.49"
+            android:text="@string/btn_ok" />
     </LinearLayout>
 
     <ListView
         android:id="@+id/emailAddressList"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:layout_below="@+id/addEmailAddress"
-        android:layout_above="@+id/btnOk" />
+        android:paddingLeft="10dp"
+        android:paddingRight="10dp"
+        android:paddingTop="15dp"
+        android:paddingBottom="15dp"
+        android:divider="@android:color/darker_gray"
+        android:dividerHeight="1dp"
+        android:layout_above="@+id/btnOk"
+        android:layout_below="@+id/addEmailAddress" />
 
     <Button
         android:id="@+id/btnOk"
@@ -38,7 +49,5 @@
         android:layout_height="wrap_content"
         android:layout_alignParentBottom="true"
         android:layout_alignParentEnd="true"
-        android:layout_alignParentRight="true"
-        android:gravity="end"
         android:text="@string/btn_ok" />
 </RelativeLayout>

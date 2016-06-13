@@ -11,21 +11,23 @@ import java.net.URLEncoder;
 import java.util.HashMap;
 import java.util.Map;
 
+import de.braeuer.matthias.photobooth.listener.OnHttpRequestDoneListener;
+
 /**
  * Created by Matze on 09.06.2016.
  */
 public class UploadImage extends AsyncTask<Void, Void, String> {
 
     private Bitmap bm;
-    private String name;
     private final String serverURL;
     private ProgressDialog pd;
+    private OnHttpRequestDoneListener httpListener;
 
-    public UploadImage(ProgressDialog pd, Bitmap bm, String name, String serverURL) {
+    public UploadImage(OnHttpRequestDoneListener httpListener, ProgressDialog pd, Bitmap bm, String serverURL) {
         this.bm = bm;
-        this.name = name;
         this.serverURL = serverURL;
         this.pd = pd;
+        this.httpListener = httpListener;
     }
 
     @Override
@@ -44,7 +46,6 @@ public class UploadImage extends AsyncTask<Void, Void, String> {
 
         HashMap<String, String> detail = new HashMap<>();
 
-        detail.put("name", name);
         detail.put("image", encodeImage);
 
         try {
@@ -58,6 +59,16 @@ public class UploadImage extends AsyncTask<Void, Void, String> {
 
     @Override
     protected void onPostExecute(String s) {
+        if (s != null && s.equals("200")) {
+            if (httpListener != null) {
+                httpListener.onHttpRequestSuccess();
+            }
+        } else {
+            if (httpListener != null) {
+                httpListener.onHttpRequestError(bm, s);
+            }
+        }
+
         pd.dismiss();
     }
 
