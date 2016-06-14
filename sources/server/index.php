@@ -6,9 +6,21 @@
  * Time: 17:57
  */
 
+include "SendEmail.php";
+
 $image = $_POST['image'];
 
 $decodedImage = base64_decode($image);
+
+try {
+    $emailTest = new SendEmail("matthias.braeuer@", "");
+
+    $emailTest->sendMail();
+} catch (InvalidDataTypeException $e) {
+    echo $e->getMessage();
+} catch (InvalidEmailException $e) {
+    echo $e->getMessage();
+}
 
 if (!isset($image) || empty($decodedImage) || $decodedImage === false) {
     echo "Uploaded invalid data";
@@ -16,7 +28,7 @@ if (!isset($image) || empty($decodedImage) || $decodedImage === false) {
     $savedSuccessfully = file_put_contents(round(microtime(true) * 1000) . ".jpg", $decodedImage);
 
     if ($savedSuccessfully === false) {
-        echo "Error while saving image. maybe you domt have permissions to write data";
+        echo "Error while saving image. maybe you dont have permissions to write data";
     }
 
     if ($savedSuccessfully === 0) {
