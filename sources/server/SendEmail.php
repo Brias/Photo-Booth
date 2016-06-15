@@ -45,12 +45,12 @@ class SendEmail
 
         if (is_array($email)) {
             foreach ($email as $key => $value) {
-                if (!preg_match("/^[^0-9][A-z0-9_]+([.][A-z0-9_]+)*[@][A-z0-9_]+([.][A-z0-9_]+)*[.][A-z]{2,4}$/", $value)) {
+                if (!filter_var($value, FILTER_VALIDATE_EMAIL)) {
                     array_push($invalids, $email[$key]);
                 }
             }
         } else {
-            if (!preg_match("/^[^0-9][A-z0-9_]+([.][A-z0-9_]+)*[@][A-z0-9_]+([.][A-z0-9_]+)*[.][A-z]{2,4}$/", $email)) {
+            if (!filter_var($email, FILTER_VALIDATE_EMAIL)) {
                 array_push($invalids, $email);
             }
         }
