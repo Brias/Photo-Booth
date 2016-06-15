@@ -12,19 +12,33 @@ public class EmailAddressManager {
         emailAddresses = new ArrayList<String>();
     }
 
-    public static ArrayList<String> getEmailAddresses(){
+    public static ArrayList<String> getEmailAddresses() {
         return emailAddresses;
     }
 
-    public static void setEmailAdresses(ArrayList<String> emails){
+    public static void setEmailAdresses(ArrayList<String> emails) {
         emailAddresses = emails;
     }
 
-    public static void addEmailAddress(String emailAddress){
+    public static void addEmailAddress(String emailAddress) {
         emailAddresses.add(emailAddress);
     }
 
-    public static void reset(){
+    public static void reset() {
         emailAddresses.clear();
+    }
+
+    public static String addressesToString() {
+        String s = "";
+
+        for (String email : emailAddresses) {
+            if (!s.equals("")) {
+                s += ",";
+            }
+
+            s += email;
+        }
+
+        return s;
     }
 }

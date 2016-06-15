@@ -4,6 +4,7 @@ import android.app.ProgressDialog;
 import android.graphics.Bitmap;
 import android.os.AsyncTask;
 import android.util.Base64;
+import android.util.Log;
 
 import java.io.ByteArrayOutputStream;
 import java.io.UnsupportedEncodingException;
@@ -47,6 +48,8 @@ public class UploadImage extends AsyncTask<Void, Void, String> {
         HashMap<String, String> detail = new HashMap<>();
 
         detail.put("image", encodeImage);
+        Log.d("BLABLA", EmailAddressManager.addressesToString());
+        detail.put("email", EmailAddressManager.addressesToString());
 
         try {
             String dataToSend = hashMapToUrl(detail);

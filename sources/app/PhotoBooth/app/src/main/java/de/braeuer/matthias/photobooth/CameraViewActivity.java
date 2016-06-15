@@ -26,7 +26,7 @@ import usbcamera.nikon.NikonInitiator;
 
 public class CameraViewActivity extends Activity implements OnDialogFragmentClosedListener, OnHttpRequestDoneListener {
 
-    public static final String SERVER = "http://homepages.uni-regensburg.de/~brm08652/photo_booth/index.php";
+    public static final String SERVER = "http://homepages.uni-regensburg.de/~brm08652/photo_booth/upload.php";
 
     private static final String IMAGE_DIALOG_FRAGMENT = "ImageDialogFragment";
 
