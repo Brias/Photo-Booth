@@ -16,6 +16,7 @@ class Image extends DBHelper
     private $_image;
     private $_name;
     private $_downloadCode;
+    private $_BASE_PATH = "images/";
     
     public function __construct($image = "", $name = "", $downloadCode = null)
     {
@@ -84,7 +85,7 @@ class Image extends DBHelper
     public function saveImage (){
         $name = round(microtime(true) * 1000) . ".jpg";
 
-        if(file_put_contents($name, $this->_image)){
+        if(file_put_contents($name = $this->_BASE_PATH . $name, $this->_image)){
             $this->_name = $name;
             
             return true;
@@ -106,8 +107,21 @@ class Image extends DBHelper
             return null;
         }
 
-        $content = file_get_contents($name);
+        if(file_exists($name)) {
+            header('Content-Description: File Transfer');
+            header('Content-Disposition: attachment; filename=' . basename($name));
+            header('Content-Transfer-Encoding: binary');
+            header('Expires: 0');
+            header('Cache-Control: must-revalidate, post-check=0, pre-check=0');
+            header('Pragma: public');
 
-        return file_put_contents($name, $content);
+            ob_clean();
+            flush();
+            readfile($name);
+
+            exit;
+        } else {
+            return null;
+        }
     }
 }

@@ -10,9 +10,12 @@ import android.graphics.Bitmap;
 import android.hardware.usb.UsbDevice;
 import android.hardware.usb.UsbManager;
 import android.os.Bundle;
+import android.util.Log;
 import android.view.Window;
 import android.widget.ImageView;
 import android.widget.Toast;
+
+import java.util.List;
 
 import de.braeuer.matthias.photobooth.dialogs.ImageDialogFragment;
 import de.braeuer.matthias.photobooth.dialogs.KeepEmailAddressesDialogFragment;
@@ -21,6 +24,7 @@ import de.braeuer.matthias.photobooth.listener.OnHttpRequestDoneListener;
 import usbcamera.BaselineInitiator;
 import usbcamera.PTPException;
 import usbcamera.Session;
+import usbcamera.eos.EosEvent;
 import usbcamera.eos.EosInitiator;
 import usbcamera.nikon.NikonInitiator;
 
@@ -244,23 +248,30 @@ public class CameraViewActivity extends Activity implements OnDialogFragmentClos
     }
 
     private void getTakenPicture() {
-        Bitmap bm = getCurrentViewBitmap();
+        Bitmap bm = null;
+        int counter = 0;
 
-        if(bm == null){
-            bm = currentBitmap;
-        }
+        while (bm == null) {
+            bm = getCurrentViewBitmap();
 
-        if (bm != null) {
-            showImageFragmentDialog(bm);
-        } else {
-            runOnUiThread(new Runnable() {
-                @Override
-                public void run() {
-                    Toast.makeText(CameraViewActivity.this, "Could not get Picture from Camera", Toast.LENGTH_SHORT).show();
-                }
-            });
+            if(counter >= 420){
+                bm = currentBitmap;
+            }
 
-            startUpdatingLiveView();
+            if (bm != null) {
+                showImageFragmentDialog(bm);
+            }
+
+            if(bm != null && counter > 420){
+                runOnUiThread(new Runnable() {
+                    @Override
+                    public void run() {
+                        Toast.makeText(CameraViewActivity.this, "Could not get Picture from Camera", Toast.LENGTH_SHORT).show();
+                    }
+                });
+            }
+
+            counter++;
         }
     }
 
@@ -327,12 +338,7 @@ public class CameraViewActivity extends Activity implements OnDialogFragmentClos
                 liveViewTurnedOn = updateLiveView();
             }
 
-            try {
-                Thread.sleep(2000);
-                getTakenPicture();
-            } catch (InterruptedException e) {
-                e.printStackTrace();
-            }
+            getTakenPicture();
         }
     }
 
