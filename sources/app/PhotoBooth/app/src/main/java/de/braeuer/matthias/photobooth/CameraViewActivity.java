@@ -10,12 +10,9 @@ import android.graphics.Bitmap;
 import android.hardware.usb.UsbDevice;
 import android.hardware.usb.UsbManager;
 import android.os.Bundle;
-import android.util.Log;
 import android.view.Window;
 import android.widget.ImageView;
 import android.widget.Toast;
-
-import java.util.List;
 
 import de.braeuer.matthias.photobooth.dialogs.ImageDialogFragment;
 import de.braeuer.matthias.photobooth.dialogs.KeepEmailAddressesDialogFragment;
@@ -24,7 +21,6 @@ import de.braeuer.matthias.photobooth.listener.OnHttpRequestDoneListener;
 import usbcamera.BaselineInitiator;
 import usbcamera.PTPException;
 import usbcamera.Session;
-import usbcamera.eos.EosEvent;
 import usbcamera.eos.EosInitiator;
 import usbcamera.nikon.NikonInitiator;
 
@@ -44,6 +40,8 @@ public class CameraViewActivity extends Activity implements OnDialogFragmentClos
     private Bitmap currentBitmap;
 
     private boolean liveViewTurnedOn = false; //From USBCameraTest.java
+
+    private boolean pictureTaken = false;
 
     private int liveViewFetchFailCounter = 0;
 
@@ -198,7 +196,7 @@ public class CameraViewActivity extends Activity implements OnDialogFragmentClos
     /*
         From USBCameraTest.java changed some stuff
      */
-    private Bitmap getCurrentViewBitmap() {
+    private Bitmap getCurrentViewBitmap() throws PictureTakenException {
         if (bi.getDevice() == null) {
             return null;
         }
@@ -218,33 +216,27 @@ public class CameraViewActivity extends Activity implements OnDialogFragmentClos
         return null;
     }
 
-    private boolean updateLiveView() {
+    private void updateLiveView() throws PictureTakenException {
         final Bitmap bm = getCurrentViewBitmap();
 
         if (bm != null) {
-            if (bm.getWidth() != 1 && bm.getHeight() != 1) {
-                liveViewFetchFailCounter = 0;
+            liveViewFetchFailCounter = 0;
 
-                liveViewHolder.post(new Runnable() {
-                    @Override
-                    public void run() {
-                        currentBitmap = bm;
-                        liveViewHolder.setImageBitmap(bm);
-                        liveViewHolder.invalidate();
-                    }
-                });
-            } else {
-                liveViewFetchFailCounter++;
-            }
-
-            if (liveViewFetchFailCounter >= 5) {
-                restartApplication();
-            }
-
-            return true;
+            liveViewHolder.post(new Runnable() {
+                @Override
+                public void run() {
+                    currentBitmap = bm;
+                    liveViewHolder.setImageBitmap(bm);
+                    liveViewHolder.invalidate();
+                }
+            });
+        } else {
+            liveViewFetchFailCounter++;
         }
 
-        return false;
+        if (liveViewFetchFailCounter >= 5) {
+            restartApplication();
+        }
     }
 
     private void getTakenPicture() {
@@ -252,9 +244,13 @@ public class CameraViewActivity extends Activity implements OnDialogFragmentClos
         int counter = 0;
 
         while (bm == null) {
-            bm = getCurrentViewBitmap();
+            try {
+                bm = getCurrentViewBitmap();
+            } catch (PictureTakenException e) {
 
-            if(counter >= 420){
+            }
+
+            if (counter >= 420) {
                 bm = currentBitmap;
             }
 
@@ -262,7 +258,7 @@ public class CameraViewActivity extends Activity implements OnDialogFragmentClos
                 showImageFragmentDialog(bm);
             }
 
-            if(bm != null && counter > 420){
+            if (bm != null && counter > 420) {
                 runOnUiThread(new Runnable() {
                     @Override
                     public void run() {
@@ -292,6 +288,8 @@ public class CameraViewActivity extends Activity implements OnDialogFragmentClos
     }
 
     private void stopUpdatingLiveView() {
+        liveViewTurnedOn = false;
+
         if (thread != null) {
             thread.interrupt();
         }
@@ -299,7 +297,7 @@ public class CameraViewActivity extends Activity implements OnDialogFragmentClos
 
     @Override
     public void onDialogFragmentClosed() {
-        startUpdatingLiveView();
+        pictureTaken = false;
     }
 
     @Override
@@ -322,26 +320,6 @@ public class CameraViewActivity extends Activity implements OnDialogFragmentClos
         kdf.show(ft, KeepEmailAddressesDialogFragment.KEEP_EMAIL_ADDRESSES_DIALOG_FRAGMENT);
     }
 
-    private class LiveViewThread extends Thread {
-        @Override
-        public void run() {
-            if (!liveViewTurnedOn) {
-                try {
-                    Thread.sleep(1500);
-                    liveViewTurnedOn = updateLiveView();
-                } catch (InterruptedException e) {
-                    e.printStackTrace();
-                }
-            }
-
-            while (liveViewTurnedOn) {
-                liveViewTurnedOn = updateLiveView();
-            }
-
-            getTakenPicture();
-        }
-    }
-
     private void restartApplication() {
         Intent mStartActivity = new Intent(this, CameraViewActivity.class);
         int mPendingIntentId = 0b10000001; // random id
@@ -352,5 +330,29 @@ public class CameraViewActivity extends Activity implements OnDialogFragmentClos
 
         mgr.set(AlarmManager.RTC, System.currentTimeMillis() + 100, mPendingIntent);
         System.exit(0);
+    }
+
+    private class LiveViewThread extends Thread {
+        @Override
+        public void run() {
+            liveViewTurnedOn = true;
+
+            try {
+                Thread.sleep(1500);
+
+                while (liveViewTurnedOn) {
+                    if (!pictureTaken) {
+                        try {
+                            updateLiveView();
+                        } catch (PictureTakenException e) {
+                            pictureTaken = true;
+                            getTakenPicture();
+                        }
+                    }
+                }
+            } catch (InterruptedException e) {
+                e.printStackTrace();
+            }
+        }
     }
 }

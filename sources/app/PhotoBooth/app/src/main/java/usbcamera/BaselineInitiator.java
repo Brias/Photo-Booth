@@ -27,6 +27,8 @@ import android.widget.ImageView;
 
 import java.io.ByteArrayOutputStream;
 
+import de.braeuer.matthias.photobooth.PictureTakenException;
+
 /**
  * This initiates interactions with USB devices, supporting only
  * mandatory PTP-over-USB operations; both
@@ -989,7 +991,7 @@ Android: UsbDeviceConnection controlTransfer (int requestType, int request, int 
 
     }
 
-    public Bitmap getLiveView() {
+    public Bitmap getLiveView() throws PictureTakenException {
         return null;
     }
 

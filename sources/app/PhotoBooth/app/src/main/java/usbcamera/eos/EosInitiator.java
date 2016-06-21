@@ -26,6 +26,7 @@ import java.io.ByteArrayInputStream;
 import java.util.ArrayList;
 import java.util.List;
 
+import de.braeuer.matthias.photobooth.PictureTakenException;
 import usbcamera.BaselineInitiator;
 import usbcamera.Command;
 import usbcamera.Container;
@@ -376,21 +377,14 @@ public class EosInitiator extends BaselineInitiator {
 		setDevicePropValueEx(Command.EOS_DPC_LiveView,1);
 	}
 
-    private Bitmap createEmptyBitmap(){
-        int w = 1, h = 1;
-
-        Bitmap.Config conf = Bitmap.Config.ARGB_8888; // see other conf types
-        return Bitmap.createBitmap(w, h, conf);
-    }
-
-	public Bitmap getLiveView()
+	public Bitmap getLiveView() throws PictureTakenException
 	{
 		Command command = new Command(Command.EOS_OC_GetLiveViewPicture, session,0x00100000);
 		write(command.data, command.length, DEFAULT_TIMEOUT);				
 		byte buf[] = read(DEFAULT_TIMEOUT);
 
         if(buf == null){
-            return createEmptyBitmap();
+            return null;
         }
 
 		Data item = new Data(true, buf, this); 
@@ -412,14 +406,14 @@ public class EosInitiator extends BaselineInitiator {
 			buf = read(DEFAULT_TIMEOUT);
 
             if(buf == null){
-                return createEmptyBitmap();
+                return null;
             }
 
 			System.arraycopy(buf,0,imageBuf,512*(i+1),512);
 		}
 
-		Data completedData = new Data(true, imageBuf, this); 	
-		
+		Data completedData = new Data(true, imageBuf, this);
+
         try {
             final Bitmap bMap = BitmapFactory.decodeByteArray(completedData.data, 20, completedData.getLength() - 20);
             //Bitmap scaled = Bitmap.createScaledBitmap(bMap, bMap.getWidth()/10, bMap.getHeight()/10, false);
@@ -427,7 +421,7 @@ public class EosInitiator extends BaselineInitiator {
             byte buf1[] = read(DEFAULT_TIMEOUT);
 
             if(buf1 == null){
-                return createEmptyBitmap();
+                return null;
             }
 
             new Response (buf1, inMaxPS, this);
@@ -435,9 +429,8 @@ public class EosInitiator extends BaselineInitiator {
             return bMap;
 
         } catch (ArrayIndexOutOfBoundsException e) { //To prevent application from crashing, also return null to signalize that a picture was taken
-            Log.e("EosInitiator", "OUTOFBOUNDS");
             e.printStackTrace();
-            return null;
+            throw new PictureTakenException();
         }
 	}
 	/////////////////////////

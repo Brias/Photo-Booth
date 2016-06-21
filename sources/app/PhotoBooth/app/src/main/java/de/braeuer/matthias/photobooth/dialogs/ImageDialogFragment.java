@@ -5,6 +5,7 @@ import android.app.DialogFragment;
 import android.app.FragmentTransaction;
 import android.graphics.Bitmap;
 import android.os.Bundle;
+import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
@@ -70,6 +71,7 @@ public class ImageDialogFragment extends DialogFragment implements View.OnClickL
         Button btnCancel = (Button) v.findViewById(R.id.btnCancel);
         Button btnOk = (Button) v.findViewById(R.id.btnOk);
         Button btnEditEmailAddress = (Button) v.findViewById(R.id.btnEditEmailAddress);
+        Button btnInfo = (Button) v.findViewById(R.id.btnInfo);
 
         if (EmailAddressManager.getEmailAddresses().size() == 0) {
             btnOk.setEnabled(false);
@@ -78,6 +80,7 @@ public class ImageDialogFragment extends DialogFragment implements View.OnClickL
         btnCancel.setOnClickListener(this);
         btnOk.setOnClickListener(this);
         btnEditEmailAddress.setOnClickListener(this);
+        btnInfo.setOnClickListener(this);
 
     }
 
@@ -99,6 +102,18 @@ public class ImageDialogFragment extends DialogFragment implements View.OnClickL
         new UploadImage(((OnHttpRequestDoneListener) getActivity()), up, bm, CameraViewActivity.SERVER).execute();
 
         dismiss();
+    }
+
+    private void showInfo() {
+        FragmentTransaction ft = getFragmentManager().beginTransaction();
+
+        ft.remove(this);
+
+        ft.addToBackStack(null);
+
+        InfoDialogFragment idf = InfoDialogFragment.newInstance();
+
+        idf.show(ft, InfoDialogFragment.INFO_DIALOG_FRAGMENT);
     }
 
     private void cancel() {
@@ -123,6 +138,9 @@ public class ImageDialogFragment extends DialogFragment implements View.OnClickL
             case R.id.btnEditEmailAddress:
                 editEmailAddress();
                 break;
+            case R.id.btnInfo:
+                Log.d(IMAGE_DIALOG_FRAGMENT, "IN SHOW");
+                showInfo();
         }
     }
 }
