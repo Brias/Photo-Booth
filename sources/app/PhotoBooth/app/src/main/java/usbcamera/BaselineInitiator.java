@@ -1019,7 +1019,6 @@ Android: UsbDeviceConnection controlTransfer (int requestType, int request, int 
     }
 
     public void write(byte[] data, int length, int timeout) {
-        Log.d(TAG, "Sending command");
         mConnection.bulkTransfer(epOut, data, length, timeout);
 
     }

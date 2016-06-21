@@ -18,13 +18,14 @@ import de.braeuer.matthias.photobooth.dialogs.ImageDialogFragment;
 import de.braeuer.matthias.photobooth.dialogs.KeepEmailAddressesDialogFragment;
 import de.braeuer.matthias.photobooth.listener.OnDialogFragmentClosedListener;
 import de.braeuer.matthias.photobooth.listener.OnHttpRequestDoneListener;
+import de.braeuer.matthias.photobooth.listener.OnSavedInternalListener;
 import usbcamera.BaselineInitiator;
 import usbcamera.PTPException;
 import usbcamera.Session;
 import usbcamera.eos.EosInitiator;
 import usbcamera.nikon.NikonInitiator;
 
-public class CameraViewActivity extends Activity implements OnDialogFragmentClosedListener, OnHttpRequestDoneListener {
+public class CameraViewActivity extends Activity implements OnDialogFragmentClosedListener, OnHttpRequestDoneListener, OnSavedInternalListener {
 
     public static final String SERVER = "http://homepages.uni-regensburg.de/~brm08652/photo_booth/upload.php";
 
@@ -61,6 +62,8 @@ public class CameraViewActivity extends Activity implements OnDialogFragmentClos
     @Override
     public void onResume() {
         super.onResume();
+
+        startUploadLocalImageService();
         openLiveView();
     }
 
@@ -68,8 +71,21 @@ public class CameraViewActivity extends Activity implements OnDialogFragmentClos
     public void onPause() {
         super.onPause();
 
+        stopUploadLocalImageService();
         stopUpdatingLiveView();
         detachDevice();
+    }
+
+    private void startUploadLocalImageService() {
+        if(Connection.isWifiConnection(getApplicationContext())) {
+            Intent intent = new Intent(this, UploadLocalImagesService.class);
+            startService(intent);
+        }
+    }
+
+    private void stopUploadLocalImageService(){
+        Intent intent = new Intent(this, UploadLocalImagesService.class);
+        stopService(intent);
     }
 
     /*
@@ -304,10 +320,10 @@ public class CameraViewActivity extends Activity implements OnDialogFragmentClos
     }
 
     @Override
-    public void onHttpRequestError(Bitmap bm, String errorMsg) {
-        errorMsg = errorMsg != null ? errorMsg : getResources().getString(R.string.http_request_error);
+    public void onHttpRequestError(Image image, String errorMsg) {
+        errorMsg =  errorMsg != null ? errorMsg : getResources().getString(R.string.http_request_error);
 
-        showImageFragmentDialog(bm);
+        showImageFragmentDialog(image.getBitmap());
 
         Toast.makeText(this, errorMsg, Toast.LENGTH_LONG).show();
     }
@@ -321,6 +337,18 @@ public class CameraViewActivity extends Activity implements OnDialogFragmentClos
         KeepEmailAddressesDialogFragment kdf = KeepEmailAddressesDialogFragment.newInstance();
 
         kdf.show(ft, KeepEmailAddressesDialogFragment.KEEP_EMAIL_ADDRESSES_DIALOG_FRAGMENT);
+    }
+
+    @Override
+    public void onSavedInternalSuccess() {
+        pictureTaken = false;
+
+        Toast.makeText(this, getResources().getString(R.string.saved_image_internally_success), Toast.LENGTH_LONG).show();
+    }
+
+    @Override
+    public void onSavedInternalError() {
+        Toast.makeText(this, getResources().getString(R.string.saved_image_internally_error), Toast.LENGTH_LONG).show();
     }
 
     private void restartApplication() {

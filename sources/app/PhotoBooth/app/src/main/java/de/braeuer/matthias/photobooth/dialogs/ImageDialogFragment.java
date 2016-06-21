@@ -12,12 +12,17 @@ import android.view.ViewGroup;
 import android.widget.Button;
 import android.widget.ImageView;
 
+import de.braeuer.matthias.photobooth.AccessStorage;
 import de.braeuer.matthias.photobooth.CameraViewActivity;
+import de.braeuer.matthias.photobooth.Connection;
+import de.braeuer.matthias.photobooth.DBHelper;
 import de.braeuer.matthias.photobooth.EmailAddressManager;
+import de.braeuer.matthias.photobooth.Image;
 import de.braeuer.matthias.photobooth.R;
 import de.braeuer.matthias.photobooth.UploadImage;
 import de.braeuer.matthias.photobooth.listener.OnDialogFragmentClosedListener;
 import de.braeuer.matthias.photobooth.listener.OnHttpRequestDoneListener;
+import de.braeuer.matthias.photobooth.listener.OnSavedInternalListener;
 
 /**
  * Created by Matze on 09.06.2016.
@@ -99,9 +104,32 @@ public class ImageDialogFragment extends DialogFragment implements View.OnClickL
     private void startUploadImage() {
         UploadDialog up = new UploadDialog(getActivity());
 
-        new UploadImage(((OnHttpRequestDoneListener) getActivity()), up, bm, CameraViewActivity.SERVER).execute();
+        Image image = new Image();
 
-        dismiss();
+        image.setBitmap(bm);
+        image.setEmail(EmailAddressManager.addressesToString());
+
+        if(Connection.isWifiConnection(getActivity())) {
+            new UploadImage(((OnHttpRequestDoneListener) getActivity()), up, image, CameraViewActivity.SERVER).execute();
+
+            dismiss();
+        } else {
+            boolean savedInternal = saveImageInternally(image);
+
+            Activity activity = getActivity();
+
+            if(savedInternal){
+                if (activity instanceof OnSavedInternalListener) {
+                    ((OnSavedInternalListener) getActivity()).onSavedInternalSuccess();
+
+                    dismiss();
+                }
+            } else {
+                if (activity instanceof OnSavedInternalListener) {
+                    ((OnSavedInternalListener) getActivity()).onSavedInternalError();
+                }
+            }
+        }
     }
 
     private void showInfo() {
@@ -126,6 +154,26 @@ public class ImageDialogFragment extends DialogFragment implements View.OnClickL
         dismiss();
     }
 
+    private boolean saveImageInternally(Image image){
+        DBHelper db = new DBHelper(getActivity());
+
+        String name = AccessStorage.saveImageToInternalStorage(getActivity(), image.getBitmap());
+
+        if(name != null){
+            image.setName(name);
+
+            boolean inserted = db.insertImage(image.getName(), image.getEmail());
+
+            if(inserted){
+                return true;
+            } else {
+                AccessStorage.deleteImageFromInternalStorage(getActivity(), image.getName());
+            }
+        }
+
+        return false;
+    }
+
     @Override
     public void onClick(View v) {
         switch (v.getId()) {
@@ -139,7 +187,6 @@ public class ImageDialogFragment extends DialogFragment implements View.OnClickL
                 editEmailAddress();
                 break;
             case R.id.btnInfo:
-                Log.d(IMAGE_DIALOG_FRAGMENT, "IN SHOW");
                 showInfo();
         }
     }

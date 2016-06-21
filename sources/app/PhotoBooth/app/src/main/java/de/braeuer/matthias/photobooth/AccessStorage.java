@@ -1,59 +1,50 @@
 package de.braeuer.matthias.photobooth;
 
 import android.content.Context;
-import android.content.ContextWrapper;
 import android.graphics.Bitmap;
 import android.graphics.BitmapFactory;
-import android.widget.ImageView;
 
-import java.io.File;
 import java.io.FileInputStream;
-import java.io.FileNotFoundException;
 import java.io.FileOutputStream;
-import java.io.IOException;
 
 /**
  * Created by Matze on 21.06.2016.
  */
 public class AccessStorage {
     public static String saveImageToInternalStorage(Context context, Bitmap bm){
-        ContextWrapper cw = new ContextWrapper(context);
+        String filename = System.currentTimeMillis() + ".jpg";
 
-        File dir = cw.getDir("imageDir", Context.MODE_PRIVATE);
-
-        File path = new File(dir, "df.jpg");
-
-        FileOutputStream fos = null;
+        FileOutputStream fos;
 
         try {
-            fos = new FileOutputStream(path);
+            fos = context.openFileOutput(filename, Context.MODE_PRIVATE);
 
             bm.compress(Bitmap.CompressFormat.JPEG, 100, fos);
-        } catch (Exception e) {
-            e.printStackTrace();
-        } finally {
-            try {
-                fos.close();
-            } catch (IOException e) {
-                e.printStackTrace();
-            }
-        }
 
-        return dir.getAbsolutePath();
+            fos.close();
+
+            return filename;
+        } catch (Exception e){
+            e.printStackTrace();
+            return "";
+        }
     }
 
-    private static Bitmap getImageFromInternalStorage(String path)
+    public static Bitmap getImageFromInternalStorage(Context context, String name)
     {
+        Bitmap bm = null;
+
         try {
-            File f = new File(path, "profile.jpg");
-            Bitmap bm = BitmapFactory.decodeStream(new FileInputStream(f));
-            return bm;
-        }
-        catch (FileNotFoundException e)
-        {
+            FileInputStream fis = context.openFileInput(name);
+            bm = BitmapFactory.decodeStream(fis);
+        } catch (Exception e) {
             e.printStackTrace();
-            return null;
         }
 
+        return bm;
+    }
+
+    public static boolean deleteImageFromInternalStorage(Context context, String name){
+        return context.deleteFile(name);
     }
 }

@@ -19,13 +19,13 @@ import de.braeuer.matthias.photobooth.listener.OnHttpRequestDoneListener;
  */
 public class UploadImage extends AsyncTask<Void, Void, String> {
 
-    private Bitmap bm;
+    private Image image;
     private final String serverURL;
     private ProgressDialog pd;
     private OnHttpRequestDoneListener httpListener;
 
-    public UploadImage(OnHttpRequestDoneListener httpListener, ProgressDialog pd, Bitmap bm, String serverURL) {
-        this.bm = bm;
+    public UploadImage(OnHttpRequestDoneListener httpListener, ProgressDialog pd, Image image, String serverURL) {
+        this.image = image;
         this.serverURL = serverURL;
         this.pd = pd;
         this.httpListener = httpListener;
@@ -39,19 +39,13 @@ public class UploadImage extends AsyncTask<Void, Void, String> {
     //From http://blog.hackerkernel.com/2015/11/30/android-upload-image-to-server/
     @Override
     protected String doInBackground(Void... params) {
-        ByteArrayOutputStream baos = new ByteArrayOutputStream();
-
-        bm.compress(Bitmap.CompressFormat.JPEG, 100, baos);
-
-        String encodeImage = Base64.encodeToString(baos.toByteArray(), Base64.DEFAULT);
-
         HashMap<String, String> detail = new HashMap<>();
 
-        detail.put("image", encodeImage);
-        detail.put("email", EmailAddressManager.addressesToString());
+        detail.put("image", image.toString());
+        detail.put("email", image.getEmail());
 
         try {
-            String dataToSend = hashMapToUrl(detail);
+            String dataToSend = UrlUtil.hashMapToUrl(detail);
             return Request.post(serverURL, dataToSend);
         } catch (Exception e) {
             e.printStackTrace();
@@ -67,28 +61,10 @@ public class UploadImage extends AsyncTask<Void, Void, String> {
             }
         } else {
             if (httpListener != null) {
-                httpListener.onHttpRequestError(bm, s);
+                httpListener.onHttpRequestError(image, s);
             }
         }
 
         pd.dismiss();
-    }
-
-    //From http://blog.hackerkernel.com/2015/11/30/android-upload-image-to-server/
-    private String hashMapToUrl(HashMap<String, String> params) throws UnsupportedEncodingException {
-        StringBuilder result = new StringBuilder();
-        boolean first = true;
-        for (Map.Entry<String, String> entry : params.entrySet()) {
-            if (first)
-                first = false;
-            else
-                result.append("&");
-
-            result.append(URLEncoder.encode(entry.getKey(), "UTF-8"));
-            result.append("=");
-            result.append(URLEncoder.encode(entry.getValue(), "UTF-8"));
-        }
-
-        return result.toString();
     }
 }
