@@ -69,16 +69,16 @@ public class ImageDialogFragment extends DialogFragment implements View.OnClickL
 
     private void setOnClickListener(View v) {
         Button btnCancel = (Button) v.findViewById(R.id.btnCancel);
-        Button btnOk = (Button) v.findViewById(R.id.btnOk);
+        Button btnUpload = (Button) v.findViewById(R.id.btnUpload);
         Button btnEditEmailAddress = (Button) v.findViewById(R.id.btnEditEmailAddress);
         Button btnInfo = (Button) v.findViewById(R.id.btnInfo);
 
         if (EmailAddressManager.getEmailAddresses().size() == 0) {
-            btnOk.setEnabled(false);
+            btnUpload.setEnabled(false);
         }
 
         btnCancel.setOnClickListener(this);
-        btnOk.setOnClickListener(this);
+        btnUpload.setOnClickListener(this);
         btnEditEmailAddress.setOnClickListener(this);
         btnInfo.setOnClickListener(this);
 
@@ -132,7 +132,7 @@ public class ImageDialogFragment extends DialogFragment implements View.OnClickL
             case R.id.btnCancel:
                 cancel();
                 break;
-            case R.id.btnOk:
+            case R.id.btnUpload:
                 startUploadImage();
                 break;
             case R.id.btnEditEmailAddress:
