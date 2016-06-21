@@ -12,7 +12,7 @@
     <string name="email_edit_dialog_title">Email Adresse hinzufügen/bearbeiten/löschen</string>
     <string name="uploading">Hochladen...</string>
     <string name="add_email_hint">E-Mail Adresse</string>
-    <string name="http_request_error">Beim Hochladen ist etwas schief gelaufen</string>
+    <string name="http_request_error">Beim Hochladen ist etwas schief gelaufen\n\rIst ein Internetverbindung vorhanden?</string>
     <string name="http_request_success">Bild erfolgreich hochgeladen</string>
     <string name="keep_email_addresses">Behalte Email Adressen</string>
     <string name="delete_email_addresses">Lösche Email Adressen</string>

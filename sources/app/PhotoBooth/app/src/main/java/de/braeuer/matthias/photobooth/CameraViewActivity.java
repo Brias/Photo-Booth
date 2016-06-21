@@ -65,8 +65,9 @@ public class CameraViewActivity extends Activity implements OnDialogFragmentClos
     }
 
     @Override
-    public void onDestroy() {
-        super.onDestroy();
+    public void onPause() {
+        super.onPause();
+
         stopUpdatingLiveView();
         detachDevice();
     }
@@ -272,6 +273,8 @@ public class CameraViewActivity extends Activity implements OnDialogFragmentClos
     }
 
     private void showImageFragmentDialog(Bitmap bm) {
+        AccessStorage.saveImageToInternalStorage(getApplicationContext(), bm);
+
         FragmentTransaction ft = getFragmentManager().beginTransaction();
 
         ImageDialogFragment idf = ImageDialogFragment.newInstance(bm);
@@ -339,7 +342,6 @@ public class CameraViewActivity extends Activity implements OnDialogFragmentClos
 
             try {
                 Thread.sleep(1500);
-
                 while (liveViewTurnedOn) {
                     if (!pictureTaken) {
                         try {

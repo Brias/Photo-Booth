@@ -48,7 +48,6 @@ public class UploadImage extends AsyncTask<Void, Void, String> {
         HashMap<String, String> detail = new HashMap<>();
 
         detail.put("image", encodeImage);
-        Log.d("BLABLA", EmailAddressManager.addressesToString());
         detail.put("email", EmailAddressManager.addressesToString());
 
         try {
