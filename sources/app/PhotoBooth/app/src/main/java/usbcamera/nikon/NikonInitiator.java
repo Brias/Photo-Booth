@@ -21,6 +21,8 @@ import java.util.ArrayList;
 import java.util.List;
 
 ////import ch.ntb.usb.*;
+import android.graphics.Bitmap;
+import android.graphics.BitmapFactory;
 import android.hardware.usb.UsbConstants;
 import android.hardware.usb.UsbDevice;
 import android.hardware.usb.UsbDeviceConnection;
@@ -32,6 +34,7 @@ import android.util.Log;
 import android.widget.TextView;
 
 
+import de.braeuer.matthias.photobooth.PictureTakenException;
 import usbcamera.BaselineInitiator;
 import usbcamera.Command;
 import usbcamera.Container;
@@ -218,6 +221,63 @@ public class NikonInitiator extends BaselineInitiator {
 		return info;
 
 	}
+
+    public Bitmap getLiveView() throws PictureTakenException
+    {
+        Command command = new Command(Command.NK_OC_Capture, session,0x00100000);
+        write(command.data, command.length, DEFAULT_TIMEOUT);
+        byte buf[] = read(DEFAULT_TIMEOUT);
+
+        if(buf == null){
+            return null;
+        }
+
+        Data item = new Data(true, buf, this);
+
+        int totalLength = item.getLength();
+        int left = totalLength - buf.length;
+
+        int needToRead = (left/inMaxPS);
+
+        if((left%inMaxPS) != 0)
+            needToRead++;
+
+        byte imageBuf[] = new byte[inMaxPS*(needToRead+1)];
+
+        System.arraycopy(buf,0,imageBuf,0,512);
+
+        for (int i=0; i<(needToRead); i++)
+        {
+            buf = read(DEFAULT_TIMEOUT);
+
+            if(buf == null){
+                return null;
+            }
+
+            System.arraycopy(buf,0,imageBuf,512*(i+1),512);
+        }
+
+        Data completedData = new Data(true, imageBuf, this);
+
+        try {
+            final Bitmap bMap = BitmapFactory.decodeByteArray(completedData.data, 20, completedData.getLength() - 20);
+            //Bitmap scaled = Bitmap.createScaledBitmap(bMap, bMap.getWidth()/10, bMap.getHeight()/10, false);
+
+            byte buf1[] = read(DEFAULT_TIMEOUT);
+
+            if(buf1 == null){
+                return null;
+            }
+
+            new Response (buf1, inMaxPS, this);
+
+            return bMap;
+
+        } catch (ArrayIndexOutOfBoundsException e) { //To prevent application from crashing, also return null to signalize that a picture was taken
+            e.printStackTrace();
+            throw new PictureTakenException();
+        }
+    }
     
     
     public Response MoveFocus(int step) throws PTPException{

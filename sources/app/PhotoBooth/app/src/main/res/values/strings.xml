@@ -8,13 +8,16 @@
     <string name="btn_upload">Hochladen</string>
     <string name="btn_edit_email_address">Email ändern</string>
     <string name="replug_camera">Bitte schließe die App und verbinde die Kamera erneut mit dem Tablet</string>
+    <string name="replug_camera_title">PTP Modus Fehler!</string>
     <string name="image_preview_dialog_title">Bildvorschau</string>
     <string name="email_edit_dialog_title">Email Adresse hinzufügen/bearbeiten/löschen</string>
     <string name="uploading">Hochladen...</string>
     <string name="add_email_hint">E-Mail Adresse</string>
     <string name="http_request_error">Beim Hochladen ist etwas schief gelaufen\n\rIst ein Internetverbindung vorhanden?</string>
     <string name="saved_image_internally_success">Das Bild wurde Lokal gespeichert und wird hochgeladen sobald eine WLAN Verbindung besteht</string>
+    <string name="saved_image_internally_success_title">Glückwunsch! Das Bild wurde Lokal gespeichert!</string>
     <string name="saved_image_internally_error">Es besteht keine WLAN Verbindung und das Bild konnte nicht Lokal gespeichert werden</string>
+    <string name="saved_image_internally_error_title">Ups! Das Bild konnte nicht gespeichert werden!</string>
     <string name="http_request_success">Bild erfolgreich hochgeladen</string>
     <string name="keep_email_addresses">Behalte Email Adressen</string>
     <string name="delete_email_addresses">Lösche Email Adressen</string>
@@ -33,6 +36,13 @@
     </string>
     <string name="btn_info">\?</string>
     <string name="live_view_service_name">LiveViewService</string>
+    <string name="unknown_error">Ein unbekannter Fehler ist aufgetreten!</string>
+    <string name="error_dialog_title">Ups! Es ist ein Fehler aufgetreten</string>
+    <string name="success_dialog_title">Aktion Erfolgreich abgeschlossen</string>
+    <string name="get_picture_error">Aus einem unbekannten Grund kann das Bild nicht angezeigt werden</string>
+    <string name="get_picture_error_title">Anzeigefehler</string>
+    <string name="no_device_found">Bitte schließe eine Kamera via USB-OTG-Kabel an</string>
+    <string name="no_device_found_title">Kein USB-Gerät gefunden</string>
 
 
     <string-array name="shutter_list">

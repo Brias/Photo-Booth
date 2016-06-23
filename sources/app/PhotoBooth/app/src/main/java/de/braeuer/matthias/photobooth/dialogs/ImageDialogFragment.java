@@ -31,7 +31,7 @@ public class ImageDialogFragment extends DialogFragment implements View.OnClickL
 
     public static final String IMAGE_DIALOG_FRAGMENT = "ImageDialogFragment";
 
-    private static String IMAGE_BUNDLE_KEY = "image";
+    private static String IMAGE_BUNDLE_KEY = "image_key";
 
     private Bitmap bm;
 

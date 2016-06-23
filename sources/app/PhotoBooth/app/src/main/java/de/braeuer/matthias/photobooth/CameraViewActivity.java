@@ -10,12 +10,15 @@ import android.graphics.Bitmap;
 import android.hardware.usb.UsbDevice;
 import android.hardware.usb.UsbManager;
 import android.os.Bundle;
+import android.view.View;
 import android.view.Window;
 import android.widget.ImageView;
 import android.widget.Toast;
 
+import de.braeuer.matthias.photobooth.dialogs.ErrorDialogFragment;
 import de.braeuer.matthias.photobooth.dialogs.ImageDialogFragment;
 import de.braeuer.matthias.photobooth.dialogs.KeepEmailAddressesDialogFragment;
+import de.braeuer.matthias.photobooth.dialogs.SuccessDialogFragment;
 import de.braeuer.matthias.photobooth.listener.OnDialogFragmentClosedListener;
 import de.braeuer.matthias.photobooth.listener.OnHttpRequestDoneListener;
 import de.braeuer.matthias.photobooth.listener.OnSavedInternalListener;
@@ -50,7 +53,7 @@ public class CameraViewActivity extends Activity implements OnDialogFragmentClos
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
 
-        this.requestWindowFeature(Window.FEATURE_NO_TITLE);
+        setFullscreen();
 
         setContentView(R.layout.activity_camera_view_layout);
 
@@ -76,6 +79,16 @@ public class CameraViewActivity extends Activity implements OnDialogFragmentClos
         detachDevice();
     }
 
+    private void setFullscreen(){
+        this.requestWindowFeature(Window.FEATURE_NO_TITLE);
+
+        View decorView = getWindow().getDecorView();
+
+        int uiOptions = View.SYSTEM_UI_FLAG_FULLSCREEN;
+
+        decorView.setSystemUiVisibility(uiOptions);
+    }
+
     private void startUploadLocalImageService() {
         if(Connection.isWifiConnection(getApplicationContext())) {
             Intent intent = new Intent(this, UploadLocalImagesService.class);
@@ -99,7 +112,7 @@ public class CameraViewActivity extends Activity implements OnDialogFragmentClos
             if (lDevice.getDeviceProtocol() == 0) device = lDevice;
         }
         if (device == null) {
-            Toast.makeText(this, "No Device Found", Toast.LENGTH_LONG).show();
+            showErrorDialog(getResources().getString(R.string.no_device_found_title), getResources().getString(R.string.no_device_found), false);
         }
 
         return device;
@@ -118,7 +131,7 @@ public class CameraViewActivity extends Activity implements OnDialogFragmentClos
                         bi.getClearStatus();
                         bi.close();
                     } catch (PTPException e) {
-                        Toast.makeText(this, getResources().getString(R.string.replug_camera), Toast.LENGTH_LONG).show();
+                        showErrorDialog(getResources().getString(R.string.replug_camera_title), getResources().getString(R.string.replug_camera), false);
                         e.printStackTrace();
                     }
 
@@ -129,7 +142,7 @@ public class CameraViewActivity extends Activity implements OnDialogFragmentClos
                         bi.getClearStatus();
                         bi.close();
                     } catch (PTPException e) {
-                        Toast.makeText(this, getResources().getString(R.string.replug_camera), Toast.LENGTH_LONG).show();
+                        showErrorDialog(getResources().getString(R.string.replug_camera_title), getResources().getString(R.string.replug_camera), false);
                         e.printStackTrace();
                     }
 
@@ -139,7 +152,7 @@ public class CameraViewActivity extends Activity implements OnDialogFragmentClos
                 bi.openSession();
 
             } catch (PTPException e) {
-                Toast.makeText(this, getResources().getString(R.string.replug_camera), Toast.LENGTH_LONG).show();
+                showErrorDialog(getResources().getString(R.string.replug_camera_title), getResources().getString(R.string.replug_camera), false);
                 e.printStackTrace();
             }
         }
@@ -279,7 +292,7 @@ public class CameraViewActivity extends Activity implements OnDialogFragmentClos
                 runOnUiThread(new Runnable() {
                     @Override
                     public void run() {
-                        Toast.makeText(CameraViewActivity.this, "Could not get Picture from Camera", Toast.LENGTH_SHORT).show();
+                       showErrorDialog(getResources().getString(R.string.get_picture_error_title), getResources().getString(R.string.get_picture_error), true);
                     }
                 });
             }
@@ -314,6 +327,22 @@ public class CameraViewActivity extends Activity implements OnDialogFragmentClos
         }
     }
 
+    private void showErrorDialog(String title, String errorMsg, boolean callOnClosedListener){
+        ErrorDialogFragment edf = ErrorDialogFragment.newInstance(title, errorMsg, callOnClosedListener);
+
+        FragmentTransaction ft = getFragmentManager().beginTransaction();
+
+        edf.show(ft, ErrorDialogFragment.ERROR_DIALOG_FRAGMENT);
+    }
+
+    private void showSuccessDialog(String title, String successMsg, boolean callOnClosedListener){
+        SuccessDialogFragment sdf = SuccessDialogFragment.newInstance(title, successMsg, callOnClosedListener);
+
+        FragmentTransaction ft = getFragmentManager().beginTransaction();
+
+        sdf.show(ft, SuccessDialogFragment.SUCCESS_DIALOG_FRAGMENT);
+    }
+
     @Override
     public void onDialogFragmentClosed() {
         pictureTaken = false;
@@ -341,14 +370,12 @@ public class CameraViewActivity extends Activity implements OnDialogFragmentClos
 
     @Override
     public void onSavedInternalSuccess() {
-        pictureTaken = false;
-
-        Toast.makeText(this, getResources().getString(R.string.saved_image_internally_success), Toast.LENGTH_LONG).show();
+        showSuccessDialog(getResources().getString(R.string.saved_image_internally_success_title), getResources().getString(R.string.saved_image_internally_success), true);
     }
 
     @Override
     public void onSavedInternalError() {
-        Toast.makeText(this, getResources().getString(R.string.saved_image_internally_error), Toast.LENGTH_LONG).show();
+        showErrorDialog(getResources().getString(R.string.saved_image_internally_error_title), getResources().getString(R.string.saved_image_internally_error), true);
     }
 
     private void restartApplication() {
