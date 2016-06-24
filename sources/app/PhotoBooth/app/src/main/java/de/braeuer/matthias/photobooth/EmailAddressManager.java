@@ -21,7 +21,7 @@ public class EmailAddressManager {
     }
 
     public static void addEmailAddress(String emailAddress) {
-        emailAddresses.add(emailAddress);
+        emailAddresses.add(0, emailAddress);
     }
 
     public static void reset() {
