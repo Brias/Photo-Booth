@@ -10,6 +10,7 @@ import android.graphics.Bitmap;
 import android.hardware.usb.UsbDevice;
 import android.hardware.usb.UsbManager;
 import android.os.Bundle;
+import android.util.Log;
 import android.view.View;
 import android.view.Window;
 import android.widget.ImageView;
@@ -270,7 +271,24 @@ public class CameraViewActivity extends Activity implements OnDialogFragmentClos
     }
 
     private void getTakenPicture() {
-        Bitmap bm = null;
+        try {
+            Thread.sleep(1000);
+
+            if (currentBitmap != null) {
+                showImageFragmentDialog(currentBitmap);
+            } else {
+                runOnUiThread(new Runnable() {
+                    @Override
+                    public void run() {
+                        showErrorDialog(getResources().getString(R.string.get_picture_error_title), getResources().getString(R.string.get_picture_error), true);
+                    }
+                });
+            }
+        } catch (InterruptedException e) {
+            e.printStackTrace();
+        }
+
+        /*Bitmap bm = null;
         int counter = 0;
 
         while (bm == null) {
@@ -298,7 +316,7 @@ public class CameraViewActivity extends Activity implements OnDialogFragmentClos
             }
 
             counter++;
-        }
+        }*/
     }
 
     private void showImageFragmentDialog(Bitmap bm) {

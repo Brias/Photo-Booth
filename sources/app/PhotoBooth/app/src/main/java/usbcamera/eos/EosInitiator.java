@@ -319,7 +319,7 @@ public class EosInitiator extends BaselineInitiator {
     
     public Response MoveFocus(int step) throws PTPException{
 
-        return  transact1(Command.EosDriveLens,null,step); 
+        return  transact1(Command.EosDriveLens,null,step);
 
     }
     
@@ -416,7 +416,6 @@ public class EosInitiator extends BaselineInitiator {
 
         try {
             final Bitmap bMap = BitmapFactory.decodeByteArray(completedData.data, 20, completedData.getLength() - 20);
-            //Bitmap scaled = Bitmap.createScaledBitmap(bMap, bMap.getWidth()/10, bMap.getHeight()/10, false);
 
             byte buf1[] = read(DEFAULT_TIMEOUT);
 
@@ -430,9 +429,11 @@ public class EosInitiator extends BaselineInitiator {
 
         } catch (ArrayIndexOutOfBoundsException e) { //To prevent application from crashing, also return null to signalize that a picture was taken
             e.printStackTrace();
+
             throw new PictureTakenException();
         }
 	}
+
 	/////////////////////////
 	public void setFocusPos(int x, int y)
 	{
