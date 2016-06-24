@@ -1,17 +1,24 @@
 package de.braeuer.matthias.photobooth.dialogs;
 
+import android.app.Activity;
 import android.app.DialogFragment;
+import android.content.DialogInterface;
+import android.graphics.Rect;
 import android.os.Bundle;
 import android.text.Editable;
 import android.text.TextWatcher;
+import android.util.Log;
 import android.util.Patterns;
 import android.view.LayoutInflater;
+import android.view.MotionEvent;
 import android.view.View;
 import android.view.ViewGroup;
+import android.view.inputmethod.InputMethodManager;
 import android.widget.Button;
 import android.widget.EditText;
 import android.widget.ListView;
 
+import de.braeuer.matthias.photobooth.CameraViewActivity;
 import de.braeuer.matthias.photobooth.EmailAddressArrayAdapter;
 import de.braeuer.matthias.photobooth.EmailAddressManager;
 import de.braeuer.matthias.photobooth.R;
@@ -57,6 +64,8 @@ public class EditEmailAddressDialogFragment extends DialogFragment implements Vi
         initEditTextListener();
         initListView(v);
 
+        setupUI(v);
+
         return v;
     }
 
@@ -92,6 +101,36 @@ public class EditEmailAddressDialogFragment extends DialogFragment implements Vi
         lv.setAdapter(adapter);
     }
 
+    private void hideSoftKeyboard(View v) {
+        InputMethodManager inputMethodManager = (InputMethodManager)  getActivity().getSystemService(Activity.INPUT_METHOD_SERVICE);
+        inputMethodManager.hideSoftInputFromWindow(v.getWindowToken(), 0);
+    }
+
+    //From http://stackoverflow.com/questions/1109022/close-hide-the-android-soft-keyboard visited 24.06.2016
+    private void setupUI(View view) {
+        if(!(view instanceof EditText)) {
+
+            view.setOnTouchListener(new View.OnTouchListener() {
+
+                public boolean onTouch(View v, MotionEvent event) {
+                    hideSoftKeyboard(v);
+                    return false;
+                }
+
+            });
+        }
+
+        if (view instanceof ViewGroup) {
+
+            for (int i = 0; i < ((ViewGroup) view).getChildCount(); i++) {
+
+                View innerView = ((ViewGroup) view).getChildAt(i);
+
+                setupUI(innerView);
+            }
+        }
+    }
+
     @Override
     public void onClick(View v) {
         switch (v.getId()) {
@@ -110,6 +149,8 @@ public class EditEmailAddressDialogFragment extends DialogFragment implements Vi
         if (Patterns.EMAIL_ADDRESS.matcher(emailAddress).matches()) {
             EmailAddressManager.addEmailAddress(emailAddress);
             adapter.notifyDataSetChanged();
+
+            et.setText("");
         }
     }
 }
