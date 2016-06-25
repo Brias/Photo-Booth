@@ -5,12 +5,14 @@
     <string name="btn_cancel">Abbrechen</string>
     <string name="btn_ok">Ok</string>
     <string name="btn_save">Speichern</string>
-    <string name="btn_upload">Hochladen</string>
+    <string name="btn_upload">Senden</string>
     <string name="btn_edit_email_address">Email ändern</string>
+    <string name="btn_next">Weiter</string>
+    <string name="btn_back">Zurück</string>
     <string name="replug_camera">Bitte schließe die App und verbinde die Kamera erneut mit dem Tablet</string>
     <string name="replug_camera_title">PTP Modus Fehler!</string>
     <string name="image_preview_dialog_title">Bildvorschau</string>
-    <string name="email_edit_dialog_title">Email Adresse hinzufügen/bearbeiten/löschen</string>
+    <string name="email_edit_dialog_title">Email Adresse hinzufügen/löschen</string>
     <string name="uploading">Hochladen...</string>
     <string name="add_email_hint">E-Mail Adresse</string>
     <string name="http_request_error">Beim Hochladen ist etwas schief gelaufen\n\rIst ein Internetverbindung vorhanden?</string>
@@ -21,20 +23,18 @@
     <string name="http_request_success">Bild erfolgreich hochgeladen</string>
     <string name="keep_email_addresses">Behalte Email Adressen</string>
     <string name="delete_email_addresses">Lösche Email Adressen</string>
+    <string name="confirm_upload_title">Bild an folgende Email Adressen schicken?</string>
     <string name="keep_email_addresses_dialog_fragment_info">
-        Willst du noch ein Bild aufnehmen und an dieselben Email Adressen schicken?\n\rDu hast auch die Möglichkeit die Email Adressen vor dem Hochladen zu verändern.
+        Wolen Sie noch ein Bild aufnehmen und an dieselben Email Adressen schicken?\n\rDu hast auch die Möglichkeit die Email Adressen vor dem Hochladen zu verändern.
     </string>
     <string name="keep_email_addresses_dialog_fragment_title">
         Willst du noch ein Bild aufnehmen?
     </string>
-    <string name="info_dialog_fragment_title">Warum muss ich meine Email angeben?</string>
-    <string name="info_dialog_fragment_info">
+    <string name="email_info">
         Die angegebenen Email Adressen erlauben uns die gemachten Bilder nur denjenigen Personen
         zur Verfügung zu stellen, die auch wirklich auf dem Bild zu sehen sind, um die Privatsphäre
         jedes einzelnen zu wahren.
-        Weitere Informationen erhalten Sie per Email.
     </string>
-    <string name="btn_info">\?</string>
     <string name="live_view_service_name">LiveViewService</string>
     <string name="unknown_error">Ein unbekannter Fehler ist aufgetreten!</string>
     <string name="error_dialog_title">Ups! Es ist ein Fehler aufgetreten</string>
@@ -43,7 +43,6 @@
     <string name="get_picture_error_title">Anzeigefehler</string>
     <string name="no_device_found">Bitte schließe eine Kamera via USB-OTG-Kabel an</string>
     <string name="no_device_found_title">Kein USB-Gerät gefunden</string>
-
 
     <string-array name="shutter_list">
         <item>SHUTTER_SPEED_BULB</item>

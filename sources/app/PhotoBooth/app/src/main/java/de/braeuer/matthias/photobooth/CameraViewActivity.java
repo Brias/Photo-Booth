@@ -13,22 +13,17 @@ import android.os.Bundle;
 import android.view.View;
 import android.view.Window;
 import android.widget.ImageView;
-import android.widget.Toast;
 
 import de.braeuer.matthias.photobooth.dialogs.ErrorDialogFragment;
 import de.braeuer.matthias.photobooth.dialogs.ImageDialogFragment;
-import de.braeuer.matthias.photobooth.dialogs.KeepEmailAddressesDialogFragment;
-import de.braeuer.matthias.photobooth.dialogs.SuccessDialogFragment;
 import de.braeuer.matthias.photobooth.listener.OnDialogFragmentClosedListener;
-import de.braeuer.matthias.photobooth.listener.OnHttpRequestDoneListener;
-import de.braeuer.matthias.photobooth.listener.OnSavedInternalListener;
 import usbcamera.BaselineInitiator;
 import usbcamera.PTPException;
 import usbcamera.Session;
 import usbcamera.eos.EosInitiator;
 import usbcamera.nikon.NikonInitiator;
 
-public class CameraViewActivity extends Activity implements OnDialogFragmentClosedListener, OnHttpRequestDoneListener, OnSavedInternalListener {
+public class CameraViewActivity extends Activity implements OnDialogFragmentClosedListener {
 
     public static final String SERVER = "http://homepages.uni-regensburg.de/~brm08652/photo_booth/upload.php";
 
@@ -60,13 +55,14 @@ public class CameraViewActivity extends Activity implements OnDialogFragmentClos
         mUsbManager = (UsbManager) getSystemService(Context.USB_SERVICE); //From USBCameraTest.java
 
         liveViewHolder = (ImageView) findViewById(R.id.liveViewHolder); //From USBCameraTest.java
+
+        startUploadLocalImageService();
     }
 
     @Override
     public void onResume() {
         super.onResume();
 
-        startUploadLocalImageService();
         openLiveView();
     }
 
@@ -74,9 +70,15 @@ public class CameraViewActivity extends Activity implements OnDialogFragmentClos
     public void onPause() {
         super.onPause();
 
-        stopUploadLocalImageService();
         stopUpdatingLiveView();
         detachDevice();
+    }
+
+    @Override
+    public void onDestroy(){
+        super.onDestroy();
+
+        stopUploadLocalImageService();
     }
 
     private void setFullscreen(){
@@ -156,6 +158,14 @@ public class CameraViewActivity extends Activity implements OnDialogFragmentClos
                 e.printStackTrace();
             }
         }
+    }
+
+    private void showErrorDialog(String title, String errorMsg, boolean callOnClosedListener){
+        ErrorDialogFragment edf = ErrorDialogFragment.newInstance(title, errorMsg, callOnClosedListener);
+
+        FragmentTransaction ft = getFragmentManager().beginTransaction();
+
+        edf.show(ft, ErrorDialogFragment.ERROR_DIALOG_FRAGMENT);
     }
 
     /*
@@ -286,36 +296,6 @@ public class CameraViewActivity extends Activity implements OnDialogFragmentClos
         } catch (InterruptedException e) {
             e.printStackTrace();
         }
-
-        /*Bitmap bm = null;
-        int counter = 0;
-
-        while (bm == null) {
-            try {
-                bm = getCurrentViewBitmap();
-            } catch (PictureTakenException e) {
-
-            }
-
-            if (counter >= 420) {
-                bm = currentBitmap;
-            }
-
-            if (bm != null) {
-                showImageFragmentDialog(bm);
-            }
-
-            if (bm != null && counter > 420) {
-                runOnUiThread(new Runnable() {
-                    @Override
-                    public void run() {
-                       showErrorDialog(getResources().getString(R.string.get_picture_error_title), getResources().getString(R.string.get_picture_error), true);
-                    }
-                });
-            }
-
-            counter++;
-        }*/
     }
 
     private void showImageFragmentDialog(Bitmap bm) {
@@ -344,55 +324,9 @@ public class CameraViewActivity extends Activity implements OnDialogFragmentClos
         }
     }
 
-    private void showErrorDialog(String title, String errorMsg, boolean callOnClosedListener){
-        ErrorDialogFragment edf = ErrorDialogFragment.newInstance(title, errorMsg, callOnClosedListener);
-
-        FragmentTransaction ft = getFragmentManager().beginTransaction();
-
-        edf.show(ft, ErrorDialogFragment.ERROR_DIALOG_FRAGMENT);
-    }
-
-    private void showSuccessDialog(String title, String successMsg, boolean callOnClosedListener){
-        SuccessDialogFragment sdf = SuccessDialogFragment.newInstance(title, successMsg, callOnClosedListener);
-
-        FragmentTransaction ft = getFragmentManager().beginTransaction();
-
-        sdf.show(ft, SuccessDialogFragment.SUCCESS_DIALOG_FRAGMENT);
-    }
-
     @Override
     public void onDialogFragmentClosed() {
         pictureTaken = false;
-    }
-
-    @Override
-    public void onHttpRequestError(Image image, String errorMsg) {
-        errorMsg =  errorMsg != null ? errorMsg : getResources().getString(R.string.http_request_error);
-
-        showImageFragmentDialog(image.getBitmap());
-
-        Toast.makeText(this, errorMsg, Toast.LENGTH_LONG).show();
-    }
-
-    @Override
-    public void onHttpRequestSuccess() {
-        Toast.makeText(this, getResources().getString(R.string.http_request_success), Toast.LENGTH_LONG).show();
-
-        FragmentTransaction ft = getFragmentManager().beginTransaction();
-
-        KeepEmailAddressesDialogFragment kdf = KeepEmailAddressesDialogFragment.newInstance();
-
-        kdf.show(ft, KeepEmailAddressesDialogFragment.KEEP_EMAIL_ADDRESSES_DIALOG_FRAGMENT);
-    }
-
-    @Override
-    public void onSavedInternalSuccess() {
-        showSuccessDialog(getResources().getString(R.string.saved_image_internally_success_title), getResources().getString(R.string.saved_image_internally_success), true);
-    }
-
-    @Override
-    public void onSavedInternalError() {
-        showErrorDialog(getResources().getString(R.string.saved_image_internally_error_title), getResources().getString(R.string.saved_image_internally_error), true);
     }
 
     private void restartApplication() {

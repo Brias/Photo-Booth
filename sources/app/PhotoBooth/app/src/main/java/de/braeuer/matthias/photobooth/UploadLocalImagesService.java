@@ -39,7 +39,10 @@ public class UploadLocalImagesService extends Service {
     public synchronized int onStartCommand(Intent intent, int flags, int startId) {
         super.onStartCommand(intent, flags, startId);
 
-        thread.start();
+        if (thread.getState() == Thread.State.NEW)
+        {
+            thread.start();
+        }
 
         return START_STICKY;
     }
@@ -58,31 +61,37 @@ public class UploadLocalImagesService extends Service {
 
         @Override
         public void run() {
-            ArrayList<Image> images = dbHelper.getAllImages();
+            try{
+                Thread.sleep(10000);
 
-            for(Iterator<Image> iterator = images.iterator(); iterator.hasNext();){
-                Image image = iterator.next();
+                ArrayList<Image> images = dbHelper.getAllImages();
 
-                image.setBitmap(AccessStorage.getImageFromInternalStorage(context, image.getName()));
+                for(Iterator<Image> iterator = images.iterator(); iterator.hasNext();){
+                    Image image = iterator.next();
 
-                HashMap<String, String> detail = new HashMap<>();
+                    image.setBitmap(AccessStorage.getImageFromInternalStorage(context, image.getName()));
 
-                detail.put("image", image.toString());
-                detail.put("email", image.getEmail());
+                    HashMap<String, String> detail = new HashMap<>();
 
-                try {
-                    String dataToSend = UrlUtil.hashMapToUrl(detail);
-                    final String request = Request.post(serverUrl, dataToSend);
+                    detail.put("image", image.toString());
+                    detail.put("email", image.getEmail());
 
-                    if (request != null && request.equals("200")) {
-                        if (dbHelper.deleteImage(image.getName())) {
-                            AccessStorage.deleteImageFromInternalStorage(context, image.getName());
-                            iterator.remove();
+                    try {
+                        String dataToSend = UrlUtil.hashMapToUrl(detail);
+                        final String request = Request.post(serverUrl, dataToSend);
+
+                        if (request != null && request.equals("200")) {
+                            if (dbHelper.deleteImage(image.getName())) {
+                                AccessStorage.deleteImageFromInternalStorage(context, image.getName());
+                                iterator.remove();
+                            }
                         }
+                    } catch (Exception e) {
+                        e.printStackTrace();
                     }
-                } catch (Exception e) {
-                    e.printStackTrace();
                 }
+            }catch (InterruptedException e) {
+                e.printStackTrace();
             }
         }
     }

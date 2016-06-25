@@ -61,7 +61,7 @@ public class UploadImage extends AsyncTask<Void, Void, String> {
             }
         } else {
             if (httpListener != null) {
-                httpListener.onHttpRequestError(image, s);
+                httpListener.onHttpRequestError(s);
             }
         }
 

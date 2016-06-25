@@ -14,7 +14,7 @@ import de.braeuer.matthias.photobooth.listener.OnDialogFragmentClosedListener;
 /**
  * Created by Matze on 13.06.2016.
  */
-public class KeepEmailAddressesDialogFragment extends DialogFragment implements View.OnClickListener {
+public class KeepEmailAddressesDialogFragment extends BaseDialogFragment implements View.OnClickListener {
 
     public static final String KEEP_EMAIL_ADDRESSES_DIALOG_FRAGMENT = "KeepEmailAddressesDialogFragment";
 
@@ -55,7 +55,7 @@ public class KeepEmailAddressesDialogFragment extends DialogFragment implements 
             ((OnDialogFragmentClosedListener) getActivity()).onDialogFragmentClosed();
         }
 
-        dismiss();
+        cancel();
     }
 
     private void keepEmailAddresses() {
@@ -63,7 +63,7 @@ public class KeepEmailAddressesDialogFragment extends DialogFragment implements 
             ((OnDialogFragmentClosedListener) getActivity()).onDialogFragmentClosed();
         }
 
-        dismiss();
+        cancel();
     }
 
     @Override

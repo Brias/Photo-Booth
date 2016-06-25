@@ -15,7 +15,7 @@ import de.braeuer.matthias.photobooth.listener.OnDialogFragmentClosedListener;
 /**
  * Created by Matze on 23.06.2016.
  */
-public class SuccessDialogFragment extends DialogFragment implements View.OnClickListener {
+public class SuccessDialogFragment extends BaseDialogFragment implements View.OnClickListener {
 
     public static final String SUCCESS_DIALOG_FRAGMENT = "SuccessDialogFragment";
 
@@ -83,7 +83,7 @@ public class SuccessDialogFragment extends DialogFragment implements View.OnClic
     public void onClick(View v) {
         switch (v.getId()) {
             case R.id.btnOk:
-                dismiss();
+                cancel();
         }
     }
 }

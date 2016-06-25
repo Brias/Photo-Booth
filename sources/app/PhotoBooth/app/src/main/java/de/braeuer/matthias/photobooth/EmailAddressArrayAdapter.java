@@ -13,6 +13,8 @@ import android.widget.TextView;
 
 import java.util.ArrayList;
 
+import de.braeuer.matthias.photobooth.listener.OnEmailAddressRemovedListener;
+
 /**
  * Created by Matze on 11.06.2016.
  */
@@ -22,13 +24,15 @@ public class EmailAddressArrayAdapter extends ArrayAdapter<String> {
     private int resource;
 
     private ArrayList<String> data;
+    private OnEmailAddressRemovedListener listener;
 
-    public EmailAddressArrayAdapter(Context context, int resource, ArrayList<String> data) {
+    public EmailAddressArrayAdapter(Context context, int resource, ArrayList<String> data, OnEmailAddressRemovedListener listener) {
         super(context, resource, data);
 
         this.context = context;
         this.resource = resource;
         this.data = data;
+        this.listener = listener;
     }
 
     @Override
@@ -64,6 +68,7 @@ public class EmailAddressArrayAdapter extends ArrayAdapter<String> {
             public void onClick(View v) {
                 data.remove(index);
                 notifyDataSetChanged();
+                listener.onEmailAddressRemoved();
             }
         });
 

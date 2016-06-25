@@ -1,7 +1,6 @@
 package de.braeuer.matthias.photobooth.dialogs;
 
-import android.app.Activity;
-import android.app.DialogFragment;
+import android.app.FragmentManager;
 import android.os.Bundle;
 import android.view.LayoutInflater;
 import android.view.View;
@@ -10,12 +9,11 @@ import android.widget.Button;
 import android.widget.TextView;
 
 import de.braeuer.matthias.photobooth.R;
-import de.braeuer.matthias.photobooth.listener.OnDialogFragmentClosedListener;
 
 /**
  * Created by Matze on 23.06.2016.
  */
-public class ErrorDialogFragment extends DialogFragment implements View.OnClickListener {
+public class ErrorDialogFragment extends BaseDialogFragment implements View.OnClickListener {
 
     public static final String ERROR_DIALOG_FRAGMENT = "ErrorDialogFragment";
 
@@ -68,17 +66,6 @@ public class ErrorDialogFragment extends DialogFragment implements View.OnClickL
         btnOk.setOnClickListener(this);
 
         return v;
-    }
-
-    @Override
-    public void dismiss() {
-        Activity activity = getActivity();
-
-        if (activity instanceof OnDialogFragmentClosedListener && getArguments().getBoolean(CALL_ON_CLOSED_LISTENER_BUNDLE_KEY)) {
-            ((OnDialogFragmentClosedListener) activity).onDialogFragmentClosed();
-        }
-
-        super.dismiss();
     }
 
     @Override

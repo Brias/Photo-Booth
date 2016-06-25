@@ -1,13 +1,11 @@
 package de.braeuer.matthias.photobooth.dialogs;
 
 import android.app.Activity;
-import android.app.DialogFragment;
-import android.content.DialogInterface;
-import android.graphics.Rect;
+import android.app.FragmentTransaction;
+import android.graphics.Bitmap;
 import android.os.Bundle;
 import android.text.Editable;
 import android.text.TextWatcher;
-import android.util.Log;
 import android.util.Patterns;
 import android.view.LayoutInflater;
 import android.view.MotionEvent;
@@ -19,27 +17,32 @@ import android.widget.Button;
 import android.widget.EditText;
 import android.widget.ListView;
 
-import de.braeuer.matthias.photobooth.CameraViewActivity;
 import de.braeuer.matthias.photobooth.EmailAddressArrayAdapter;
 import de.braeuer.matthias.photobooth.EmailAddressManager;
+import de.braeuer.matthias.photobooth.FragmentHolder;
 import de.braeuer.matthias.photobooth.R;
+import de.braeuer.matthias.photobooth.listener.OnEmailAddressRemovedListener;
 
 /**
  * Created by Matze on 09.06.2016.
  */
-public class EditEmailAddressDialogFragment extends DialogFragment implements View.OnClickListener {
+public class EditEmailAddressDialogFragment extends BaseDialogFragment implements View.OnClickListener, OnEmailAddressRemovedListener {
 
     public static final String EDIT_ADDRESS_DIALOG_FRAGMENT = "EditAddressDialogFragment";
 
     private EmailAddressArrayAdapter adapter;
     private Button btnAddEmail;
-    private Button btnOk;
+    private Button btnNext;
+    private Button btnBack;
+    private Button btnCancel;
     private EditText et;
 
-    public static EditEmailAddressDialogFragment newInstance() {
+    public static EditEmailAddressDialogFragment newInstance(Bitmap bm) {
         EditEmailAddressDialogFragment edf = new EditEmailAddressDialogFragment();
 
         Bundle bundle = new Bundle();
+
+        bundle.putParcelable(IMAGE_BUNDLE_KEY, bm);
 
         edf.setArguments(bundle);
 
@@ -58,11 +61,15 @@ public class EditEmailAddressDialogFragment extends DialogFragment implements Vi
 
         View v = inflater.inflate(R.layout.edit_email_address_dialog_fragment_layout, container, false);
 
-        adapter = new EmailAddressArrayAdapter(getActivity(), R.layout.email_list_view_item, EmailAddressManager.getEmailAddresses());
+        adapter = new EmailAddressArrayAdapter(getActivity(), R.layout.email_list_view_item, EmailAddressManager.getEmailAddresses(), this);
 
         et = (EditText) v.findViewById(R.id.editEmailAddress);
 
-        btnOk = (Button) v.findViewById(R.id.btnOk);
+        btnNext = (Button) v.findViewById(R.id.btnNext);
+        btnBack = (Button) v.findViewById(R.id.btnBack);
+        btnCancel = (Button) v.findViewById(R.id.btnCancel);
+
+        checkNextButtonStatus();
 
         btnAddEmail = (Button) v.findViewById(R.id.btnAddEmail);
         btnAddEmail.setEnabled(false);
@@ -99,7 +106,9 @@ public class EditEmailAddressDialogFragment extends DialogFragment implements Vi
 
     private void initButtonListener() {
         btnAddEmail.setOnClickListener(this);
-        btnOk.setOnClickListener(this);
+        btnNext.setOnClickListener(this);
+        btnBack.setOnClickListener(this);
+        btnCancel.setOnClickListener(this);
     }
 
     private void initListView(View v) {
@@ -141,13 +150,33 @@ public class EditEmailAddressDialogFragment extends DialogFragment implements Vi
     @Override
     public void onClick(View v) {
         switch (v.getId()) {
-            case R.id.btnOk:
+            case R.id.btnBack:
                 dismiss();
+                break;
+            case R.id.btnCancel:
+                cancel();
+                break;
+            case R.id.btnNext:
+                showUploadConfirmDialog();
                 break;
             case R.id.btnAddEmail:
                 addEmail();
+                checkNextButtonStatus();
                 break;
         }
+    }
+
+    private void showUploadConfirmDialog(){
+        FragmentTransaction ft = getFragmentManager().beginTransaction();
+
+        ft.remove(this);
+
+        ft.addToBackStack(EDIT_ADDRESS_DIALOG_FRAGMENT);
+        FragmentHolder.dialogFragments.add(this);
+
+        UploadConfirmDialogFragment udf = UploadConfirmDialogFragment.newInstance(bm);
+
+        udf.show(ft, UploadConfirmDialogFragment.UPLOAD_CONFIRM_DIALOG_FRAGMENT);
     }
 
     private void addEmail() {
@@ -159,5 +188,18 @@ public class EditEmailAddressDialogFragment extends DialogFragment implements Vi
 
             et.setText("");
         }
+    }
+
+    private void checkNextButtonStatus(){
+        if(EmailAddressManager.getEmailAddresses().size() == 0){
+            btnNext.setEnabled(false);
+        }else{
+            btnNext.setEnabled(true);
+        }
+    }
+
+    @Override
+    public void onEmailAddressRemoved() {
+        checkNextButtonStatus();
     }
 }

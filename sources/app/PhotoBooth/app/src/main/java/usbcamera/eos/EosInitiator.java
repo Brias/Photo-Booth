@@ -379,7 +379,8 @@ public class EosInitiator extends BaselineInitiator {
 
 	public Bitmap getLiveView() throws PictureTakenException
 	{
-		Command command = new Command(Command.EOS_OC_GetLiveViewPicture, session,0x00100000);
+        Command command = new Command(Command.EOS_OC_GetLiveViewPicture, session,0x00100000);
+
 		write(command.data, command.length, DEFAULT_TIMEOUT);				
 		byte buf[] = read(DEFAULT_TIMEOUT);
 
@@ -391,15 +392,14 @@ public class EosInitiator extends BaselineInitiator {
 
 		int totalLength = item.getLength();
 		int left = totalLength - buf.length;
-
 		int needToRead = (left/inMaxPS);
-		
+
 		if((left%inMaxPS) != 0)
 			needToRead++;
 		
 		byte imageBuf[] = new byte[inMaxPS*(needToRead+1)];
-		
-		System.arraycopy(buf,0,imageBuf,0,512);
+
+        System.arraycopy(buf,0,imageBuf,0,512);
 		
 		for (int i=0; i<(needToRead); i++)
 		{
@@ -409,7 +409,7 @@ public class EosInitiator extends BaselineInitiator {
                 return null;
             }
 
-			System.arraycopy(buf,0,imageBuf,512*(i+1),512);
+            System.arraycopy(buf,0,imageBuf,512*(i+1),512);
 		}
 
 		Data completedData = new Data(true, imageBuf, this);
