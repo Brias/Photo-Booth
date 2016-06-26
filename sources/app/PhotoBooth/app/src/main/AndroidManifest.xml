@@ -10,16 +10,17 @@
         android:allowBackup="true"
         android:icon="@mipmap/ic_launcher"
         android:label="@string/app_name"
+        android:largeHeap="true"
         android:supportsRtl="true"
         android:theme="@android:style/ThemeOverlay.Material.Dark">
-        <service android:name=".UploadLocalImagesService"
-            android:label="UploadLocalImagesService"
-            android:exported="false">
-        </service>
+        <service
+            android:name=".UploadLocalImagesService"
+            android:exported="false"
+            android:label="UploadLocalImagesService" />
         <receiver
             android:name=".WifiChangeReceiver"
-            android:label="NetworkChangeReceiver"
-            android:exported="false">
+            android:exported="false"
+            android:label="NetworkChangeReceiver">
             <intent-filter>
                 <action android:name="android.net.conn.CONNECTIVITY_CHANGE" />
             </intent-filter>

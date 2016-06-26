@@ -1,21 +1,28 @@
 package de.braeuer.matthias.photobooth;
 
+import android.graphics.Bitmap;
+import android.graphics.BitmapFactory;
 import android.util.Log;
 
 import java.io.BufferedReader;
 import java.io.BufferedWriter;
+import java.io.DataOutputStream;
+import java.io.File;
+import java.io.FileInputStream;
+import java.io.FileOutputStream;
 import java.io.IOException;
 import java.io.InputStreamReader;
 import java.io.OutputStream;
 import java.io.OutputStreamWriter;
 import java.net.HttpURLConnection;
 import java.net.URL;
+import java.text.SimpleDateFormat;
 
 /**
  * Created by Matze on 12.06.2016.
  */
 
-//From http://blog.hackerkernel.com/2015/11/30/android-upload-image-to-server/
+//From http://blog.hackerkernel.com/2015/11/30/android-upload-image-to-server/, visited: 26.06.2016
 public class Request {
 
     private static final int CONNECT_TIMEOUT = 1000 * 30;

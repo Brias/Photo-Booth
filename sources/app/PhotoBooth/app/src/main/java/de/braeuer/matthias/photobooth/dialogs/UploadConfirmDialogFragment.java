@@ -11,6 +11,7 @@ import android.widget.Button;
 import android.widget.ListView;
 
 import de.braeuer.matthias.photobooth.AccessStorage;
+import de.braeuer.matthias.photobooth.BitmapHolder;
 import de.braeuer.matthias.photobooth.CameraViewActivity;
 import de.braeuer.matthias.photobooth.Connection;
 import de.braeuer.matthias.photobooth.DBHelper;
@@ -29,12 +30,10 @@ public class UploadConfirmDialogFragment extends BaseDialogFragment implements V
 
     private ArrayAdapter<String> adapter;
 
-    public static UploadConfirmDialogFragment newInstance(Bitmap bm) {
+    public static UploadConfirmDialogFragment newInstance() {
         UploadConfirmDialogFragment udf = new UploadConfirmDialogFragment();
 
         Bundle bundle = new Bundle();
-
-        bundle.putParcelable(IMAGE_BUNDLE_KEY, bm);
 
         udf.setArguments(bundle);
 
@@ -77,7 +76,6 @@ public class UploadConfirmDialogFragment extends BaseDialogFragment implements V
 
         Image image = new Image();
 
-        image.setBitmap(bm);
         image.setEmail(EmailAddressManager.addressesToString());
 
         if (Connection.isWifiConnection(getActivity())) {
@@ -96,7 +94,7 @@ public class UploadConfirmDialogFragment extends BaseDialogFragment implements V
     private boolean saveImageInternally(Image image) {
         DBHelper db = new DBHelper(getActivity());
 
-        String name = AccessStorage.saveImageToInternalStorage(getActivity(), image.getBitmap());
+        String name = AccessStorage.saveImageToInternalStorage(getActivity(), BitmapHolder.bm);
 
         if (name != null) {
             image.setName(name);

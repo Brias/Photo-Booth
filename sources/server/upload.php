@@ -6,15 +6,14 @@
  * Time: 17:57
  */
 
-include_once "InvalidDataTypeException.php";
-include_once "InvalidEmailException.php";
-include_once "SendEmail.php";
-include_once "Image.php";
-include_once "ImageController.php";
+include_once "exceptions/InvalidDataTypeException.php";
+include_once "exceptions/InvalidEmailException.php";
+include_once "models/SendEmail.php";
+include_once "models/Image.php";
+include_once "controller/ImageController.php";
 
 $image = $_POST['image'];
 $email = $_POST['email'];
-
 
 try {
     $decodedImage = Image::decodeImageData($image);
@@ -28,4 +27,4 @@ try {
     echo $e->__toString();
 } catch (InvalidEmailException $e) {
     echo $e->__toString();
-};
+}

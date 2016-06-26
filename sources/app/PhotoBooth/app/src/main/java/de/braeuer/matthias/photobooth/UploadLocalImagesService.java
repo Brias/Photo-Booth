@@ -3,6 +3,7 @@ package de.braeuer.matthias.photobooth;
 import android.app.Service;
 import android.content.Context;
 import android.content.Intent;
+import android.graphics.Bitmap;
 import android.os.IBinder;
 import android.support.annotation.Nullable;
 
@@ -69,15 +70,15 @@ public class UploadLocalImagesService extends Service {
                 for(Iterator<Image> iterator = images.iterator(); iterator.hasNext();){
                     Image image = iterator.next();
 
-                    image.setBitmap(AccessStorage.getImageFromInternalStorage(context, image.getName()));
+                    Bitmap bm = AccessStorage.getImageFromInternalStorage(context, image.getName());
 
                     HashMap<String, String> detail = new HashMap<>();
 
-                    detail.put("image", image.toString());
+                    detail.put("image", image.toBase64(bm));
                     detail.put("email", image.getEmail());
 
                     try {
-                        String dataToSend = UrlUtil.hashMapToUrl(detail);
+                        String dataToSend = UrlUtil.toUrl(Image.toBase64(BitmapHolder.bm), image.getEmail());
                         final String request = Request.post(serverUrl, dataToSend);
 
                         if (request != null && request.equals("200")) {

@@ -7,8 +7,13 @@ import android.app.PendingIntent;
 import android.content.Context;
 import android.content.Intent;
 import android.graphics.Bitmap;
+import android.graphics.BitmapFactory;
 import android.hardware.usb.UsbDevice;
+import android.hardware.usb.UsbDeviceConnection;
 import android.hardware.usb.UsbManager;
+import android.mtp.MtpConstants;
+import android.mtp.MtpDevice;
+import android.mtp.MtpObjectInfo;
 import android.os.Bundle;
 import android.view.View;
 import android.view.Window;
@@ -21,28 +26,34 @@ import usbcamera.BaselineInitiator;
 import usbcamera.PTPException;
 import usbcamera.Session;
 import usbcamera.eos.EosInitiator;
-import usbcamera.nikon.NikonInitiator;
 
 public class CameraViewActivity extends Activity implements OnDialogFragmentClosedListener {
 
-    public static final String SERVER = "http://homepages.uni-regensburg.de/~brm08652/photo_booth/upload.php";
+    //public static final String SERVER = "http://homepages.uni-regensburg.de/~brm08652/photo_booth/upload.php";
+    public static final String SERVER = "http://urwalking.ur.de/photobooth/upload.php";
 
     private static final String IMAGE_DIALOG_FRAGMENT = "ImageDialogFragment";
 
-    public Thread thread; //From USBCameraTest.java
+    public Thread thread = null; //From USBCameraTest.java
 
     private UsbManager mUsbManager; //From USBCameraTest.java
     private BaselineInitiator bi; //From USBCameraTest.java
 
     private ImageView liveViewHolder; //From USBCameraTest.java
 
+    private boolean liveViewTurnedOn = false; //From USBCameraTest.java
+
     private Bitmap currentBitmap;
 
-    private boolean liveViewTurnedOn = false; //From USBCameraTest.java
+    private int liveViewFetchFailCounter = 0;
 
     private boolean pictureTaken = false;
 
-    private int liveViewFetchFailCounter = 0;
+    private int objectCount = -1;
+
+    private MtpDevice mtpDevice;
+    private UsbDeviceConnection mUsbDeviceConnection;
+
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -75,13 +86,59 @@ public class CameraViewActivity extends Activity implements OnDialogFragmentClos
     }
 
     @Override
-    public void onDestroy(){
+    public void onDestroy() {
         super.onDestroy();
 
         stopUploadLocalImageService();
     }
 
-    private void setFullscreen(){
+    private boolean checkForNewImage() {
+        boolean newImage = false;
+
+        int[] ids = mtpDevice.getStorageIds();
+        int[] objects = mtpDevice.getObjectHandles(ids[0], MtpConstants.FORMAT_EXIF_JPEG, 0);
+
+        if (objects != null) {
+            if (objectCount == -1) {
+                objectCount = objects.length;
+            }
+            if (objectCount < objects.length) {
+                objectCount = objects.length;
+
+                newImage = true;
+            }
+        }
+
+        return newImage;
+    }
+
+    private Bitmap getImageFromCamera() {
+        int[] ids = mtpDevice.getStorageIds();
+
+        if (ids != null) {
+            int[] a = mtpDevice.getObjectHandles(ids[0], MtpConstants.FORMAT_EXIF_JPEG, 0);
+
+            if (a != null && a.length != 0) {
+
+                MtpObjectInfo objectInfo = mtpDevice.getObjectInfo(a[a.length - 1]);
+
+                if (objectInfo != null) {
+                    int size = objectInfo.getCompressedSize();
+
+                    if (size > 0) {
+                        byte[] x = mtpDevice.getObject(a[a.length - 1], size);
+                        if (x != null) {
+                            return BitmapFactory.decodeByteArray(x, 0, x.length);
+                        }
+                    }
+                }
+            }
+        }
+
+        return null;
+    }
+
+    private void setFullscreen() {
         this.requestWindowFeature(Window.FEATURE_NO_TITLE);
 
         View decorView = getWindow().getDecorView();
@@ -92,13 +149,13 @@ public class CameraViewActivity extends Activity implements OnDialogFragmentClos
     }
 
     private void startUploadLocalImageService() {
-        if(Connection.isWifiConnection(getApplicationContext())) {
+        if (Connection.isWifiConnection(getApplicationContext())) {
             Intent intent = new Intent(this, UploadLocalImagesService.class);
             startService(intent);
         }
     }
 
-    private void stopUploadLocalImageService(){
+    private void stopUploadLocalImageService() {
         Intent intent = new Intent(this, UploadLocalImagesService.class);
         stopService(intent);
     }
@@ -138,17 +195,6 @@ public class CameraViewActivity extends Activity implements OnDialogFragmentClos
                     }
 
                     bi = new EosInitiator(device, mUsbManager.openDevice(device));
-
-                } else if (device.getVendorId() == NikonInitiator.NIKON_VID) {
-                    try {
-                        bi.getClearStatus();
-                        bi.close();
-                    } catch (PTPException e) {
-                        showErrorDialog(getResources().getString(R.string.replug_camera_title), getResources().getString(R.string.replug_camera), false);
-                        e.printStackTrace();
-                    }
-
-                    bi = new NikonInitiator(device, mUsbManager.openDevice(device));
                 }
 
                 bi.openSession();
@@ -160,7 +206,7 @@ public class CameraViewActivity extends Activity implements OnDialogFragmentClos
         }
     }
 
-    private void showErrorDialog(String title, String errorMsg, boolean callOnClosedListener){
+    private void showErrorDialog(String title, String errorMsg, boolean callOnClosedListener) {
         ErrorDialogFragment edf = ErrorDialogFragment.newInstance(title, errorMsg, callOnClosedListener);
 
         FragmentTransaction ft = getFragmentManager().beginTransaction();
@@ -283,8 +329,11 @@ public class CameraViewActivity extends Activity implements OnDialogFragmentClos
         try {
             Thread.sleep(1000);
 
-            if (currentBitmap != null) {
-                showImageFragmentDialog(currentBitmap);
+            Bitmap bm = currentBitmap;
+
+            if (bm != null) {
+                BitmapHolder.bm = bm;
+                showImageFragmentDialog(bm);
             } else {
                 runOnUiThread(new Runnable() {
                     @Override
@@ -298,12 +347,10 @@ public class CameraViewActivity extends Activity implements OnDialogFragmentClos
         }
     }
 
-    private void showImageFragmentDialog(Bitmap bm) {
-        AccessStorage.saveImageToInternalStorage(getApplicationContext(), bm);
-
+    private void showImageFragmentDialog(Bitmap thumb) {
         FragmentTransaction ft = getFragmentManager().beginTransaction();
 
-        ImageDialogFragment idf = ImageDialogFragment.newInstance(bm);
+        ImageDialogFragment idf = ImageDialogFragment.newInstance(thumb);
 
         idf.show(ft, IMAGE_DIALOG_FRAGMENT);
     }
@@ -311,21 +358,29 @@ public class CameraViewActivity extends Activity implements OnDialogFragmentClos
     private void startUpdatingLiveView() {
         stopUpdatingLiveView();
 
-        thread = new LiveViewThread();
+        if (thread == null) {
+            thread = new LiveViewThread();
 
-        thread.start();
+            if (thread.getState() == Thread.State.NEW) {
+                thread.start();
+            }
+        }
     }
 
     private void stopUpdatingLiveView() {
         liveViewTurnedOn = false;
 
-        if (thread != null) {
+        if (thread != null && thread.isAlive()) {
             thread.interrupt();
         }
     }
 
     @Override
     public void onDialogFragmentClosed() {
+        if (BitmapHolder.bm != null) {
+            BitmapHolder.bm.recycle();
+        }
+
         pictureTaken = false;
     }
 
@@ -356,6 +411,47 @@ public class CameraViewActivity extends Activity implements OnDialogFragmentClos
                             pictureTaken = true;
                             getTakenPicture();
                         }
+
+                        /*UsbDevice device = searchDevice();
+
+                        mUsbDeviceConnection = mUsbManager.openDevice(device);
+
+                        mtpDevice = new MtpDevice(device);
+
+                        if (mUsbDeviceConnection != null) {
+                            if (mtpDevice.open(mUsbDeviceConnection)) {
+                                if (checkForNewImage()) {
+                                    pictureTaken = true;
+
+                                    Bitmap bm = getImageFromCamera();
+
+                                    if (bm != null) {
+                                        BitmapHolder.bm = bm;
+
+                                        Bitmap thumb = Bitmap.createScaledBitmap(bm, 2048, 1152, false);
+
+                                        showImageFragmentDialog(thumb);
+                                    } else {
+                                        runOnUiThread(new Runnable() {
+                                            @Override
+                                            public void run() {
+                                                showErrorDialog(getResources().getString(R.string.get_picture_error_title), getResources().getString(R.string.get_picture_error), true);
+                                            }
+                                        });
+                                    }
+                                }
+                                mtpDevice.close();
+                            } else {
+                                showErrorDialog(getResources().getString(R.string.replug_camera_title), getResources().getString(R.string.replug_camera), false);
+                            }
+                        } else {
+                            showErrorDialog(getResources().getString(R.string.replug_camera_title), getResources().getString(R.string.replug_camera), false);
+                        }
+                        try {
+                            Thread.sleep(1500);
+                        } catch (InterruptedException e) {
+                            e.printStackTrace();
+                        }*/
                     }
                 }
             } catch (InterruptedException e) {

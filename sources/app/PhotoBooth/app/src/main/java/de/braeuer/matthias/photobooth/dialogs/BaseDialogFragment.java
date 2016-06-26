@@ -13,15 +13,9 @@ import de.braeuer.matthias.photobooth.listener.OnDialogFragmentClosedListener;
  */
 public class BaseDialogFragment extends DialogFragment {
 
-    protected static String IMAGE_BUNDLE_KEY = "image_key";
-
-    protected Bitmap bm;
-
     @Override
     public void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
-
-        bm = getArguments().getParcelable(IMAGE_BUNDLE_KEY);
     }
 
     public void cancel() {

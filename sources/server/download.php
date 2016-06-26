@@ -7,8 +7,8 @@
  * Time: 02:14
  */
 
-include_once "InvalidDataTypeException.php";
-include_once "Image.php";
+include_once "exceptions/InvalidDataTypeException.php";
+include_once "models/Image.php";
 
 $activation = htmlspecialchars($_GET["activation"]);
 

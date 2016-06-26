@@ -33,12 +33,14 @@ public class ImageDialogFragment extends BaseDialogFragment implements View.OnCl
 
     public static final String IMAGE_DIALOG_FRAGMENT = "ImageDialogFragment";
 
-    public static ImageDialogFragment newInstance(Bitmap bm) {
+    private static final String THUMB_BUNDLE_KEY = "thumb_bundle_key";
+
+    public static ImageDialogFragment newInstance(Bitmap thumb) {
         ImageDialogFragment idf = new ImageDialogFragment();
 
         Bundle bundle = new Bundle();
 
-        bundle.putParcelable(IMAGE_BUNDLE_KEY, bm);
+        bundle.putParcelable(THUMB_BUNDLE_KEY, thumb);
 
         idf.setArguments(bundle);
 
@@ -62,7 +64,7 @@ public class ImageDialogFragment extends BaseDialogFragment implements View.OnCl
     private void initImagePreview(View v) {
         ImageView iv = (ImageView) v.findViewById(R.id.imagePreview);
 
-        iv.setImageBitmap(bm);
+        iv.setImageBitmap((Bitmap) getArguments().getParcelable(THUMB_BUNDLE_KEY));
     }
 
     private void setOnClickListener(View v) {
@@ -81,7 +83,7 @@ public class ImageDialogFragment extends BaseDialogFragment implements View.OnCl
         ft.addToBackStack(IMAGE_DIALOG_FRAGMENT);
         FragmentHolder.dialogFragments.add(this);
 
-        EditEmailAddressDialogFragment edf = EditEmailAddressDialogFragment.newInstance(bm);
+        EditEmailAddressDialogFragment edf = EditEmailAddressDialogFragment.newInstance();
 
         edf.show(ft, EditEmailAddressDialogFragment.EDIT_ADDRESS_DIALOG_FRAGMENT);
     }

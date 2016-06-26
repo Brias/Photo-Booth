@@ -37,12 +37,10 @@ public class EditEmailAddressDialogFragment extends BaseDialogFragment implement
     private Button btnCancel;
     private EditText et;
 
-    public static EditEmailAddressDialogFragment newInstance(Bitmap bm) {
+    public static EditEmailAddressDialogFragment newInstance() {
         EditEmailAddressDialogFragment edf = new EditEmailAddressDialogFragment();
 
         Bundle bundle = new Bundle();
-
-        bundle.putParcelable(IMAGE_BUNDLE_KEY, bm);
 
         edf.setArguments(bundle);
 
@@ -174,7 +172,7 @@ public class EditEmailAddressDialogFragment extends BaseDialogFragment implement
         ft.addToBackStack(EDIT_ADDRESS_DIALOG_FRAGMENT);
         FragmentHolder.dialogFragments.add(this);
 
-        UploadConfirmDialogFragment udf = UploadConfirmDialogFragment.newInstance(bm);
+        UploadConfirmDialogFragment udf = UploadConfirmDialogFragment.newInstance();
 
         udf.show(ft, UploadConfirmDialogFragment.UPLOAD_CONFIRM_DIALOG_FRAGMENT);
     }

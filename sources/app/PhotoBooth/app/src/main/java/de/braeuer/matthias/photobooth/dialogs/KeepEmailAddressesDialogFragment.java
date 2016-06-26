@@ -30,7 +30,7 @@ public class KeepEmailAddressesDialogFragment extends BaseDialogFragment impleme
 
     @Override
     public View onCreateView(LayoutInflater inflater, ViewGroup container, Bundle savedInstanceState) {
-        getDialog().setTitle(getResources().getString(R.string.keep_email_addresses_dialog_fragment_title));
+        getDialog().setTitle(getResources().getString(R.string.http_request_success));
         setCancelable(false);
 
         View v = inflater.inflate(R.layout.keep_email_addresses_dialog_fragment_layout, container, false);

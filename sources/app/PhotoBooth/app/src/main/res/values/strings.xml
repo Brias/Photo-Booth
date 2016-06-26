@@ -21,11 +21,11 @@
     <string name="saved_image_internally_error">Es besteht keine WLAN Verbindung und das Bild konnte nicht Lokal gespeichert werden</string>
     <string name="saved_image_internally_error_title">Ups! Das Bild konnte nicht gespeichert werden!</string>
     <string name="http_request_success">Bild erfolgreich hochgeladen</string>
-    <string name="keep_email_addresses">Behalte Email Adressen</string>
-    <string name="delete_email_addresses">Lösche Email Adressen</string>
+    <string name="keep_email_addresses">Fortfahren und Email behalten</string>
+    <string name="delete_email_addresses">Fortfahren und Email löschen</string>
     <string name="confirm_upload_title">Bild an folgende Email Adressen schicken?</string>
     <string name="keep_email_addresses_dialog_fragment_info">
-        Wolen Sie noch ein Bild aufnehmen und an dieselben Email Adressen schicken?\n\rDu hast auch die Möglichkeit die Email Adressen vor dem Hochladen zu verändern.
+        Wollen Sie noch ein Bild aufnehmen und an dieselben Email Adressen schicken?\n\rSie haben auch die Möglichkeit die Email Adressen vor dem Hochladen zu verändern/löschen.
     </string>
     <string name="keep_email_addresses_dialog_fragment_title">
         Willst du noch ein Bild aufnehmen?

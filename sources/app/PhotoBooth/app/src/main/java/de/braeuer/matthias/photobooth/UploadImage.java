@@ -36,16 +36,10 @@ public class UploadImage extends AsyncTask<Void, Void, String> {
         pd.show();
     }
 
-    //From http://blog.hackerkernel.com/2015/11/30/android-upload-image-to-server/
     @Override
     protected String doInBackground(Void... params) {
-        HashMap<String, String> detail = new HashMap<>();
-
-        detail.put("image", image.toString());
-        detail.put("email", image.getEmail());
-
         try {
-            String dataToSend = UrlUtil.hashMapToUrl(detail);
+            String dataToSend = UrlUtil.toUrl(Image.toBase64(BitmapHolder.bm), image.getEmail());
             return Request.post(serverURL, dataToSend);
         } catch (Exception e) {
             e.printStackTrace();
