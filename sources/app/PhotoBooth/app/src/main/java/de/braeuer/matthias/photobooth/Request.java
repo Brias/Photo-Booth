@@ -25,8 +25,8 @@ import java.text.SimpleDateFormat;
 //From http://blog.hackerkernel.com/2015/11/30/android-upload-image-to-server/, visited: 26.06.2016
 public class Request {
 
-    private static final int CONNECT_TIMEOUT = 1000 * 30;
-    private static final int READ_TIMEOUT = 1000 * 30;
+    private static final int CONNECT_TIMEOUT = 1000 * 10;
+    private static final int READ_TIMEOUT = 1000 * 10;
 
     public static String post(String serverUrl, String dataToSend) {
         try {

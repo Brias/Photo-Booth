@@ -13,7 +13,7 @@
     <string name="replug_camera_title">PTP Modus Fehler!</string>
     <string name="image_preview_dialog_title">Bildvorschau</string>
     <string name="email_edit_dialog_title">Email Adresse hinzufügen/löschen</string>
-    <string name="uploading">Hochladen...</string>
+    <string name="uploading">Senden...\nDies kann unter Umständen etwas dauern</string>
     <string name="add_email_hint">E-Mail Adresse</string>
     <string name="http_request_error">Beim Hochladen ist etwas schief gelaufen\n\rIst ein Internetverbindung vorhanden?</string>
     <string name="saved_image_internally_success">Das Bild wurde Lokal gespeichert und wird hochgeladen sobald eine WLAN Verbindung besteht</string>

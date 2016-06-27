@@ -65,7 +65,7 @@ public class UploadConfirmDialogFragment extends BaseDialogFragment implements V
     }
 
     private void initListView(View v) {
-        final ListView lv = (ListView) v.findViewById(R.id.emailAddressList);
+        ListView lv = (ListView) v.findViewById(R.id.emailAddressList);
         adapter = new ArrayAdapter<>(getActivity(), android.R.layout.simple_list_item_1, EmailAddressManager.getEmailAddresses());
 
         lv.setAdapter(adapter);
