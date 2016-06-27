@@ -39,7 +39,12 @@ public class UploadImage extends AsyncTask<Void, Void, String> {
     @Override
     protected String doInBackground(Void... params) {
         try {
-            String dataToSend = UrlUtil.toUrl(Image.toBase64(BitmapHolder.bm), image.getEmail());
+            HashMap<String, String> detail = new HashMap();
+
+            detail.put("image", Image.toBase64(BitmapHolder.bm));
+            detail.put("email", image.getEmail());
+
+            String dataToSend = UrlUtil.hashMapToUrl(detail);
             return Request.post(serverURL, dataToSend);
         } catch (Exception e) {
             e.printStackTrace();

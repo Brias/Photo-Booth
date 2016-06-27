@@ -78,7 +78,8 @@ public class UploadLocalImagesService extends Service {
                     detail.put("email", image.getEmail());
 
                     try {
-                        String dataToSend = UrlUtil.toUrl(Image.toBase64(BitmapHolder.bm), image.getEmail());
+                        String dataToSend = UrlUtil.hashMapToUrl(detail);
+
                         final String request = Request.post(serverUrl, dataToSend);
 
                         if (request != null && request.equals("200")) {

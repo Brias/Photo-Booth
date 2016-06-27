@@ -29,8 +29,8 @@ import usbcamera.eos.EosInitiator;
 
 public class CameraViewActivity extends Activity implements OnDialogFragmentClosedListener {
 
-    //public static final String SERVER = "http://homepages.uni-regensburg.de/~brm08652/photo_booth/upload.php";
-    public static final String SERVER = "http://urwalking.ur.de/photobooth/upload.php";
+    public static final String SERVER = "http://homepages.uni-regensburg.de/~brm08652/photo_booth/upload.php";
+    //public static final String SERVER = "http://urwalking.ur.de/photobooth/upload.php";
 
     private static final String IMAGE_DIALOG_FRAGMENT = "ImageDialogFragment";
 
