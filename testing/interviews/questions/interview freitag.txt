@@ -1,0 +1,21 @@
+Buch: Image Ethics: The Moral Rights of Subjects in Photographs, Film, and Television (Larry Gross, John stuart Katz, Jay Ruby)
+
+
+Wie stehts du zu deinem Recht am eigenen Bild?
+
+
+ja:
+	- Warum hast du dann trotzdem ein Foto gemacht?
+	- Also hast du etwas zu verbergen?
+	- Ist doch nur ein Gruppenfoto. Jeder macht das heutzutage.
+
+
+nein:
+	- Keine Angst von (zukünftigen) Chef entdeckt zu werden?
+	- Keine Angst das Bild wird ohne Erlaubnis verbreitet(Whatsapp, facebook)?
+	- Ist es egal wenn du getaggt wirst und jeder dich darüber finden kann?
+	- Was ist wenn ihr euch zerstreitet?
+	- Was ist wenn du in Verbidung mit einer Straftat gebracht wirst, weil eine kriminelle Person auf dem Bild ist? 
+	- Keine Angst vor Metadaten z.B. in Instagram (Chef weiß wo man im Urlaub war)? (Short Paper: On the Awareness, Control and Privacy of Shared Photo Metadata)
+	- Keine Angst vor Face-Search-Algorithms? (Face/Off: Preventing Privacy Leakage From Photos in Social Networks)
+	- Jemand postet peinliches Bild von dir

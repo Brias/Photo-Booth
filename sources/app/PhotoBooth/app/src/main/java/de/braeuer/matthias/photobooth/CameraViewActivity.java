@@ -7,14 +7,10 @@ import android.app.PendingIntent;
 import android.content.Context;
 import android.content.Intent;
 import android.graphics.Bitmap;
-import android.graphics.BitmapFactory;
 import android.hardware.usb.UsbDevice;
-import android.hardware.usb.UsbDeviceConnection;
 import android.hardware.usb.UsbManager;
-import android.mtp.MtpConstants;
-import android.mtp.MtpDevice;
-import android.mtp.MtpObjectInfo;
 import android.os.Bundle;
+import android.util.Log;
 import android.view.View;
 import android.view.Window;
 import android.widget.ImageView;
@@ -24,13 +20,14 @@ import de.braeuer.matthias.photobooth.dialogs.ImageDialogFragment;
 import de.braeuer.matthias.photobooth.listener.OnDialogFragmentClosedListener;
 import usbcamera.BaselineInitiator;
 import usbcamera.PTPException;
+import usbcamera.Response;
 import usbcamera.Session;
 import usbcamera.eos.EosInitiator;
 
 public class CameraViewActivity extends Activity implements OnDialogFragmentClosedListener {
 
-    public static final String SERVER = "http://homepages.uni-regensburg.de/~brm08652/photo_booth/upload.php";
-    //public static final String SERVER = "http://urwalking.ur.de/photobooth/upload.php";
+    //public static final String SERVER = "http://homepages.uni-regensburg.de/~brm08652/photo_booth/upload.php";
+    public static final String SERVER = "http://urwalking.ur.de/photobooth/upload.php";
 
     private static final String IMAGE_DIALOG_FRAGMENT = "ImageDialogFragment";
 
@@ -48,11 +45,6 @@ public class CameraViewActivity extends Activity implements OnDialogFragmentClos
     private int liveViewFetchFailCounter = 0;
 
     private boolean pictureTaken = false;
-
-    private int objectCount = -1;
-
-    private MtpDevice mtpDevice;
-    private UsbDeviceConnection mUsbDeviceConnection;
 
 
     @Override
@@ -89,53 +81,8 @@ public class CameraViewActivity extends Activity implements OnDialogFragmentClos
     public void onDestroy() {
         super.onDestroy();
 
+        EmailAddressManager.reset();
         stopUploadLocalImageService();
-    }
-
-    private boolean checkForNewImage() {
-        boolean newImage = false;
-
-        int[] ids = mtpDevice.getStorageIds();
-        int[] objects = mtpDevice.getObjectHandles(ids[0], MtpConstants.FORMAT_EXIF_JPEG, 0);
-
-        if (objects != null) {
-            if (objectCount == -1) {
-                objectCount = objects.length;
-            }
-            if (objectCount < objects.length) {
-                objectCount = objects.length;
-
-                newImage = true;
-            }
-        }
-
-        return newImage;
-    }
-
-    private Bitmap getImageFromCamera() {
-        int[] ids = mtpDevice.getStorageIds();
-
-        if (ids != null) {
-            int[] a = mtpDevice.getObjectHandles(ids[0], MtpConstants.FORMAT_EXIF_JPEG, 0);
-
-            if (a != null && a.length != 0) {
-
-                MtpObjectInfo objectInfo = mtpDevice.getObjectInfo(a[a.length - 1]);
-
-                if (objectInfo != null) {
-                    int size = objectInfo.getCompressedSize();
-
-                    if (size > 0) {
-                        byte[] x = mtpDevice.getObject(a[a.length - 1], size);
-                        if (x != null) {
-                            return BitmapFactory.decodeByteArray(x, 0, x.length);
-                        }
-                    }
-                }
-            }
-        }
-
-        return null;
     }
 
     private void setFullscreen() {
@@ -332,6 +279,7 @@ public class CameraViewActivity extends Activity implements OnDialogFragmentClos
             Bitmap bm = currentBitmap;
 
             if (bm != null) {
+                bm = BitmapHolder.drawTextToBitmap(this, bm, getResources().getString(R.string.graduation_party));
                 BitmapHolder.bm = bm;
                 showImageFragmentDialog(bm);
             } else {
@@ -411,47 +359,6 @@ public class CameraViewActivity extends Activity implements OnDialogFragmentClos
                             pictureTaken = true;
                             getTakenPicture();
                         }
-
-                        /*UsbDevice device = searchDevice();
-
-                        mUsbDeviceConnection = mUsbManager.openDevice(device);
-
-                        mtpDevice = new MtpDevice(device);
-
-                        if (mUsbDeviceConnection != null) {
-                            if (mtpDevice.open(mUsbDeviceConnection)) {
-                                if (checkForNewImage()) {
-                                    pictureTaken = true;
-
-                                    Bitmap bm = getImageFromCamera();
-
-                                    if (bm != null) {
-                                        BitmapHolder.bm = bm;
-
-                                        Bitmap thumb = Bitmap.createScaledBitmap(bm, 2048, 1152, false);
-
-                                        showImageFragmentDialog(thumb);
-                                    } else {
-                                        runOnUiThread(new Runnable() {
-                                            @Override
-                                            public void run() {
-                                                showErrorDialog(getResources().getString(R.string.get_picture_error_title), getResources().getString(R.string.get_picture_error), true);
-                                            }
-                                        });
-                                    }
-                                }
-                                mtpDevice.close();
-                            } else {
-                                showErrorDialog(getResources().getString(R.string.replug_camera_title), getResources().getString(R.string.replug_camera), false);
-                            }
-                        } else {
-                            showErrorDialog(getResources().getString(R.string.replug_camera_title), getResources().getString(R.string.replug_camera), false);
-                        }
-                        try {
-                            Thread.sleep(1500);
-                        } catch (InterruptedException e) {
-                            e.printStackTrace();
-                        }*/
                     }
                 }
             } catch (InterruptedException e) {

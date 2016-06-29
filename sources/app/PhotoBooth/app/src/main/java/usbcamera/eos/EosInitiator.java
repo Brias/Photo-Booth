@@ -364,6 +364,10 @@ public class EosInitiator extends BaselineInitiator {
 
         return  setDevicePropValueEx(Command.EOS_DPC_ExpMeterringMode, value); 
     }
+
+    public Response getObjectHandles() throws PTPException {
+        return getDevicePropValueEx(Command.GetObjectHandles);
+    }
     
 	public void setupLiveview() throws PTPException
 	{
@@ -466,7 +470,6 @@ public class EosInitiator extends BaselineInitiator {
 	
 	public void doAutoFocus()
 	{
-
 		Command command = new Command(EosEventConstants.PTP_OC_CANON_EOS_DoAf, session);		
 		write(command.data, command.length, DEFAULT_TIMEOUT);
 		byte buf[] = read(DEFAULT_TIMEOUT);
