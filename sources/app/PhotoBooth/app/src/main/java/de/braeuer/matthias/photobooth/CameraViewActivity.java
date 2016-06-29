@@ -10,7 +10,6 @@ import android.graphics.Bitmap;
 import android.hardware.usb.UsbDevice;
 import android.hardware.usb.UsbManager;
 import android.os.Bundle;
-import android.util.Log;
 import android.view.View;
 import android.view.Window;
 import android.widget.ImageView;
@@ -20,7 +19,6 @@ import de.braeuer.matthias.photobooth.dialogs.ImageDialogFragment;
 import de.braeuer.matthias.photobooth.listener.OnDialogFragmentClosedListener;
 import usbcamera.BaselineInitiator;
 import usbcamera.PTPException;
-import usbcamera.Response;
 import usbcamera.Session;
 import usbcamera.eos.EosInitiator;
 

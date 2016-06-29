@@ -1,8 +1,7 @@
 <?xml version="1.0" encoding="utf-8"?>
-<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+<RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
-    android:orientation="vertical"
     android:paddingLeft="10dp"
     android:paddingRight="10dp"
     android:paddingTop="10dp">
@@ -11,6 +10,7 @@
         android:id="@+id/addEmailAddress"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
+        android:layout_alignParentTop="true"
         android:focusable="true"
         android:focusableInTouchMode="true"
         android:orientation="horizontal"
@@ -22,7 +22,7 @@
             android:layout_height="match_parent"
             android:layout_weight="0.60"
             android:hint="@string/add_email_hint"
-            android:inputType="textEmailAddress"
+            android:inputType="textEmailAddress|textNoSuggestions"
             android:singleLine="true" />
 
         <Button
@@ -33,15 +33,32 @@
             android:text="@string/btn_ok" />
     </LinearLayout>
 
-    <TextView
-        android:layout_width="match_parent"
+    <LinearLayout
+        android:id="@+id/InfoContainer"
+        android:layout_below="@+id/addEmailAddress"
+        android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:text="@string/email_info" />
+        android:orientation="vertical">
+
+        <TextView
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:textSize="16sp"
+            android:text="@string/email_info" />
+
+        <View
+            android:layout_marginTop="5dp"
+            android:layout_width="match_parent"
+            android:layout_height="1dp"
+            android:background="@android:color/darker_gray" />
+    </LinearLayout>
 
     <ListView
         android:id="@+id/emailAddressList"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
+        android:layout_below="@+id/InfoContainer"
+        android:layout_above="@+id/btnContainer"
         android:divider="@android:color/darker_gray"
         android:dividerHeight="1dp"
         android:paddingBottom="15dp"
@@ -50,6 +67,8 @@
         android:paddingTop="15dp" />
 
     <LinearLayout
+        android:id="@+id/btnContainer"
+        android:layout_alignParentBottom="true"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
         android:layoutDirection="rtl"
@@ -57,23 +76,23 @@
 
         <Button
             android:id="@+id/btnNext"
+            style="?android:attr/buttonBarButtonStyle"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            style="?android:attr/buttonBarButtonStyle"
             android:text="@string/btn_next" />
 
         <Button
             android:id="@+id/btnBack"
+            style="?android:attr/buttonBarButtonStyle"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            style="?android:attr/buttonBarButtonStyle"
             android:text="@string/btn_back" />
 
         <Button
             android:id="@+id/btnCancel"
+            style="?android:attr/buttonBarButtonStyle"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            style="?android:attr/buttonBarButtonStyle"
             android:text="@string/btn_cancel" />
     </LinearLayout>
-</LinearLayout>
+</RelativeLayout>
