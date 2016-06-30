@@ -54,7 +54,7 @@ public class EditEmailAddressDialogFragment extends BaseDialogFragment implement
     }
 
     public View onCreateView(LayoutInflater inflater, ViewGroup container, Bundle icicle) {
-        getDialog().setTitle(getResources().getString(R.string.email_edit_dialog_title));
+        checkTitleStaus();
         setCancelable(false);
 
         View v = inflater.inflate(R.layout.edit_email_address_dialog_fragment_layout, container, false);
@@ -160,6 +160,7 @@ public class EditEmailAddressDialogFragment extends BaseDialogFragment implement
             case R.id.btnAddEmail:
                 addEmail();
                 checkNextButtonStatus();
+                checkTitleStaus();
                 break;
         }
     }
@@ -188,6 +189,14 @@ public class EditEmailAddressDialogFragment extends BaseDialogFragment implement
         }
     }
 
+    private void checkTitleStaus(){
+        if(EmailAddressManager.getEmailAddresses().size() == 0){
+          getDialog().setTitle(getResources().getString(R.string.email_edit_dialog_title));
+        } else {
+            getDialog().setTitle(getResources().getString(R.string.email_edit_remove_dialog_title));
+        }
+    }
+
     private void checkNextButtonStatus(){
         if(EmailAddressManager.getEmailAddresses().size() == 0){
             btnNext.setEnabled(false);
@@ -198,6 +207,7 @@ public class EditEmailAddressDialogFragment extends BaseDialogFragment implement
 
     @Override
     public void onEmailAddressRemoved() {
+        checkTitleStaus();
         checkNextButtonStatus();
     }
 }

@@ -24,19 +24,19 @@ import usbcamera.eos.EosInitiator;
 
 public class CameraViewActivity extends Activity implements OnDialogFragmentClosedListener {
 
-    //public static final String SERVER = "http://homepages.uni-regensburg.de/~brm08652/photo_booth/upload.php";
     public static final String SERVER = "http://urwalking.ur.de/photobooth/upload.php";
 
     private static final String IMAGE_DIALOG_FRAGMENT = "ImageDialogFragment";
 
-    public Thread thread = null; //From USBCameraTest.java
+    public Thread thread = null;
 
-    private UsbManager mUsbManager; //From USBCameraTest.java
-    private BaselineInitiator bi; //From USBCameraTest.java
+    private UsbManager mUsbManager;
 
-    private ImageView liveViewHolder; //From USBCameraTest.java
+    private BaselineInitiator bi;
 
-    private boolean liveViewTurnedOn = false; //From USBCameraTest.java
+    private ImageView liveViewHolder;
+
+    private boolean liveViewTurnedOn = false;
 
     private Bitmap currentBitmap;
 
@@ -277,7 +277,6 @@ public class CameraViewActivity extends Activity implements OnDialogFragmentClos
             Bitmap bm = currentBitmap;
 
             if (bm != null) {
-                bm = BitmapHolder.drawTextToBitmap(this, bm, getResources().getString(R.string.graduation_party));
                 BitmapHolder.bm = bm;
                 showImageFragmentDialog(bm);
             } else {

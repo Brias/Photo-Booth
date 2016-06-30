@@ -9,26 +9,24 @@
     <string name="btn_edit_email_address">Email ändern</string>
     <string name="btn_next">Weiter</string>
     <string name="btn_back">Zurück</string>
-    <string name="replug_camera">Bitte schließe die App und verbinde die Kamera erneut mit dem Tablet</string>
+    <string name="replug_camera">Bitte schließen sie App und verbinden sie die Kamera erneut mit dem Tablet</string>
     <string name="replug_camera_title">PTP Modus Fehler!</string>
     <string name="image_preview_dialog_title">Bildvorschau</string>
-    <string name="email_edit_dialog_title">Email Adresse hinzufügen/löschen</string>
+    <string name="email_edit_remove_dialog_title">Email Adresse hinzufügen/löschen</string>
+    <string name="email_edit_dialog_title">Email Adresse hinzufügen</string>
     <string name="uploading">Senden...\nDies kann unter Umständen etwas dauern...</string>
-    <string name="add_email_hint">E-Mail Adresse</string>
+    <string name="add_email_hint">E-Mail Adresse eingeben</string>
     <string name="http_request_error">Beim Hochladen ist etwas schief gelaufen\nIst ein Internetverbindung vorhanden?</string>
     <string name="saved_image_internally_success">Das Bild wurde Lokal gespeichert und wird hochgeladen sobald eine WLAN Verbindung besteht</string>
     <string name="saved_image_internally_success_title">Glückwunsch!\nDas Bild wurde Lokal gespeichert!</string>
     <string name="saved_image_internally_error">Es besteht keine WLAN Verbindung und das Bild konnte nicht Lokal gespeichert werden</string>
     <string name="saved_image_internally_error_title">Ups! Das Bild konnte nicht\ngespeichert werden!</string>
     <string name="http_request_success">Bild erfolgreich hochgeladen</string>
-    <string name="keep_email_addresses">Fortfahren und Email behalten</string>
-    <string name="delete_email_addresses">Fortfahren und Email löschen</string>
+    <string name="keep_email_addresses">Beenden und Email behalten</string>
+    <string name="delete_email_addresses">Beenden und Email löschen</string>
     <string name="confirm_upload_title">Bild an folgende Email Adressen schicken?</string>
     <string name="keep_email_addresses_dialog_fragment_info">
-        Wollen Sie noch ein Bild aufnehmen und an dieselben Email Adressen schicken?\nSie haben auch die Möglichkeit die Email Adressen vor dem Hochladen zu verändern/löschen.
-    </string>
-    <string name="keep_email_addresses_dialog_fragment_title">
-        Willst du noch ein Bild aufnehmen?
+        Sie können nun die Email Adressen behalten, um sie für das nächste Bild nicht noch einmal eingeben zu müssen.\r\n\r\nSie können die Email Adressen aber auch löschen.
     </string>
     <string name="email_info">
         Die angegebenen Email Adressen erlauben uns die gemachten Bilder nur denjenigen Personen
