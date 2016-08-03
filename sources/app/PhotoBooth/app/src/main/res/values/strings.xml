@@ -16,7 +16,8 @@
     <string name="email_edit_dialog_title">Email Adresse hinzufügen</string>
     <string name="uploading">Senden...\nDies kann unter Umständen etwas dauern...</string>
     <string name="add_email_hint">E-Mail Adresse eingeben</string>
-    <string name="http_request_error">Beim Hochladen ist etwas schief gelaufen\nIst ein Internetverbindung vorhanden?</string>
+    <string name="http_request_error_title">Beim Hochladen ist etwas schief gelaufen!</string>
+    <string name="http_request_error">Beim Hochladen ist scheinbar etwas schief gelaufen!\n\r\n\rIst ein Internetverbindung vorhanden?</string>
     <string name="saved_image_internally_success">Das Bild wurde Lokal gespeichert und wird hochgeladen sobald eine WLAN Verbindung besteht</string>
     <string name="saved_image_internally_success_title">Glückwunsch!\nDas Bild wurde Lokal gespeichert!</string>
     <string name="saved_image_internally_error">Es besteht keine WLAN Verbindung und das Bild konnte nicht Lokal gespeichert werden</string>

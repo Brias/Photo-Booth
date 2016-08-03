@@ -129,7 +129,7 @@ public class UploadConfirmDialogFragment extends BaseDialogFragment implements V
     public void onHttpRequestError(String errorMsg) {
         errorMsg =  errorMsg != null ? errorMsg : getResources().getString(R.string.http_request_error);
 
-        showErrorDialog(getResources().getString(R.string.http_request_error), errorMsg, false);
+        showErrorDialog(getResources().getString(R.string.http_request_error_title), errorMsg, false);
     }
 
     @Override
