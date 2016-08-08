@@ -1,2 +1,0 @@
-include ':app'
-include ':app:libraries:ptp_library'
