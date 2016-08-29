@@ -8,7 +8,10 @@ import android.content.Context;
 import android.content.Intent;
 import android.graphics.Bitmap;
 import android.hardware.usb.UsbDevice;
+import android.hardware.usb.UsbDeviceConnection;
 import android.hardware.usb.UsbManager;
+import android.mtp.MtpConstants;
+import android.mtp.MtpDevice;
 import android.os.Bundle;
 import android.view.View;
 import android.view.Window;
@@ -24,41 +27,39 @@ import usbcamera.eos.EosInitiator;
 
 public class CameraViewActivity extends Activity implements OnDialogFragmentClosedListener {
 
-    public static final String SERVER = "http://urwalking.ur.de/photobooth/upload.php";
+    private class LiveViewThread extends Thread {
+        @Override
+        public void run() {
+            liveViewTurnedOn = true;
 
-    private static final String IMAGE_DIALOG_FRAGMENT = "ImageDialogFragment";
-
-    public Thread thread = null;
-
-    private UsbManager mUsbManager;
-
-    private BaselineInitiator bi;
-
-    private ImageView liveViewHolder;
-
-    private boolean liveViewTurnedOn = false;
-
-    private Bitmap currentBitmap;
-
-    private int liveViewFetchFailCounter = 0;
-
-    private boolean pictureTaken = false;
-
-
-    @Override
-    protected void onCreate(Bundle savedInstanceState) {
-        super.onCreate(savedInstanceState);
-
-        setFullscreen();
-
-        setContentView(R.layout.activity_camera_view_layout);
-
-        mUsbManager = (UsbManager) getSystemService(Context.USB_SERVICE); //From USBCameraTest.java
-
-        liveViewHolder = (ImageView) findViewById(R.id.liveViewHolder); //From USBCameraTest.java
-
-        startUploadLocalImageService();
+            try {
+                Thread.sleep(1500);
+                while (liveViewTurnedOn) {
+                    if (!pictureTaken) {
+                        try {
+                            updateLiveView();
+                        } catch (PictureTakenException e) {
+                            pictureTaken = true;
+                            getTakenPicture();
+                        }
+                    }
+                }
+            } catch (InterruptedException e) {
+                e.printStackTrace();
+            }
+        }
     }
+
+    public static final String SERVER = "http://urwalking.ur.de/photobooth/upload.php";
+    private static final String IMAGE_DIALOG_FRAGMENT = "ImageDialogFragment";
+    public Thread thread = null;
+    private UsbManager mUsbManager;
+    private BaselineInitiator bi;
+    private ImageView liveViewHolder;
+    private boolean liveViewTurnedOn = false;
+    private Bitmap currentBitmap;
+    private int liveViewFetchFailCounter = 0;
+    private boolean pictureTaken = false;
 
     @Override
     public void onResume() {
@@ -83,28 +84,6 @@ public class CameraViewActivity extends Activity implements OnDialogFragmentClos
         stopUploadLocalImageService();
     }
 
-    private void setFullscreen() {
-        this.requestWindowFeature(Window.FEATURE_NO_TITLE);
-
-        View decorView = getWindow().getDecorView();
-
-        int uiOptions = View.SYSTEM_UI_FLAG_FULLSCREEN;
-
-        decorView.setSystemUiVisibility(uiOptions);
-    }
-
-    private void startUploadLocalImageService() {
-        if (Connection.isWifiConnection(getApplicationContext())) {
-            Intent intent = new Intent(this, UploadLocalImagesService.class);
-            startService(intent);
-        }
-    }
-
-    private void stopUploadLocalImageService() {
-        Intent intent = new Intent(this, UploadLocalImagesService.class);
-        stopService(intent);
-    }
-
     /*
         From USBCameraTest.java changed some stuff
      */
@@ -116,7 +95,8 @@ public class CameraViewActivity extends Activity implements OnDialogFragmentClos
             if (lDevice.getDeviceProtocol() == 0) device = lDevice;
         }
         if (device == null) {
-            showErrorDialog(getResources().getString(R.string.no_device_found_title), getResources().getString(R.string.no_device_found), false);
+            showErrorDialog(getResources().getString(R.string.no_device_found_title), getResources().getString(R
+                    .string.no_device_found), false);
         }
 
         return device;
@@ -135,28 +115,24 @@ public class CameraViewActivity extends Activity implements OnDialogFragmentClos
                         bi.getClearStatus();
                         bi.close();
                     } catch (PTPException e) {
-                        showErrorDialog(getResources().getString(R.string.replug_camera_title), getResources().getString(R.string.replug_camera), false);
+                        showErrorDialog(getResources().getString(R.string.replug_camera_title), getResources()
+                                .getString(R.string.replug_camera), false);
                         e.printStackTrace();
                     }
 
-                    bi = new EosInitiator(device, mUsbManager.openDevice(device));
+                    UsbDeviceConnection connection = mUsbManager.openDevice(device);
+
+                    bi = new EosInitiator(device, connection);
                 }
 
                 bi.openSession();
 
             } catch (PTPException e) {
-                showErrorDialog(getResources().getString(R.string.replug_camera_title), getResources().getString(R.string.replug_camera), false);
+                showErrorDialog(getResources().getString(R.string.replug_camera_title), getResources().getString(R
+                        .string.replug_camera), false);
                 e.printStackTrace();
             }
         }
-    }
-
-    private void showErrorDialog(String title, String errorMsg, boolean callOnClosedListener) {
-        ErrorDialogFragment edf = ErrorDialogFragment.newInstance(title, errorMsg, callOnClosedListener);
-
-        FragmentTransaction ft = getFragmentManager().beginTransaction();
-
-        edf.show(ft, ErrorDialogFragment.ERROR_DIALOG_FRAGMENT);
     }
 
     /*
@@ -206,6 +182,60 @@ public class CameraViewActivity extends Activity implements OnDialogFragmentClos
         }
 
         return result;
+    }
+
+    @Override
+    public void onDialogFragmentClosed() {
+        if (BitmapHolder.bm != null) {
+            BitmapHolder.bm.recycle();
+        }
+
+        pictureTaken = false;
+    }
+
+    @Override
+    protected void onCreate(Bundle savedInstanceState) {
+        super.onCreate(savedInstanceState);
+
+        setFullscreen();
+
+        setContentView(R.layout.activity_camera_view_layout);
+
+        mUsbManager = (UsbManager) getSystemService(Context.USB_SERVICE); //From USBCameraTest.java
+
+        liveViewHolder = (ImageView) findViewById(R.id.liveViewHolder); //From USBCameraTest.java
+
+        startUploadLocalImageService();
+    }
+
+    private void setFullscreen() {
+        this.requestWindowFeature(Window.FEATURE_NO_TITLE);
+
+        View decorView = getWindow().getDecorView();
+
+        int uiOptions = View.SYSTEM_UI_FLAG_FULLSCREEN;
+
+        decorView.setSystemUiVisibility(uiOptions);
+    }
+
+    private void startUploadLocalImageService() {
+        if (Connection.isWifiConnection(getApplicationContext())) {
+            Intent intent = new Intent(this, UploadLocalImagesService.class);
+            startService(intent);
+        }
+    }
+
+    private void stopUploadLocalImageService() {
+        Intent intent = new Intent(this, UploadLocalImagesService.class);
+        stopService(intent);
+    }
+
+    private void showErrorDialog(String title, String errorMsg, boolean callOnClosedListener) {
+        ErrorDialogFragment edf = ErrorDialogFragment.newInstance(title, errorMsg, callOnClosedListener);
+
+        FragmentTransaction ft = getFragmentManager().beginTransaction();
+
+        edf.show(ft, ErrorDialogFragment.ERROR_DIALOG_FRAGMENT);
     }
 
     private void openLiveView() {
@@ -283,7 +313,8 @@ public class CameraViewActivity extends Activity implements OnDialogFragmentClos
                 runOnUiThread(new Runnable() {
                     @Override
                     public void run() {
-                        showErrorDialog(getResources().getString(R.string.get_picture_error_title), getResources().getString(R.string.get_picture_error), true);
+                        showErrorDialog(getResources().getString(R.string.get_picture_error_title), getResources()
+                                .getString(R.string.get_picture_error), true);
                     }
                 });
             }
@@ -320,47 +351,16 @@ public class CameraViewActivity extends Activity implements OnDialogFragmentClos
         }
     }
 
-    @Override
-    public void onDialogFragmentClosed() {
-        if (BitmapHolder.bm != null) {
-            BitmapHolder.bm.recycle();
-        }
-
-        pictureTaken = false;
-    }
-
     private void restartApplication() {
         Intent mStartActivity = new Intent(this, CameraViewActivity.class);
         int mPendingIntentId = 0b10000001; // random id
 
-        PendingIntent mPendingIntent = PendingIntent.getActivity(this, mPendingIntentId, mStartActivity, PendingIntent.FLAG_CANCEL_CURRENT);
+        PendingIntent mPendingIntent = PendingIntent.getActivity(this, mPendingIntentId, mStartActivity,
+                PendingIntent.FLAG_CANCEL_CURRENT);
 
         AlarmManager mgr = (AlarmManager) this.getSystemService(Context.ALARM_SERVICE);
 
         mgr.set(AlarmManager.RTC, System.currentTimeMillis() + 100, mPendingIntent);
         System.exit(0);
-    }
-
-    private class LiveViewThread extends Thread {
-        @Override
-        public void run() {
-            liveViewTurnedOn = true;
-
-            try {
-                Thread.sleep(1500);
-                while (liveViewTurnedOn) {
-                    if (!pictureTaken) {
-                        try {
-                            updateLiveView();
-                        } catch (PictureTakenException e) {
-                            pictureTaken = true;
-                            getTakenPicture();
-                        }
-                    }
-                }
-            } catch (InterruptedException e) {
-                e.printStackTrace();
-            }
-        }
     }
 }
