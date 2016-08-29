@@ -24,16 +24,4 @@ public class Connection {
 
         return false;
     }
-
-    public static boolean disconnectFromWifi(Context context){
-        WifiManager wm = (WifiManager) context.getSystemService(Context.WIFI_SERVICE);
-
-        return wm.disconnect();
-    }
-
-    public static boolean connectToWifi(Context context){
-        WifiManager wm = (WifiManager) context.getSystemService(Context.WIFI_SERVICE);
-
-        return wm.reconnect();
-    }
 }
