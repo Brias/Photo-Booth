@@ -381,6 +381,11 @@ public class EosInitiator extends BaselineInitiator {
 		setDevicePropValueEx(Command.EOS_DPC_LiveView,1);
 	}
 
+    /**
+     * This method is modified for the photo booth project
+     * @return Bitmap
+     * @throws PictureTakenException
+     */
 	public Bitmap getLiveView() throws PictureTakenException
 	{
         Command command = new Command(Command.EOS_OC_GetLiveViewPicture, session,0x00100000);

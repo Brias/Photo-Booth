@@ -5,5 +5,6 @@ package de.braeuer.matthias.photobooth.listener;
  */
 public interface OnSavedInternalListener {
     void onSavedInternalSuccess();
+
     void onSavedInternalError();
 }

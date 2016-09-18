@@ -1,7 +1,6 @@
 package de.braeuer.matthias.photobooth.dialogs;
 
 import android.app.Activity;
-import android.app.DialogFragment;
 import android.os.Bundle;
 import android.view.LayoutInflater;
 import android.view.View;
@@ -72,7 +71,8 @@ public class SuccessDialogFragment extends BaseDialogFragment implements View.On
     public void dismiss() {
         Activity activity = getActivity();
 
-        if (activity instanceof OnDialogFragmentClosedListener && getArguments().getBoolean(CALL_ON_CLOSED_LISTENER_BUNDLE_KEY)) {
+        if (activity instanceof OnDialogFragmentClosedListener && getArguments().getBoolean
+                (CALL_ON_CLOSED_LISTENER_BUNDLE_KEY)) {
             ((OnDialogFragmentClosedListener) activity).onDialogFragmentClosed();
         }
 

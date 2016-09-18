@@ -3,21 +3,20 @@ package de.braeuer.matthias.photobooth;
 import android.content.Context;
 import android.net.ConnectivityManager;
 import android.net.NetworkInfo;
-import android.net.wifi.WifiManager;
-import android.widget.Toast;
 
 /**
  * Created by Matze on 21.06.2016.
  */
 public class Connection {
 
-    public static boolean isWifiConnection(Context context){
-        ConnectivityManager connectivityManager = (ConnectivityManager) context.getSystemService(Context.CONNECTIVITY_SERVICE);
+    public static boolean isWifiConnection(Context context) {
+        ConnectivityManager connectivityManager = (ConnectivityManager) context.getSystemService(Context
+                .CONNECTIVITY_SERVICE);
 
         NetworkInfo info = connectivityManager.getActiveNetworkInfo();
 
-        if(info != null){
-            if(info.getType() == ConnectivityManager.TYPE_WIFI){
+        if (info != null) {
+            if (info.getType() == ConnectivityManager.TYPE_WIFI) {
                 return true;
             }
         }

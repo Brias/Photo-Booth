@@ -1,16 +1,9 @@
 package de.braeuer.matthias.photobooth;
 
 import android.app.ProgressDialog;
-import android.graphics.Bitmap;
 import android.os.AsyncTask;
-import android.util.Base64;
-import android.util.Log;
 
-import java.io.ByteArrayOutputStream;
-import java.io.UnsupportedEncodingException;
-import java.net.URLEncoder;
 import java.util.HashMap;
-import java.util.Map;
 
 import de.braeuer.matthias.photobooth.listener.OnHttpRequestDoneListener;
 
@@ -19,8 +12,8 @@ import de.braeuer.matthias.photobooth.listener.OnHttpRequestDoneListener;
  */
 public class UploadImage extends AsyncTask<Void, Void, String> {
 
-    private Image image;
     private final String serverURL;
+    private Image image;
     private ProgressDialog pd;
     private OnHttpRequestDoneListener httpListener;
 

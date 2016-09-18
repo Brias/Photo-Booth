@@ -2,7 +2,6 @@ package de.braeuer.matthias.photobooth.dialogs;
 
 import android.app.Activity;
 import android.app.DialogFragment;
-import android.graphics.Bitmap;
 import android.os.Bundle;
 
 import de.braeuer.matthias.photobooth.FragmentHolder;
@@ -30,7 +29,7 @@ public class BaseDialogFragment extends DialogFragment {
         for (int i = FragmentHolder.dialogFragments.size() - 1; i >= 0; i--) {
             DialogFragment df = FragmentHolder.dialogFragments.get(i);
 
-            if(df != null){
+            if (df != null) {
                 df.dismiss();
             } else {
                 FragmentHolder.dialogFragments.remove(i);

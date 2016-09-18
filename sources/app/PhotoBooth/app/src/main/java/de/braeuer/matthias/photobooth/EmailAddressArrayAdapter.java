@@ -2,10 +2,8 @@ package de.braeuer.matthias.photobooth;
 
 import android.app.Activity;
 import android.content.Context;
-import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
-import android.view.View.OnClickListener;
 import android.view.ViewGroup;
 import android.widget.ArrayAdapter;
 import android.widget.Button;
@@ -20,13 +18,34 @@ import de.braeuer.matthias.photobooth.listener.OnEmailAddressRemovedListener;
  */
 public class EmailAddressArrayAdapter extends ArrayAdapter<String> {
 
+    public static class EmailAddressHolder {
+        private TextView tv;
+        private Button button;
+
+        public TextView getTextView() {
+            return tv;
+        }
+
+        public void setTextView(TextView textView) {
+            tv = textView;
+        }
+
+        public Button getButton() {
+            return button;
+        }
+
+        public void setButton(Button button) {
+            this.button = button;
+        }
+    }
+
     private Context context;
     private int resource;
-
     private ArrayList<String> data;
     private OnEmailAddressRemovedListener listener;
 
-    public EmailAddressArrayAdapter(Context context, int resource, ArrayList<String> data, OnEmailAddressRemovedListener listener) {
+    public EmailAddressArrayAdapter(Context context, int resource, ArrayList<String> data,
+                                    OnEmailAddressRemovedListener listener) {
         super(context, resource, data);
 
         this.context = context;
@@ -36,11 +55,11 @@ public class EmailAddressArrayAdapter extends ArrayAdapter<String> {
     }
 
     @Override
-    public View getView(int position, View convertView, ViewGroup parent){
+    public View getView(int position, View convertView, ViewGroup parent) {
         View row = convertView;
         final EmailAddressHolder holder;
 
-        if(row == null){
+        if (row == null) {
             holder = new EmailAddressHolder();
 
             LayoutInflater inflater = ((Activity) context).getLayoutInflater();
@@ -54,7 +73,7 @@ public class EmailAddressArrayAdapter extends ArrayAdapter<String> {
             holder.setButton(btn);
 
             row.setTag(holder);
-        }else{
+        } else {
             holder = (EmailAddressHolder) row.getTag();
         }
 
@@ -73,26 +92,5 @@ public class EmailAddressArrayAdapter extends ArrayAdapter<String> {
         });
 
         return row;
-    }
-
-    public static class EmailAddressHolder {
-        private TextView tv;
-        private Button button;
-
-        public TextView getTextView(){
-            return tv;
-        }
-
-        public void setTextView(TextView textView){
-            tv = textView;
-        }
-
-        public Button getButton(){
-            return button;
-        }
-
-        public void setButton(Button button){
-            this.button = button;
-        }
     }
 }

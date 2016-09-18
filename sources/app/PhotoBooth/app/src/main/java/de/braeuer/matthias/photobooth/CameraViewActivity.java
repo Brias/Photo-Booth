@@ -10,8 +10,6 @@ import android.graphics.Bitmap;
 import android.hardware.usb.UsbDevice;
 import android.hardware.usb.UsbDeviceConnection;
 import android.hardware.usb.UsbManager;
-import android.mtp.MtpConstants;
-import android.mtp.MtpDevice;
 import android.os.Bundle;
 import android.view.View;
 import android.view.Window;
@@ -24,6 +22,7 @@ import usbcamera.BaselineInitiator;
 import usbcamera.PTPException;
 import usbcamera.Session;
 import usbcamera.eos.EosInitiator;
+
 
 public class CameraViewActivity extends Activity implements OnDialogFragmentClosedListener {
 
@@ -84,9 +83,6 @@ public class CameraViewActivity extends Activity implements OnDialogFragmentClos
         stopUploadLocalImageService();
     }
 
-    /*
-        From USBCameraTest.java changed some stuff
-     */
     // search connected devices, returns only protocol 0 devices
     public UsbDevice searchDevice() {
         UsbDevice device = null;
@@ -102,9 +98,6 @@ public class CameraViewActivity extends Activity implements OnDialogFragmentClos
         return device;
     }
 
-    /*
-        From USBCameraTest.java changed some stuff
-     */
     public void initDevice(UsbDevice device) {
         if (device != null) {
             try {
@@ -135,9 +128,6 @@ public class CameraViewActivity extends Activity implements OnDialogFragmentClos
         }
     }
 
-    /*
-        From USBCameraTest.java
-     */
     public void detachDevice() {
         if (bi != null && bi.getDevice() != null) {
             try {
@@ -148,9 +138,6 @@ public class CameraViewActivity extends Activity implements OnDialogFragmentClos
         }
     }
 
-    /*
-        From USBCameraTest.java changed some stuff
-     */
     public boolean initLiveView(Session session) {
         if (session == null) {
             return false;
@@ -254,9 +241,6 @@ public class CameraViewActivity extends Activity implements OnDialogFragmentClos
         }
     }
 
-    /*
-        From USBCameraTest.java changed some stuff
-     */
     private Bitmap getCurrentViewBitmap() throws PictureTakenException {
         if (bi.getDevice() == null) {
             return null;

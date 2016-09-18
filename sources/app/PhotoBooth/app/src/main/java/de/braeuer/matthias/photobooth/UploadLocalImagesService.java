@@ -16,38 +16,6 @@ import java.util.Iterator;
  */
 public class UploadLocalImagesService extends Service {
 
-    private UploadLocalImagesThread thread;
-
-    @Nullable
-    @Override
-    public IBinder onBind(Intent intent) {
-        return null;
-    }
-
-    @Override
-    public void onCreate() {
-        super.onCreate();
-
-        thread = new UploadLocalImagesThread(getApplicationContext(), CameraViewActivity.SERVER);
-    }
-
-    @Override
-    public synchronized void onDestroy() {
-        thread.interrupt();
-    }
-
-    @Override
-    public synchronized int onStartCommand(Intent intent, int flags, int startId) {
-        super.onStartCommand(intent, flags, startId);
-
-        if (thread.getState() == Thread.State.NEW)
-        {
-            thread.start();
-        }
-
-        return START_STICKY;
-    }
-
     class UploadLocalImagesThread extends Thread {
 
         private DBHelper dbHelper;
@@ -62,12 +30,12 @@ public class UploadLocalImagesService extends Service {
 
         @Override
         public void run() {
-            try{
+            try {
                 Thread.sleep(10000);
 
                 ArrayList<Image> images = dbHelper.getAllImages();
 
-                for(Iterator<Image> iterator = images.iterator(); iterator.hasNext();){
+                for (Iterator<Image> iterator = images.iterator(); iterator.hasNext(); ) {
                     Image image = iterator.next();
 
                     Bitmap bm = AccessStorage.getImageFromInternalStorage(context, image.getName());
@@ -92,9 +60,40 @@ public class UploadLocalImagesService extends Service {
                         e.printStackTrace();
                     }
                 }
-            }catch (InterruptedException e) {
+            } catch (InterruptedException e) {
                 e.printStackTrace();
             }
         }
+    }
+
+    private UploadLocalImagesThread thread;
+
+    @Nullable
+    @Override
+    public IBinder onBind(Intent intent) {
+        return null;
+    }
+
+    @Override
+    public void onCreate() {
+        super.onCreate();
+
+        thread = new UploadLocalImagesThread(getApplicationContext(), CameraViewActivity.SERVER);
+    }
+
+    @Override
+    public synchronized void onDestroy() {
+        thread.interrupt();
+    }
+
+    @Override
+    public synchronized int onStartCommand(Intent intent, int flags, int startId) {
+        super.onStartCommand(intent, flags, startId);
+
+        if (thread.getState() == Thread.State.NEW) {
+            thread.start();
+        }
+
+        return START_STICKY;
     }
 }

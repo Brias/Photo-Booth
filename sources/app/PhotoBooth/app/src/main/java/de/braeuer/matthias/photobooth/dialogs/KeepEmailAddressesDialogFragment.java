@@ -1,6 +1,5 @@
 package de.braeuer.matthias.photobooth.dialogs;
 
-import android.app.DialogFragment;
 import android.os.Bundle;
 import android.view.LayoutInflater;
 import android.view.View;
@@ -40,6 +39,18 @@ public class KeepEmailAddressesDialogFragment extends BaseDialogFragment impleme
         return v;
     }
 
+    @Override
+    public void onClick(View v) {
+        switch (v.getId()) {
+            case R.id.btn_keep_email_addresses:
+                keepEmailAddresses();
+                break;
+            case R.id.btn_delete_email_addresses:
+                deleteEmailAddresses();
+                break;
+        }
+    }
+
     private void setListener(View v) {
         Button btnKeepEmailAddresses = (Button) v.findViewById(R.id.btn_keep_email_addresses);
         Button btnDeleteEmailAddresses = (Button) v.findViewById(R.id.btn_delete_email_addresses);
@@ -64,17 +75,5 @@ public class KeepEmailAddressesDialogFragment extends BaseDialogFragment impleme
         }
 
         cancel();
-    }
-
-    @Override
-    public void onClick(View v) {
-        switch (v.getId()) {
-            case R.id.btn_keep_email_addresses:
-                keepEmailAddresses();
-                break;
-            case R.id.btn_delete_email_addresses:
-                deleteEmailAddresses();
-                break;
-        }
     }
 }

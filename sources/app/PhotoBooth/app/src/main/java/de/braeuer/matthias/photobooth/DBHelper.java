@@ -45,7 +45,7 @@ public class DBHelper extends SQLiteOpenHelper {
         onCreate(db);
     }
 
-    public boolean insertImage(String name, String email){
+    public boolean insertImage(String name, String email) {
         SQLiteDatabase db = this.getWritableDatabase();
 
         ContentValues contentValues = new ContentValues();
@@ -65,8 +65,8 @@ public class DBHelper extends SQLiteOpenHelper {
 
         ArrayList<Image> images = new ArrayList<>();
 
-        if(cursor != null) {
-            if(cursor.moveToFirst()){
+        if (cursor != null) {
+            if (cursor.moveToFirst()) {
 
                 while (!cursor.isAfterLast()) {
                     Image image = new Image();
@@ -87,10 +87,11 @@ public class DBHelper extends SQLiteOpenHelper {
         return images;
     }
 
-    public boolean deleteImage(String name){
+    public boolean deleteImage(String name) {
         SQLiteDatabase db = this.getWritableDatabase();
 
-        int deleted = db.delete(PhotoBoothDBContract.PhotoBoothEntry.TABLE_NAME, QUERY_DELETE_WHERE, new String[]{name});
+        int deleted = db.delete(PhotoBoothDBContract.PhotoBoothEntry.TABLE_NAME, QUERY_DELETE_WHERE, new
+                String[]{name});
 
         return deleted != 0;
     }

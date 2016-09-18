@@ -1,7 +1,6 @@
 package de.braeuer.matthias.photobooth.dialogs;
 
 import android.app.FragmentTransaction;
-import android.graphics.Bitmap;
 import android.os.Bundle;
 import android.view.LayoutInflater;
 import android.view.View;
@@ -25,7 +24,8 @@ import de.braeuer.matthias.photobooth.listener.OnSavedInternalListener;
 /**
  * Created by Matze on 24.06.2016.
  */
-public class UploadConfirmDialogFragment extends BaseDialogFragment implements View.OnClickListener, OnHttpRequestDoneListener, OnSavedInternalListener {
+public class UploadConfirmDialogFragment extends BaseDialogFragment implements View.OnClickListener,
+        OnHttpRequestDoneListener, OnSavedInternalListener {
     public static final String UPLOAD_CONFIRM_DIALOG_FRAGMENT = "UploadConfirmDialogFragment";
 
     private ArrayAdapter<String> adapter;
@@ -54,6 +54,54 @@ public class UploadConfirmDialogFragment extends BaseDialogFragment implements V
         return v;
     }
 
+    @Override
+    public void onClick(View v) {
+        switch (v.getId()) {
+            case R.id.btnUpload:
+                startUploadImage();
+                break;
+            case R.id.btnCancel:
+                cancel();
+                break;
+            case R.id.btnBack:
+                dismiss();
+        }
+    }
+
+    @Override
+    public void onHttpRequestError(String errorMsg) {
+        errorMsg = errorMsg != null ? errorMsg : getResources().getString(R.string.http_request_error);
+
+        showErrorDialog(getResources().getString(R.string.http_request_error_title), errorMsg, false);
+    }
+
+    @Override
+    public void onHttpRequestSuccess() {
+        FragmentTransaction ft = getFragmentManager().beginTransaction();
+
+        ft.remove(this);
+
+        KeepEmailAddressesDialogFragment kdf = KeepEmailAddressesDialogFragment.newInstance();
+
+        kdf.show(ft, KeepEmailAddressesDialogFragment.KEEP_EMAIL_ADDRESSES_DIALOG_FRAGMENT);
+    }
+
+    @Override
+    public void onSavedInternalSuccess() {
+        cancel();
+
+        showSuccessDialog(getResources().getString(R.string.saved_image_internally_success_title), getResources()
+                .getString(R.string.saved_image_internally_success), true);
+    }
+
+    @Override
+    public void onSavedInternalError() {
+        cancel();
+
+        showErrorDialog(getResources().getString(R.string.saved_image_internally_error_title), getResources()
+                .getString(R.string.saved_image_internally_error), false);
+    }
+
     private void initButtonListener(View v) {
         Button btnUpload = (Button) v.findViewById(R.id.btnUpload);
         Button btnBack = (Button) v.findViewById(R.id.btnBack);
@@ -66,7 +114,8 @@ public class UploadConfirmDialogFragment extends BaseDialogFragment implements V
 
     private void initListView(View v) {
         ListView lv = (ListView) v.findViewById(R.id.emailAddressList);
-        adapter = new ArrayAdapter<>(getActivity(), android.R.layout.simple_list_item_1, EmailAddressManager.getEmailAddresses());
+        adapter = new ArrayAdapter<>(getActivity(), android.R.layout.simple_list_item_1, EmailAddressManager
+                .getEmailAddresses());
 
         lv.setAdapter(adapter);
     }
@@ -111,53 +160,7 @@ public class UploadConfirmDialogFragment extends BaseDialogFragment implements V
         return false;
     }
 
-    @Override
-    public void onClick(View v) {
-        switch (v.getId()) {
-            case R.id.btnUpload:
-                startUploadImage();
-                break;
-            case R.id.btnCancel:
-                cancel();
-                break;
-            case R.id.btnBack:
-                dismiss();
-        }
-    }
-
-    @Override
-    public void onHttpRequestError(String errorMsg) {
-        errorMsg =  errorMsg != null ? errorMsg : getResources().getString(R.string.http_request_error);
-
-        showErrorDialog(getResources().getString(R.string.http_request_error_title), errorMsg, false);
-    }
-
-    @Override
-    public void onHttpRequestSuccess() {
-        FragmentTransaction ft = getFragmentManager().beginTransaction();
-
-        ft.remove(this);
-
-        KeepEmailAddressesDialogFragment kdf = KeepEmailAddressesDialogFragment.newInstance();
-
-        kdf.show(ft, KeepEmailAddressesDialogFragment.KEEP_EMAIL_ADDRESSES_DIALOG_FRAGMENT);
-    }
-
-    @Override
-    public void onSavedInternalSuccess() {
-        cancel();
-
-        showSuccessDialog(getResources().getString(R.string.saved_image_internally_success_title), getResources().getString(R.string.saved_image_internally_success), true);
-    }
-
-    @Override
-    public void onSavedInternalError() {
-        cancel();
-
-        showErrorDialog(getResources().getString(R.string.saved_image_internally_error_title), getResources().getString(R.string.saved_image_internally_error), false);
-    }
-
-    private void showErrorDialog(String title, String errorMsg, boolean callOnClosedListener){
+    private void showErrorDialog(String title, String errorMsg, boolean callOnClosedListener) {
         ErrorDialogFragment edf = ErrorDialogFragment.newInstance(title, errorMsg, callOnClosedListener);
 
         FragmentTransaction ft = getFragmentManager().beginTransaction();
@@ -165,7 +168,7 @@ public class UploadConfirmDialogFragment extends BaseDialogFragment implements V
         edf.show(ft, ErrorDialogFragment.ERROR_DIALOG_FRAGMENT);
     }
 
-    private void showSuccessDialog(String title, String successMsg, boolean callOnClosedListener){
+    private void showSuccessDialog(String title, String successMsg, boolean callOnClosedListener) {
         SuccessDialogFragment sdf = SuccessDialogFragment.newInstance(title, successMsg, callOnClosedListener);
 
         FragmentTransaction ft = getFragmentManager().beginTransaction();

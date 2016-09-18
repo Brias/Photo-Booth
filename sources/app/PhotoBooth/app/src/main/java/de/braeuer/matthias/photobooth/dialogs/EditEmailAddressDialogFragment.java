@@ -2,7 +2,6 @@ package de.braeuer.matthias.photobooth.dialogs;
 
 import android.app.Activity;
 import android.app.FragmentTransaction;
-import android.graphics.Bitmap;
 import android.os.Bundle;
 import android.text.Editable;
 import android.text.TextWatcher;
@@ -26,7 +25,8 @@ import de.braeuer.matthias.photobooth.listener.OnEmailAddressRemovedListener;
 /**
  * Created by Matze on 09.06.2016.
  */
-public class EditEmailAddressDialogFragment extends BaseDialogFragment implements View.OnClickListener, OnEmailAddressRemovedListener {
+public class EditEmailAddressDialogFragment extends BaseDialogFragment implements View.OnClickListener,
+        OnEmailAddressRemovedListener {
 
     public static final String EDIT_ADDRESS_DIALOG_FRAGMENT = "EditAddressDialogFragment";
 
@@ -48,7 +48,7 @@ public class EditEmailAddressDialogFragment extends BaseDialogFragment implement
     }
 
     @Override
-    public void onCreate(Bundle savedInstanceState){
+    public void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         getActivity().getWindow().setSoftInputMode(WindowManager.LayoutParams.SOFT_INPUT_STATE_ALWAYS_HIDDEN);
     }
@@ -59,7 +59,8 @@ public class EditEmailAddressDialogFragment extends BaseDialogFragment implement
 
         View v = inflater.inflate(R.layout.edit_email_address_dialog_fragment_layout, container, false);
 
-        adapter = new EmailAddressArrayAdapter(getActivity(), R.layout.email_list_view_item, EmailAddressManager.getEmailAddresses(), this);
+        adapter = new EmailAddressArrayAdapter(getActivity(), R.layout.email_list_view_item, EmailAddressManager
+                .getEmailAddresses(), this);
 
         et = (EditText) v.findViewById(R.id.editEmailAddress);
 
@@ -79,6 +80,32 @@ public class EditEmailAddressDialogFragment extends BaseDialogFragment implement
         setupUI(v);
 
         return v;
+    }
+
+    @Override
+    public void onClick(View v) {
+        switch (v.getId()) {
+            case R.id.btnBack:
+                dismiss();
+                break;
+            case R.id.btnCancel:
+                cancel();
+                break;
+            case R.id.btnNext:
+                showUploadConfirmDialog();
+                break;
+            case R.id.btnAddEmail:
+                addEmail();
+                checkNextButtonStatus();
+                checkTitleStaus();
+                break;
+        }
+    }
+
+    @Override
+    public void onEmailAddressRemoved() {
+        checkTitleStaus();
+        checkNextButtonStatus();
     }
 
     private void initEditTextListener() {
@@ -116,13 +143,14 @@ public class EditEmailAddressDialogFragment extends BaseDialogFragment implement
     }
 
     private void hideSoftKeyboard(View v) {
-        InputMethodManager inputMethodManager = (InputMethodManager)  getActivity().getSystemService(Activity.INPUT_METHOD_SERVICE);
+        InputMethodManager inputMethodManager = (InputMethodManager) getActivity().getSystemService(Activity
+                .INPUT_METHOD_SERVICE);
         inputMethodManager.hideSoftInputFromWindow(v.getWindowToken(), 0);
     }
 
     //From http://stackoverflow.com/questions/1109022/close-hide-the-android-soft-keyboard visited 24.06.2016
     private void setupUI(View view) {
-        if(!(view instanceof EditText)) {
+        if (!(view instanceof EditText)) {
 
             view.setOnTouchListener(new View.OnTouchListener() {
 
@@ -145,27 +173,7 @@ public class EditEmailAddressDialogFragment extends BaseDialogFragment implement
         }
     }
 
-    @Override
-    public void onClick(View v) {
-        switch (v.getId()) {
-            case R.id.btnBack:
-                dismiss();
-                break;
-            case R.id.btnCancel:
-                cancel();
-                break;
-            case R.id.btnNext:
-                showUploadConfirmDialog();
-                break;
-            case R.id.btnAddEmail:
-                addEmail();
-                checkNextButtonStatus();
-                checkTitleStaus();
-                break;
-        }
-    }
-
-    private void showUploadConfirmDialog(){
+    private void showUploadConfirmDialog() {
         FragmentTransaction ft = getFragmentManager().beginTransaction();
 
         ft.remove(this);
@@ -189,25 +197,19 @@ public class EditEmailAddressDialogFragment extends BaseDialogFragment implement
         }
     }
 
-    private void checkTitleStaus(){
-        if(EmailAddressManager.getEmailAddresses().size() == 0){
-          getDialog().setTitle(getResources().getString(R.string.email_edit_dialog_title));
+    private void checkTitleStaus() {
+        if (EmailAddressManager.getEmailAddresses().size() == 0) {
+            getDialog().setTitle(getResources().getString(R.string.email_edit_dialog_title));
         } else {
             getDialog().setTitle(getResources().getString(R.string.email_edit_remove_dialog_title));
         }
     }
 
-    private void checkNextButtonStatus(){
-        if(EmailAddressManager.getEmailAddresses().size() == 0){
+    private void checkNextButtonStatus() {
+        if (EmailAddressManager.getEmailAddresses().size() == 0) {
             btnNext.setEnabled(false);
-        }else{
+        } else {
             btnNext.setEnabled(true);
         }
-    }
-
-    @Override
-    public void onEmailAddressRemoved() {
-        checkTitleStaus();
-        checkNextButtonStatus();
     }
 }

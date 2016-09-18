@@ -19,8 +19,8 @@ public class UploadDialog extends ProgressDialog {
     }
 
     @Override
-    public void dismiss(){
-        if(getOwnerActivity() instanceof OnDialogFragmentClosedListener) {
+    public void dismiss() {
+        if (getOwnerActivity() instanceof OnDialogFragmentClosedListener) {
             ((OnDialogFragmentClosedListener) getOwnerActivity()).onDialogFragmentClosed();
         }
 
