@@ -12,11 +12,13 @@ include_once "exceptions/InvalidEmailException.php";
 
 class SendEmail
 {
-    private $_message = array("en" => "Dear ", "de" => "Hallo Absolventenfeierbesucher,\r\n anbei ist ein Foto. \r\n\r\n Dein Fotobox-Team\r\n");
-    private $_subject = 'Absolventenfeier';
-    private $_downloadLink = "http://homepages.uni-regensburg.de/~brm08652/photo_booth/download.php?activation=";
+
+    private $_message = array("en" => "Dear ", "de" => "Hallo SIM-Sommerfest-Besucher,\r\n\r\n klicke auf den unten stehenden Link, um den automatischen Download deines Fotos zu starten.\r\n\r\n Startet der Download nicht, oder tritt ein Fehler auf, probiere ein anderes Gerät und/oder Browser!");
+    private $_subject = 'SIM Sommerfest 2016';
+    private $_downloadLink = "http://urwalking.ur.de/photobooth/download.php?activation=";
     private $_to;
     private $_activationCode;
+    private $_msgValediction = "Viele Grüße\r\n\r\nDein Fotobox-Team";
 
     public function __construct($to, $activationCode = "")
     {
@@ -64,10 +66,11 @@ class SendEmail
 
     public function sendMail()
     {
-        $msg = $this->_message["de"] . "\r\n" . $this->_downloadLink . $this->_activationCode;
+        $msg = $this->_message["de"] . "\r\n\r\n" . $this->_downloadLink . $this->_activationCode . "\r\n\r\n" . $this->_msgValediction;
 
-        $headers = 'From: Absolventenfeier2016@ur.de' . "\r\n" .
+        $headers = 'From: SIM-Sommerfest2016@rhslx1.uni-regensburg.de' . "\r\n" .
             'Bcc: ' . $this->_to . "\r\n" .
+            'Content-Type: text/plain; charset="UTF-8"' . "\r\n" .
             'X-Mailer: PHP/' . phpversion();
 
         if (mail("", $this->_subject, $msg, $headers)) {
@@ -76,4 +79,5 @@ class SendEmail
             return false;
         }
     }
+
 }

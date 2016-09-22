@@ -15,6 +15,7 @@ include_once "controller/ImageController.php";
 $image = $_POST['image'];
 $email = $_POST['email'];
 
+
 try {
     $decodedImage = Image::decodeImageData($image);
 
@@ -27,4 +28,4 @@ try {
     echo $e->__toString();
 } catch (InvalidEmailException $e) {
     echo $e->__toString();
-}
+};

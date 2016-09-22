@@ -18,10 +18,10 @@ if (isset($activation) && !empty($activation)){
         
         $download = $image->getImage($image->getImageName());
         
-        echo $download !== null ? $download : "Unknown Error Occurred!";
+        echo $download !== null ? $download : "Unknown Error Occured!";
     } catch (InvalidDataTypeException $e) {
         echo $e->__toString();
     }
 } else {
-    echo "No ActivationCode provided";
+    echo "No ActivationCode provded";
 }

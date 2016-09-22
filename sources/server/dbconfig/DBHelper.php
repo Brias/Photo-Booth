@@ -10,7 +10,7 @@ class DBHelper
 {
     protected function connect()
     {
-        $db = new mysqli('urwalking.ur.de', 'photobooth', 'FotoBude', 'photobooth');
+        $db = new mysqli('localhost', 'photobooth', 'FotoBude', 'photobooth');
 
         if (mysqli_connect_errno()) {
             return null;

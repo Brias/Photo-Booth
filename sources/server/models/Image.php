@@ -70,7 +70,7 @@ class Image extends DBHelper
             $db = parent::connect();
 
             if($db) {
-                $result = $db->query("INSERT INTO Photo_Booth VALUES ('$this->_downloadCode', '$this->_name', DEFAULT)");
+                $result = $db->query("INSERT INTO photobooth VALUES ('$this->_downloadCode', '$this->_name', DEFAULT)");
 
                 if($result === TRUE){
                     return true;
@@ -95,7 +95,7 @@ class Image extends DBHelper
     }
 
     public function getImageName(){
-        $query = "SELECT * FROM Photo_Booth WHERE token = '" . $this->_downloadCode . "' LIMIT 1";
+        $query = "SELECT * FROM photobooth WHERE token = '" . $this->_downloadCode . "' LIMIT 1";
 
         $imageName = $this->executeQuery($query);
 
