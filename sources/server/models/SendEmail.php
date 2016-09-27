@@ -1,19 +1,37 @@
 <?php
-
 /**
- * Created by PhpStorm.
- * User: Matze
- * Date: 12.06.2016
- * Time: 17:58
+ * This file contains the class SendEmail
+ *
+ * LICENSE: This source file is subject of the MIT License
+ * http://www.opensource.org/licenses/mit-license.html MIT License
+ *
+ * @package    server/models
+ * @author     Matthias Bräuer
+ * @copyright  (c) 2016 Matthias Bräuer
+ * @license    http://www.opensource.org/licenses/mit-license.html MIT License
+ * @version    1.0
+ * @link       https://github.com/Brias/Photo-Booth/
  */
 
 include_once "exceptions/InvalidDataTypeException.php";
 include_once "exceptions/InvalidEmailException.php";
 
+/**
+ * This Class sends an email to one ore more persons with an generated "activation code"
+ *
+ * @package    server/models
+ * @author     2016 Matthias Bräuer
+ * @copyright  (c)2016 Matthias Bräuer
+ * @license    http://www.opensource.org/licenses/mit-license.html MIT License
+ * @version    1.0
+ * @link       https://github.com/Brias/Photo-Booth/
+ */
 class SendEmail
 {
 
-    private $_message = array("en" => "Dear ", "de" => "Hallo SIM-Sommerfest-Besucher,\r\n\r\n klicke auf den unten stehenden Link, um den automatischen Download deines Fotos zu starten.\r\n\r\n Startet der Download nicht, oder tritt ein Fehler auf, probiere ein anderes Gerät und/oder Browser!");
+    private $_message = array("en" => "Dear ", "de" => "Hallo SIM-Sommerfest-Besucher,\r\n\r\n klicke auf den unten 
+    stehenden Link, um den automatischen Download deines Fotos zu starten.\r\n\r\n Startet der Download nicht, oder
+     tritt ein Fehler auf, probiere ein anderes Gerät und/oder Browser!");
     private $_subject = 'SIM Sommerfest 2016';
     private $_downloadLink = "http://urwalking.ur.de/photobooth/download.php?activation=";
     private $_to;
@@ -37,7 +55,8 @@ class SendEmail
         $this->_activationCode = $activationCode;
     }
 
-    public function setActivationCode($activationCode){
+    public function setActivationCode($activationCode)
+    {
         $this->_activationCode = $activationCode;
     }
 

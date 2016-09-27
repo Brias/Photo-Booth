@@ -1,9 +1,14 @@
 <?php
 /**
- * Created by PhpStorm.
- * User: Matze
- * Date: 12.06.2016
- * Time: 17:57
+ * LICENSE: This source file is subject of the MIT License
+ * http://www.opensource.org/licenses/mit-license.html MIT License
+ *
+ * @package    server
+ * @author     Matthias Bräuer
+ * @copyright  (c) 2016 Matthias Bräuer
+ * @license    http://www.opensource.org/licenses/mit-license.html MIT License
+ * @version    1.0
+ * @link       https://github.com/Brias/Photo-Booth/
  */
 
 include_once "exceptions/InvalidDataTypeException.php";
@@ -14,7 +19,6 @@ include_once "controller/ImageController.php";
 
 $image = $_POST['image'];
 $email = $_POST['email'];
-
 
 try {
     $decodedImage = Image::decodeImageData($image);
