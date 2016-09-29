@@ -10,7 +10,7 @@
  * @copyright  (c) 2016 Matthias Bräuer
  * @license    http://www.opensource.org/licenses/mit-license.html MIT License
  * @version    1.0
- * @link       https://github.com/Brias/Photo-Booth/
+ * @link       https://github.com/Brias/Photo-Booth/blob/master/sources/server/exceptions/InvalidDataTypeException.php
  */
 
 /**
@@ -22,7 +22,6 @@
  * @copyright  (c)2016 Matthias Bräuer
  * @license    http://www.opensource.org/licenses/mit-license.html MIT License
  * @version    1.0
- * @link       https://github.com/Brias/Photo-Booth/
  */
 class InvalidDataTypeException extends Exception
 {
