@@ -11,7 +11,12 @@ import de.braeuer.matthias.photobooth.R;
 import de.braeuer.matthias.photobooth.listener.OnDialogFragmentClosedListener;
 
 /**
- * Created by Matze on 13.06.2016.
+ * This class is responsible for deleting email addresses
+ *
+ * LICENSE: This file is subject of the GNU GENERAL PUBLIC LICENSE Version 3, 29 June 2007
+ *
+ * @author Matthias Bräuer
+ * @version $Id: KeepEmailAddressesDialogFragment.java,v 1.0 2016/09/29 16:53:00 Exp $
  */
 public class KeepEmailAddressesDialogFragment extends BaseDialogFragment implements View.OnClickListener {
 

@@ -8,7 +8,13 @@ import de.braeuer.matthias.photobooth.FragmentHolder;
 import de.braeuer.matthias.photobooth.listener.OnDialogFragmentClosedListener;
 
 /**
- * Created by Matze on 24.06.2016.
+ * This class defines the Base class for the Dialog classes and provides closing all FragmentDialogs, that are stored
+ * in FragmentHolder.java
+ *
+ * LICENSE: This file is subject of the GNU GENERAL PUBLIC LICENSE Version 3, 29 June 2007
+ *
+ * @author Matthias Bräuer
+ * @version $Id: BaseDialogFragment.java,v 1.0 2016/09/29 16:47:00 Exp $
  */
 public class BaseDialogFragment extends DialogFragment {
 

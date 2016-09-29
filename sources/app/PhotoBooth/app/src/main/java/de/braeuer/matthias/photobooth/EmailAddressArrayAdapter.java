@@ -14,7 +14,12 @@ import java.util.ArrayList;
 import de.braeuer.matthias.photobooth.listener.OnEmailAddressRemovedListener;
 
 /**
- * Created by Matze on 11.06.2016.
+ * This class holds email addresses which should be shown in a list view
+ *
+ * LICENSE: This file is subject of the GNU GENERAL PUBLIC LICENSE Version 3, 29 June 2007
+ *
+ * @author Matthias Bräuer
+ * @version $Id: EmailAddressArrayAdapter.java,v 1.0 2016/09/29 16:56:00 Exp $
  */
 public class EmailAddressArrayAdapter extends ArrayAdapter<String> {
 

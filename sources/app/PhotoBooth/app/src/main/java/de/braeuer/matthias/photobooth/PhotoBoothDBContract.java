@@ -3,7 +3,11 @@ package de.braeuer.matthias.photobooth;
 import android.provider.BaseColumns;
 
 /**
- * Created by Matze on 21.06.2016.
+ *
+ * LICENSE: This file is subject of the GNU GENERAL PUBLIC LICENSE Version 3, 29 June 2007
+ *
+ * @author Matthias Bräuer
+ * @version $Id: PhotoBoothDBContract.java,v 1.0 2016/09/29 16:56:00 Exp $
  */
 public final class PhotoBoothDBContract {
     public static abstract class PhotoBoothEntry implements BaseColumns {

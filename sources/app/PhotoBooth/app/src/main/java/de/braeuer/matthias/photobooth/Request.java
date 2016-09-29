@@ -10,9 +10,13 @@ import java.net.HttpURLConnection;
 import java.net.URL;
 
 /**
- * Created by Matze on 12.06.2016.
+ * This class sends data to a server
+ *
+ * LICENSE: This file is subject of the GNU GENERAL PUBLIC LICENSE Version 3, 29 June 2007
+ *
+ * @author Matthias Bräuer
+ * @version $Id: Request.java,v 1.0 2016/09/29 16:56:00 Exp $
  */
-
 //From http://blog.hackerkernel.com/2015/11/30/android-upload-image-to-server/, visited: 26.06.2016
 public class Request {
 

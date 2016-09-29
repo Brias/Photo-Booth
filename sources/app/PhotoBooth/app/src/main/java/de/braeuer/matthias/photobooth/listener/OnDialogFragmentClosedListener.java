@@ -1,7 +1,10 @@
 package de.braeuer.matthias.photobooth.listener;
 
 /**
- * Created by Matze on 12.06.2016.
+ * LICENSE: This file is subject of the GNU GENERAL PUBLIC LICENSE Version 3, 29 June 2007
+ *
+ * @author Matthias Bräuer
+ * @version $Id: OnDialogFragmentClosedListener.java,v 1.0 2016/09/29 17:08:00 Exp $
  */
 public interface OnDialogFragmentClosedListener {
     void onDialogFragmentClosed();

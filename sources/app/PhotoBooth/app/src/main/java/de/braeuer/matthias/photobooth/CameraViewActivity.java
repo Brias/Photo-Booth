@@ -23,9 +23,25 @@ import usbcamera.PTPException;
 import usbcamera.Session;
 import usbcamera.eos.EosInitiator;
 
-
+/**
+ * This class is the main entry point in this application. It initializes an BaseInitiator and establishes a
+ * connection to the camera.
+ *
+ * LICENSE: This file is subject of the GNU GENERAL PUBLIC LICENSE Version 3, 29 June 2007
+ *
+ * @author Matthias Bräuer
+ * @version $Id: CameraViewActivity.java,v 1.0 2016/09/29 16:57:00 Exp $
+ */
 public class CameraViewActivity extends Activity implements OnDialogFragmentClosedListener {
 
+    /**
+     * This class runs a thread in which the current image of the live view is fetched
+     *
+     * LICENSE: This file is subject of the GNU GENERAL PUBLIC LICENSE Version 3, 29 June 2007
+     *
+     * @author Matthias Bräuer
+     * @version $Id: LiveViewThread.java,v 1.0 2016/09/29 16:59:00 Exp $
+     */
     private class LiveViewThread extends Thread {
         @Override
         public void run() {

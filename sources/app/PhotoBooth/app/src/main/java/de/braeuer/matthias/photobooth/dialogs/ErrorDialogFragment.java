@@ -10,7 +10,12 @@ import android.widget.TextView;
 import de.braeuer.matthias.photobooth.R;
 
 /**
- * Created by Matze on 23.06.2016.
+ * This class shows an error fragment dialog, depending on the passed arguments
+ *
+ * LICENSE: This file is subject of the GNU GENERAL PUBLIC LICENSE Version 3, 29 June 2007
+ *
+ * @author Matthias Bräuer
+ * @version $Id: ErrorDialogFragment.java,v 1.0 2016/09/29 16:51:00 Exp $
  */
 public class ErrorDialogFragment extends BaseDialogFragment implements View.OnClickListener {
 

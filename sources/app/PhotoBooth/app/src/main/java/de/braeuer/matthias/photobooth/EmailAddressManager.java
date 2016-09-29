@@ -3,7 +3,12 @@ package de.braeuer.matthias.photobooth;
 import java.util.ArrayList;
 
 /**
- * Created by Matze on 11.06.2016.
+ * This class stores email addresses
+ *
+ * LICENSE: This file is subject of the GNU GENERAL PUBLIC LICENSE Version 3, 29 June 2007
+ *
+ * @author Matthias Bräuer
+ * @version $Id: EmailAddressManager.java,v 1.0 2016/09/29 16:56:00 Exp $
  */
 public class EmailAddressManager {
     private static ArrayList<String> emailAddresses;

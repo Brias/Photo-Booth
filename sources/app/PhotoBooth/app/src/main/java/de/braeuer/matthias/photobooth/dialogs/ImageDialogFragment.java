@@ -15,7 +15,12 @@ import de.braeuer.matthias.photobooth.R;
 import de.braeuer.matthias.photobooth.listener.OnDialogFragmentClosedListener;
 
 /**
- * Created by Matze on 09.06.2016.
+ * This class shows an image in a fragment dialog
+ *
+ * LICENSE: This file is subject of the GNU GENERAL PUBLIC LICENSE Version 3, 29 June 2007
+ *
+ * @author Matthias Bräuer
+ * @version $Id: ImageDialogFragment.java,v 1.0 2016/09/29 16:51:00 Exp $
  */
 public class ImageDialogFragment extends BaseDialogFragment implements View.OnClickListener {
 

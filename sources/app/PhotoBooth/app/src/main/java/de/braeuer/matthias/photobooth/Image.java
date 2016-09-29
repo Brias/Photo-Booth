@@ -6,7 +6,12 @@ import android.util.Base64;
 import java.io.ByteArrayOutputStream;
 
 /**
- * Created by Matze on 21.06.2016.
+ * This class represents a image and its data
+ *
+ * LICENSE: This file is subject of the GNU GENERAL PUBLIC LICENSE Version 3, 29 June 2007
+ *
+ * @author Matthias Bräuer
+ * @version $Id: Image.java,v 1.0 2016/09/29 17:07:00 Exp $
  */
 public class Image {
     private String name;

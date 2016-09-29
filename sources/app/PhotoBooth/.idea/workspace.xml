@@ -41,68 +41,7 @@
     <favorites_list name="PhotoBooth" />
   </component>
   <component name="FileEditorManager">
-    <leaf SIDE_TABS_SIZE_LIMIT_KEY="300">
-      <file leaf-file-name="BaseDialogFragment.java" pinned="false" current-in-tab="true">
-        <entry file="file://$PROJECT_DIR$/app/src/main/java/de/braeuer/matthias/photobooth/dialogs/BaseDialogFragment.java">
-          <provider selected="true" editor-type-id="text-editor">
-            <state vertical-scroll-proportion="0.13662457">
-              <caret line="12" column="56" selection-start-line="12" selection-start-column="56" selection-end-line="12" selection-end-column="56" />
-              <folding />
-            </state>
-          </provider>
-        </entry>
-      </file>
-      <file leaf-file-name="EditEmailAddressDialogFragment.java" pinned="false" current-in-tab="false">
-        <entry file="file://$PROJECT_DIR$/app/src/main/java/de/braeuer/matthias/photobooth/dialogs/EditEmailAddressDialogFragment.java">
-          <provider selected="true" editor-type-id="text-editor">
-            <state vertical-scroll-proportion="0.0">
-              <caret line="149" column="0" selection-start-line="149" selection-start-column="0" selection-end-line="149" selection-end-column="0" />
-              <folding />
-            </state>
-          </provider>
-        </entry>
-      </file>
-      <file leaf-file-name="ErrorDialogFragment.java" pinned="false" current-in-tab="false">
-        <entry file="file://$PROJECT_DIR$/app/src/main/java/de/braeuer/matthias/photobooth/dialogs/ErrorDialogFragment.java">
-          <provider selected="true" editor-type-id="text-editor">
-            <state vertical-scroll-proportion="0.0">
-              <caret line="27" column="34" selection-start-line="27" selection-start-column="34" selection-end-line="27" selection-end-column="34" />
-              <folding />
-            </state>
-          </provider>
-        </entry>
-      </file>
-      <file leaf-file-name="ImageDialogFragment.java" pinned="false" current-in-tab="false">
-        <entry file="file://$PROJECT_DIR$/app/src/main/java/de/braeuer/matthias/photobooth/dialogs/ImageDialogFragment.java">
-          <provider selected="true" editor-type-id="text-editor">
-            <state vertical-scroll-proportion="0.0">
-              <caret line="64" column="0" selection-start-line="64" selection-start-column="0" selection-end-line="64" selection-end-column="0" />
-              <folding />
-            </state>
-          </provider>
-        </entry>
-      </file>
-      <file leaf-file-name="KeepEmailAddressesDialogFragment.java" pinned="false" current-in-tab="false">
-        <entry file="file://$PROJECT_DIR$/app/src/main/java/de/braeuer/matthias/photobooth/dialogs/KeepEmailAddressesDialogFragment.java">
-          <provider selected="true" editor-type-id="text-editor">
-            <state vertical-scroll-proportion="0.0">
-              <caret line="41" column="0" selection-start-line="41" selection-start-column="0" selection-end-line="41" selection-end-column="0" />
-              <folding />
-            </state>
-          </provider>
-        </entry>
-      </file>
-      <file leaf-file-name="SuccessDialogFragment.java" pinned="false" current-in-tab="false">
-        <entry file="file://$PROJECT_DIR$/app/src/main/java/de/braeuer/matthias/photobooth/dialogs/SuccessDialogFragment.java">
-          <provider selected="true" editor-type-id="text-editor">
-            <state vertical-scroll-proportion="0.0">
-              <caret line="18" column="20" selection-start-line="18" selection-start-column="20" selection-end-line="18" selection-end-column="20" />
-              <folding />
-            </state>
-          </provider>
-        </entry>
-      </file>
-    </leaf>
+    <leaf SIDE_TABS_SIZE_LIMIT_KEY="300" />
   </component>
   <component name="FileTemplateManagerImpl">
     <option name="RECENT_TEMPLATES">
@@ -1672,57 +1611,57 @@
   <component name="IdeDocumentHistory">
     <option name="CHANGED_PATHS">
       <list>
-        <option value="$PROJECT_DIR$/app/src/main/res/drawable/remove_icon_scale.xml" />
         <option value="$PROJECT_DIR$/app/src/main/res/layout/info_dialog_fragment.xml" />
         <option value="$PROJECT_DIR$/app/src/main/java/de/braeuer/matthias/photobooth/dialogs/InfoDialogFragment.java" />
         <option value="$PROJECT_DIR$/app/src/main/res/layout/info_dialog_fragment_layout.xml" />
         <option value="$PROJECT_DIR$/app/src/main/java/de/braeuer/matthias/photobooth/LiveViewService.java" />
-        <option value="$PROJECT_DIR$/app/src/main/java/de/braeuer/matthias/photobooth/PictureTakenException.java" />
         <option value="$PROJECT_DIR$/app/src/main/java/usbcamera/BaselineInitiator.java" />
         <option value="$PROJECT_DIR$/app/src/main/java/de/braeuer/matthias/photobooth/WifiChangeReceiver.java" />
-        <option value="$PROJECT_DIR$/app/src/main/java/de/braeuer/matthias/photobooth/AccessStorage.java" />
         <option value="$PROJECT_DIR$/app/src/main/java/usbcamera/nikon/NikonInitiator.java" />
         <option value="$PROJECT_DIR$/app/src/main/java/de/braeuer/matthias/photobooth/InfoDialogFragment.java" />
         <option value="$PROJECT_DIR$/app/src/main/java/de/braeuer/matthias/photobooth/SuccessDialogFragment.java" />
         <option value="$PROJECT_DIR$/app/src/main/res/layout/activity_camera_view_layout.xml" />
         <option value="$PROJECT_DIR$/app/src/main/res/layout/email_list_view_item.xml" />
-        <option value="$PROJECT_DIR$/app/src/main/java/de/braeuer/matthias/photobooth/EmailAddressManager.java" />
-        <option value="$PROJECT_DIR$/app/src/main/java/de/braeuer/matthias/photobooth/listener/OnEmailAddressRemovedListener.java" />
         <option value="$PROJECT_DIR$/app/src/main/res/layout/image_dialog_fragment_layout.xml" />
         <option value="$PROJECT_DIR$/app/src/main/res/layout/success_dialog_fragment_layout.xml" />
-        <option value="$PROJECT_DIR$/app/src/main/java/de/braeuer/matthias/photobooth/FragmentHolder.java" />
         <option value="$PROJECT_DIR$/app/src/main/res/layout/keep_email_addresses_dialog_fragment_layout.xml" />
         <option value="$PROJECT_DIR$/app/src/main/java/de/braeuer/matthias/photobooth/FormDataWriter.java" />
         <option value="$PROJECT_DIR$/app/src/main/AndroidManifest.xml" />
         <option value="$PROJECT_DIR$/app/src/main/res/layout/error_dialog_fragment_layout.xml" />
         <option value="$PROJECT_DIR$/app/src/main/res/layout/confirm_upload_dialog_fragment_layout.xml" />
         <option value="$PROJECT_DIR$/app/src/main/res/layout-land/edit_email_address_dialog_fragment_layout.xml" />
-        <option value="$PROJECT_DIR$/app/src/main/java/de/braeuer/matthias/photobooth/BitmapHolder.java" />
         <option value="$PROJECT_DIR$/app/src/main/res/layout/edit_email_address_dialog_fragment_layout.xml" />
         <option value="$PROJECT_DIR$/app/src/main/res/values/strings.xml" />
         <option value="$PROJECT_DIR$/ReadMe.md" />
         <option value="$PROJECT_DIR$/license.txt" />
         <option value="$PROJECT_DIR$/app/src/main/java/usbcamera/eos/EosInitiator.java" />
+        <option value="$PROJECT_DIR$/app/src/main/java/de/braeuer/matthias/photobooth/UrlUtil.java" />
         <option value="$PROJECT_DIR$/app/src/main/java/de/braeuer/matthias/photobooth/dialogs/BaseDialogFragment.java" />
         <option value="$PROJECT_DIR$/app/src/main/java/de/braeuer/matthias/photobooth/dialogs/EditEmailAddressDialogFragment.java" />
-        <option value="$PROJECT_DIR$/app/src/main/java/de/braeuer/matthias/photobooth/dialogs/KeepEmailAddressesDialogFragment.java" />
-        <option value="$PROJECT_DIR$/app/src/main/java/de/braeuer/matthias/photobooth/dialogs/SuccessDialogFragment.java" />
-        <option value="$PROJECT_DIR$/app/src/main/java/de/braeuer/matthias/photobooth/dialogs/UploadConfirmDialogFragment.java" />
-        <option value="$PROJECT_DIR$/app/src/main/java/de/braeuer/matthias/photobooth/dialogs/UploadDialog.java" />
         <option value="$PROJECT_DIR$/app/src/main/java/de/braeuer/matthias/photobooth/dialogs/ErrorDialogFragment.java" />
         <option value="$PROJECT_DIR$/app/src/main/java/de/braeuer/matthias/photobooth/dialogs/ImageDialogFragment.java" />
-        <option value="$PROJECT_DIR$/app/src/main/java/de/braeuer/matthias/photobooth/listener/OnSavedInternalListener.java" />
-        <option value="$PROJECT_DIR$/app/src/main/java/de/braeuer/matthias/photobooth/listener/OnHttpRequestDoneListener.java" />
+        <option value="$PROJECT_DIR$/app/src/main/java/de/braeuer/matthias/photobooth/dialogs/KeepEmailAddressesDialogFragment.java" />
+        <option value="$PROJECT_DIR$/app/src/main/java/de/braeuer/matthias/photobooth/dialogs/SuccessDialogFragment.java" />
+        <option value="$PROJECT_DIR$/app/src/main/java/de/braeuer/matthias/photobooth/dialogs/UploadDialog.java" />
+        <option value="$PROJECT_DIR$/app/src/main/java/de/braeuer/matthias/photobooth/dialogs/UploadConfirmDialogFragment.java" />
+        <option value="$PROJECT_DIR$/app/src/main/java/de/braeuer/matthias/photobooth/AccessStorage.java" />
+        <option value="$PROJECT_DIR$/app/src/main/java/de/braeuer/matthias/photobooth/BitmapHolder.java" />
         <option value="$PROJECT_DIR$/app/src/main/java/de/braeuer/matthias/photobooth/CameraViewActivity.java" />
         <option value="$PROJECT_DIR$/app/src/main/java/de/braeuer/matthias/photobooth/Connection.java" />
-        <option value="$PROJECT_DIR$/app/src/main/java/de/braeuer/matthias/photobooth/Image.java" />
-        <option value="$PROJECT_DIR$/app/src/main/java/de/braeuer/matthias/photobooth/PhotoBoothDBContract.java" />
-        <option value="$PROJECT_DIR$/app/src/main/java/de/braeuer/matthias/photobooth/Request.java" />
         <option value="$PROJECT_DIR$/app/src/main/java/de/braeuer/matthias/photobooth/DBHelper.java" />
         <option value="$PROJECT_DIR$/app/src/main/java/de/braeuer/matthias/photobooth/EmailAddressArrayAdapter.java" />
+        <option value="$PROJECT_DIR$/app/src/main/java/de/braeuer/matthias/photobooth/EmailAddressManager.java" />
+        <option value="$PROJECT_DIR$/app/src/main/java/de/braeuer/matthias/photobooth/PhotoBoothDBContract.java" />
+        <option value="$PROJECT_DIR$/app/src/main/java/de/braeuer/matthias/photobooth/PictureTakenException.java" />
+        <option value="$PROJECT_DIR$/app/src/main/java/de/braeuer/matthias/photobooth/Request.java" />
         <option value="$PROJECT_DIR$/app/src/main/java/de/braeuer/matthias/photobooth/UploadImage.java" />
+        <option value="$PROJECT_DIR$/app/src/main/java/de/braeuer/matthias/photobooth/FragmentHolder.java" />
+        <option value="$PROJECT_DIR$/app/src/main/java/de/braeuer/matthias/photobooth/Image.java" />
         <option value="$PROJECT_DIR$/app/src/main/java/de/braeuer/matthias/photobooth/UploadLocalImagesService.java" />
-        <option value="$PROJECT_DIR$/app/src/main/java/de/braeuer/matthias/photobooth/UrlUtil.java" />
+        <option value="$PROJECT_DIR$/app/src/main/java/de/braeuer/matthias/photobooth/listener/OnSavedInternalListener.java" />
+        <option value="$PROJECT_DIR$/app/src/main/java/de/braeuer/matthias/photobooth/listener/OnDialogFragmentClosedListener.java" />
+        <option value="$PROJECT_DIR$/app/src/main/java/de/braeuer/matthias/photobooth/listener/OnEmailAddressRemovedListener.java" />
+        <option value="$PROJECT_DIR$/app/src/main/java/de/braeuer/matthias/photobooth/listener/OnHttpRequestDoneListener.java" />
       </list>
     </option>
   </component>
@@ -1764,7 +1703,10 @@
       <foldersAlwaysOnTop value="true" />
     </navigator>
     <panes>
+      <pane id="PackagesPane" />
       <pane id="Scratches" />
+      <pane id="AndroidView" />
+      <pane id="Scope" />
       <pane id="ProjectPane">
         <subPane>
           <PATH>
@@ -1773,21 +1715,8 @@
               <option name="myItemType" value="com.intellij.ide.projectView.impl.nodes.ProjectViewProjectNode" />
             </PATH_ELEMENT>
           </PATH>
-          <PATH>
-            <PATH_ELEMENT>
-              <option name="myItemId" value="PhotoBooth" />
-              <option name="myItemType" value="com.intellij.ide.projectView.impl.nodes.ProjectViewProjectNode" />
-            </PATH_ELEMENT>
-            <PATH_ELEMENT>
-              <option name="myItemId" value="PhotoBooth" />
-              <option name="myItemType" value="com.intellij.ide.projectView.impl.nodes.PsiDirectoryNode" />
-            </PATH_ELEMENT>
-          </PATH>
         </subPane>
       </pane>
-      <pane id="AndroidView" />
-      <pane id="PackagesPane" />
-      <pane id="Scope" />
     </panes>
   </component>
   <component name="PropertiesComponent">
@@ -2218,13 +2147,13 @@
       </provider>
     </entry>
     <entry file="file://$PROJECT_DIR$/app/src/main/res/layout/edit_email_address_dialog_fragment_layout.xml">
+      <provider editor-type-id="android-designer">
+        <state />
+      </provider>
       <provider selected="true" editor-type-id="text-editor">
         <state vertical-scroll-proportion="0.8790036">
           <caret line="97" column="17" selection-start-line="97" selection-start-column="17" selection-end-line="97" selection-end-column="17" />
         </state>
-      </provider>
-      <provider editor-type-id="android-designer">
-        <state />
       </provider>
     </entry>
     <entry file="file://$USER_HOME$/AppData/Local/Android/sdk1/sources/android-23/android/mtp/MtpDevice.java">
@@ -2276,13 +2205,6 @@
         </state>
       </provider>
     </entry>
-    <entry file="file://$PROJECT_DIR$/app/src/main/java/usbcamera/BaselineInitiator.java">
-      <provider selected="true" editor-type-id="text-editor">
-        <state vertical-scroll-proportion="17.35132">
-          <caret line="996" column="0" selection-start-line="996" selection-start-column="0" selection-end-line="996" selection-end-column="0" />
-        </state>
-      </provider>
-    </entry>
     <entry file="file://$PROJECT_DIR$/app/src/main/java/usbcamera/Data.java">
       <provider selected="true" editor-type-id="text-editor">
         <state vertical-scroll-proportion="0.31228474">
@@ -2325,146 +2247,6 @@
         </state>
       </provider>
     </entry>
-    <entry file="file://$PROJECT_DIR$/license.txt">
-      <provider selected="true" editor-type-id="text-editor">
-        <state vertical-scroll-proportion="0.0">
-          <caret line="0" column="82" selection-start-line="0" selection-start-column="82" selection-end-line="0" selection-end-column="82" />
-        </state>
-      </provider>
-    </entry>
-    <entry file="file://$PROJECT_DIR$/app/src/main/java/de/braeuer/matthias/photobooth/dialogs/UploadDialog.java">
-      <provider selected="true" editor-type-id="text-editor">
-        <state vertical-scroll-proportion="0.23421355">
-          <caret line="16" column="17" selection-start-line="16" selection-start-column="17" selection-end-line="16" selection-end-column="17" />
-        </state>
-      </provider>
-    </entry>
-    <entry file="file://$PROJECT_DIR$/app/src/main/java/de/braeuer/matthias/photobooth/listener/OnDialogFragmentClosedListener.java">
-      <provider selected="true" editor-type-id="text-editor">
-        <state vertical-scroll-proportion="0.15614237">
-          <caret line="8" column="0" selection-start-line="8" selection-start-column="0" selection-end-line="8" selection-end-column="0" />
-        </state>
-      </provider>
-    </entry>
-    <entry file="file://$PROJECT_DIR$/app/src/main/java/de/braeuer/matthias/photobooth/listener/OnEmailAddressRemovedListener.java">
-      <provider selected="true" editor-type-id="text-editor">
-        <state vertical-scroll-proportion="0.09758898">
-          <caret line="5" column="41" selection-start-line="5" selection-start-column="41" selection-end-line="5" selection-end-column="41" />
-        </state>
-      </provider>
-    </entry>
-    <entry file="file://$PROJECT_DIR$/app/src/main/java/de/braeuer/matthias/photobooth/listener/OnHttpRequestDoneListener.java">
-      <provider selected="true" editor-type-id="text-editor">
-        <state vertical-scroll-proportion="0.11710677">
-          <caret line="6" column="38" selection-start-line="6" selection-start-column="38" selection-end-line="6" selection-end-column="38" />
-        </state>
-      </provider>
-    </entry>
-    <entry file="file://$PROJECT_DIR$/app/src/main/java/de/braeuer/matthias/photobooth/listener/OnSavedInternalListener.java">
-      <provider selected="true" editor-type-id="text-editor">
-        <state vertical-scroll-proportion="0.19517796">
-          <caret line="10" column="0" selection-start-line="10" selection-start-column="0" selection-end-line="10" selection-end-column="0" />
-        </state>
-      </provider>
-    </entry>
-    <entry file="file://$PROJECT_DIR$/app/src/main/java/de/braeuer/matthias/photobooth/AccessStorage.java">
-      <provider selected="true" editor-type-id="text-editor">
-        <state vertical-scroll-proportion="0.0">
-          <caret line="44" column="5" selection-start-line="44" selection-start-column="5" selection-end-line="44" selection-end-column="5" />
-        </state>
-      </provider>
-    </entry>
-    <entry file="file://$PROJECT_DIR$/app/src/main/java/de/braeuer/matthias/photobooth/BitmapHolder.java">
-      <provider selected="true" editor-type-id="text-editor">
-        <state vertical-scroll-proportion="0.0">
-          <caret line="21" column="41" selection-start-line="21" selection-start-column="41" selection-end-line="21" selection-end-column="41" />
-        </state>
-      </provider>
-    </entry>
-    <entry file="file://$PROJECT_DIR$/app/src/main/java/de/braeuer/matthias/photobooth/CameraViewActivity.java">
-      <provider selected="true" editor-type-id="text-editor">
-        <state vertical-scroll-proportion="0.09758898">
-          <caret line="26" column="13" selection-start-line="26" selection-start-column="13" selection-end-line="26" selection-end-column="13" />
-        </state>
-      </provider>
-    </entry>
-    <entry file="file://$PROJECT_DIR$/app/src/main/java/de/braeuer/matthias/photobooth/Connection.java">
-      <provider selected="true" editor-type-id="text-editor">
-        <state vertical-scroll-proportion="0.17566016">
-          <caret line="11" column="5" selection-start-line="11" selection-start-column="5" selection-end-line="11" selection-end-column="5" />
-        </state>
-      </provider>
-    </entry>
-    <entry file="file://$PROJECT_DIR$/app/src/main/java/de/braeuer/matthias/photobooth/DBHelper.java">
-      <provider selected="true" editor-type-id="text-editor">
-        <state vertical-scroll-proportion="0.019517796">
-          <caret line="18" column="23" selection-start-line="18" selection-start-column="23" selection-end-line="18" selection-end-column="23" />
-        </state>
-      </provider>
-    </entry>
-    <entry file="file://$PROJECT_DIR$/app/src/main/java/de/braeuer/matthias/photobooth/EmailAddressArrayAdapter.java">
-      <provider selected="true" editor-type-id="text-editor">
-        <state vertical-scroll-proportion="0.27784157">
-          <caret line="46" column="0" selection-start-line="46" selection-start-column="0" selection-end-line="46" selection-end-column="0" />
-        </state>
-      </provider>
-    </entry>
-    <entry file="file://$PROJECT_DIR$/app/src/main/java/de/braeuer/matthias/photobooth/EmailAddressManager.java">
-      <provider selected="true" editor-type-id="text-editor">
-        <state vertical-scroll-proportion="0.13662457">
-          <caret line="7" column="13" selection-start-line="7" selection-start-column="13" selection-end-line="7" selection-end-column="13" />
-        </state>
-      </provider>
-    </entry>
-    <entry file="file://$PROJECT_DIR$/app/src/main/java/de/braeuer/matthias/photobooth/FragmentHolder.java">
-      <provider selected="true" editor-type-id="text-editor">
-        <state vertical-scroll-proportion="0.15614237">
-          <caret line="10" column="80" selection-start-line="10" selection-start-column="80" selection-end-line="10" selection-end-column="80" />
-        </state>
-      </provider>
-    </entry>
-    <entry file="file://$PROJECT_DIR$/app/src/main/java/de/braeuer/matthias/photobooth/Image.java">
-      <provider selected="true" editor-type-id="text-editor">
-        <state vertical-scroll-proportion="0.35132033">
-          <caret line="21" column="0" selection-start-line="21" selection-start-column="0" selection-end-line="21" selection-end-column="0" />
-        </state>
-      </provider>
-    </entry>
-    <entry file="file://$PROJECT_DIR$/app/src/main/java/de/braeuer/matthias/photobooth/PhotoBoothDBContract.java">
-      <provider selected="true" editor-type-id="text-editor">
-        <state vertical-scroll-proportion="0.13662457">
-          <caret line="7" column="19" selection-start-line="7" selection-start-column="19" selection-end-line="7" selection-end-column="19" />
-        </state>
-      </provider>
-    </entry>
-    <entry file="file://$PROJECT_DIR$/app/src/main/java/de/braeuer/matthias/photobooth/PictureTakenException.java">
-      <provider selected="true" editor-type-id="text-editor">
-        <state vertical-scroll-proportion="0.17566016">
-          <caret line="11" column="1" selection-start-line="11" selection-start-column="1" selection-end-line="11" selection-end-column="1" />
-        </state>
-      </provider>
-    </entry>
-    <entry file="file://$PROJECT_DIR$/app/src/main/java/de/braeuer/matthias/photobooth/Request.java">
-      <provider selected="true" editor-type-id="text-editor">
-        <state vertical-scroll-proportion="0.4098737">
-          <caret line="28" column="0" selection-start-line="28" selection-start-column="0" selection-end-line="28" selection-end-column="0" />
-        </state>
-      </provider>
-    </entry>
-    <entry file="file://$PROJECT_DIR$/app/src/main/java/de/braeuer/matthias/photobooth/UploadImage.java">
-      <provider selected="true" editor-type-id="text-editor">
-        <state vertical-scroll-proportion="0.31687716">
-          <caret line="33" column="13" selection-start-line="33" selection-start-column="13" selection-end-line="33" selection-end-column="13" />
-        </state>
-      </provider>
-    </entry>
-    <entry file="file://$PROJECT_DIR$/app/src/main/java/de/braeuer/matthias/photobooth/UploadLocalImagesService.java">
-      <provider selected="true" editor-type-id="text-editor">
-        <state vertical-scroll-proportion="0.6096441">
-          <caret line="83" column="0" selection-start-line="83" selection-start-column="0" selection-end-line="83" selection-end-column="0" />
-        </state>
-      </provider>
-    </entry>
     <entry file="file://$PROJECT_DIR$/app/src/main/java/de/braeuer/matthias/photobooth/UrlUtil.java">
       <provider selected="true" editor-type-id="text-editor">
         <state vertical-scroll-proportion="0.13662457">
@@ -2479,34 +2261,69 @@
         </state>
       </provider>
     </entry>
-    <entry file="file://$PROJECT_DIR$/app/src/main/java/de/braeuer/matthias/photobooth/dialogs/EditEmailAddressDialogFragment.java">
+    <entry file="file://$PROJECT_DIR$/app/src/main/java/usbcamera/Response.java">
       <provider selected="true" editor-type-id="text-editor">
-        <state vertical-scroll-proportion="0.0">
-          <caret line="149" column="0" selection-start-line="149" selection-start-column="0" selection-end-line="149" selection-end-column="0" />
+        <state vertical-scroll-proportion="0.8002296">
+          <caret line="60" column="16" selection-start-line="60" selection-start-column="16" selection-end-line="60" selection-end-column="16" />
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/app/src/main/java/usbcamera/BaselineInitiator.java">
+      <provider selected="true" editor-type-id="text-editor">
+        <state vertical-scroll-proportion="0.70264065">
+          <caret line="62" column="82" selection-start-line="62" selection-start-column="12" selection-end-line="62" selection-end-column="82" />
           <folding />
         </state>
       </provider>
     </entry>
-    <entry file="file://$PROJECT_DIR$/app/src/main/java/de/braeuer/matthias/photobooth/dialogs/ErrorDialogFragment.java">
+    <entry file="file://$PROJECT_DIR$/license.txt">
       <provider selected="true" editor-type-id="text-editor">
         <state vertical-scroll-proportion="0.0">
-          <caret line="27" column="34" selection-start-line="27" selection-start-column="34" selection-end-line="27" selection-end-column="34" />
+          <caret line="12" column="0" selection-start-line="12" selection-start-column="0" selection-end-line="12" selection-end-column="0" />
+          <folding />
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/app/src/main/java/de/braeuer/matthias/photobooth/dialogs/BaseDialogFragment.java">
+      <provider selected="true" editor-type-id="text-editor">
+        <state vertical-scroll-proportion="0.039035592">
+          <caret line="7" column="78" selection-start-line="7" selection-start-column="78" selection-end-line="7" selection-end-column="78" />
           <folding />
         </state>
       </provider>
     </entry>
     <entry file="file://$PROJECT_DIR$/app/src/main/java/de/braeuer/matthias/photobooth/dialogs/ImageDialogFragment.java">
       <provider selected="true" editor-type-id="text-editor">
-        <state vertical-scroll-proportion="0.0">
-          <caret line="64" column="0" selection-start-line="64" selection-start-column="0" selection-end-line="64" selection-end-column="0" />
+        <state vertical-scroll-proportion="0.09758898">
+          <caret line="17" column="49" selection-start-line="17" selection-start-column="49" selection-end-line="17" selection-end-column="49" />
+          <folding>
+            <element signature="e#1482#1543#0" expanded="true" />
+          </folding>
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/app/src/main/java/de/braeuer/matthias/photobooth/dialogs/EditEmailAddressDialogFragment.java">
+      <provider selected="true" editor-type-id="text-editor">
+        <state vertical-scroll-proportion="0.078071184">
+          <caret line="24" column="0" selection-start-line="24" selection-start-column="0" selection-end-line="31" selection-end-column="3" />
           <folding />
         </state>
       </provider>
     </entry>
     <entry file="file://$PROJECT_DIR$/app/src/main/java/de/braeuer/matthias/photobooth/dialogs/KeepEmailAddressesDialogFragment.java">
       <provider selected="true" editor-type-id="text-editor">
-        <state vertical-scroll-proportion="0.0">
-          <caret line="41" column="0" selection-start-line="41" selection-start-column="0" selection-end-line="41" selection-end-column="0" />
+        <state vertical-scroll-proportion="0.15614237">
+          <caret line="16" column="2" selection-start-line="16" selection-start-column="2" selection-end-line="16" selection-end-column="2" />
+          <folding>
+            <element signature="e#1274#1329#0" expanded="true" />
+          </folding>
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/app/src/main/java/de/braeuer/matthias/photobooth/dialogs/ErrorDialogFragment.java">
+      <provider selected="true" editor-type-id="text-editor">
+        <state vertical-scroll-proportion="0.09758898">
+          <caret line="12" column="80" selection-start-line="12" selection-start-column="14" selection-end-line="12" selection-end-column="80" />
           <folding />
         </state>
       </provider>
@@ -2514,31 +2331,191 @@
     <entry file="file://$PROJECT_DIR$/app/src/main/java/de/braeuer/matthias/photobooth/dialogs/SuccessDialogFragment.java">
       <provider selected="true" editor-type-id="text-editor">
         <state vertical-scroll-proportion="0.0">
-          <caret line="18" column="20" selection-start-line="18" selection-start-column="20" selection-end-line="18" selection-end-column="20" />
-          <folding />
+          <caret line="13" column="0" selection-start-line="13" selection-start-column="0" selection-end-line="20" selection-end-column="3" />
+          <folding>
+            <element signature="e#1913#1966#0" expanded="true" />
+          </folding>
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/app/src/main/java/de/braeuer/matthias/photobooth/dialogs/UploadDialog.java">
+      <provider selected="true" editor-type-id="text-editor">
+        <state vertical-scroll-proportion="0.078071184">
+          <caret line="8" column="0" selection-start-line="8" selection-start-column="0" selection-end-line="15" selection-end-column="3" />
+          <folding>
+            <element signature="e#634#686#0" expanded="true" />
+          </folding>
         </state>
       </provider>
     </entry>
     <entry file="file://$PROJECT_DIR$/app/src/main/java/de/braeuer/matthias/photobooth/dialogs/UploadConfirmDialogFragment.java">
       <provider selected="true" editor-type-id="text-editor">
+        <state vertical-scroll-proportion="0.078071184">
+          <caret line="23" column="0" selection-start-line="23" selection-start-column="0" selection-end-line="30" selection-end-column="3" />
+          <folding>
+            <element signature="e#1863#1918#0" expanded="true" />
+            <element signature="e#2580#2633#0" expanded="true" />
+            <element signature="e#2660#2719#0" expanded="true" />
+            <element signature="e#3200#3271#0" expanded="true" />
+            <element signature="e#3273#3355#0" expanded="true" />
+            <element signature="e#3469#3538#0" expanded="true" />
+            <element signature="e#3540#3620#0" expanded="true" />
+          </folding>
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/app/src/main/java/de/braeuer/matthias/photobooth/BitmapHolder.java">
+      <provider selected="true" editor-type-id="text-editor">
+        <state vertical-scroll-proportion="0.19517796">
+          <caret line="13" column="57" selection-start-line="13" selection-start-column="57" selection-end-line="13" selection-end-column="57" />
+          <folding />
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/app/src/main/java/de/braeuer/matthias/photobooth/CameraViewActivity.java">
+      <provider selected="true" editor-type-id="text-editor">
         <state vertical-scroll-proportion="0.0">
-          <caret line="120" column="5" selection-start-line="120" selection-start-column="5" selection-end-line="120" selection-end-column="5" />
+          <caret line="32" column="63" selection-start-line="32" selection-start-column="63" selection-end-line="32" selection-end-column="63" />
+          <folding>
+            <element signature="e#3504#3560#0" expanded="true" />
+            <element signature="e#3562#3633#0" expanded="true" />
+            <element signature="e#4136#4190#0" expanded="true" />
+            <element signature="e#4192#4273#0" expanded="true" />
+            <element signature="e#4625#4679#0" expanded="true" />
+            <element signature="e#4681#4754#0" expanded="true" />
+            <element signature="e#9420#9478#0" expanded="true" />
+            <element signature="e#9480#9565#0" expanded="true" />
+          </folding>
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/app/src/main/java/de/braeuer/matthias/photobooth/Connection.java">
+      <provider selected="true" editor-type-id="text-editor">
+        <state vertical-scroll-proportion="0.19517796">
+          <caret line="12" column="27" selection-start-line="12" selection-start-column="27" selection-end-line="12" selection-end-column="27" />
           <folding />
         </state>
       </provider>
     </entry>
-    <entry file="file://$PROJECT_DIR$/app/src/main/java/usbcamera/Response.java">
+    <entry file="file://$PROJECT_DIR$/app/src/main/java/de/braeuer/matthias/photobooth/DBHelper.java">
       <provider selected="true" editor-type-id="text-editor">
-        <state vertical-scroll-proportion="0.8002296">
-          <caret line="60" column="16" selection-start-line="60" selection-start-column="16" selection-end-line="60" selection-end-column="16" />
+        <state vertical-scroll-proportion="0.09758898">
+          <caret line="11" column="103" selection-start-line="11" selection-start-column="103" selection-end-line="11" selection-end-column="103" />
           <folding />
         </state>
       </provider>
     </entry>
-    <entry file="file://$PROJECT_DIR$/app/src/main/java/de/braeuer/matthias/photobooth/dialogs/BaseDialogFragment.java">
+    <entry file="file://$PROJECT_DIR$/app/src/main/java/de/braeuer/matthias/photobooth/EmailAddressArrayAdapter.java">
       <provider selected="true" editor-type-id="text-editor">
-        <state vertical-scroll-proportion="0.13662457">
-          <caret line="12" column="56" selection-start-line="12" selection-start-column="56" selection-end-line="12" selection-end-column="56" />
+        <state vertical-scroll-proportion="0.19517796">
+          <caret line="21" column="41" selection-start-line="21" selection-start-column="41" selection-end-line="21" selection-end-column="41" />
+          <folding />
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/app/src/main/java/de/braeuer/matthias/photobooth/EmailAddressManager.java">
+      <provider selected="true" editor-type-id="text-editor">
+        <state vertical-scroll-proportion="0.09758898">
+          <caret line="5" column="36" selection-start-line="5" selection-start-column="36" selection-end-line="5" selection-end-column="36" />
+          <folding />
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/app/src/main/java/de/braeuer/matthias/photobooth/PhotoBoothDBContract.java">
+      <provider selected="true" editor-type-id="text-editor">
+        <state vertical-scroll-proportion="0.09758898">
+          <caret line="5" column="3" selection-start-line="5" selection-start-column="3" selection-end-line="5" selection-end-column="3" />
+          <folding />
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/app/src/main/java/de/braeuer/matthias/photobooth/PictureTakenException.java">
+      <provider selected="true" editor-type-id="text-editor">
+        <state vertical-scroll-proportion="0.15614237">
+          <caret line="8" column="63" selection-start-line="8" selection-start-column="63" selection-end-line="8" selection-end-column="63" />
+          <folding />
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/app/src/main/java/de/braeuer/matthias/photobooth/Request.java">
+      <provider selected="true" editor-type-id="text-editor">
+        <state vertical-scroll-proportion="0.19517796">
+          <caret line="17" column="24" selection-start-line="17" selection-start-column="24" selection-end-line="17" selection-end-column="24" />
+          <folding />
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/app/src/main/java/de/braeuer/matthias/photobooth/UploadImage.java">
+      <provider selected="true" editor-type-id="text-editor">
+        <state vertical-scroll-proportion="0.09758898">
+          <caret line="10" column="71" selection-start-line="10" selection-start-column="71" selection-end-line="10" selection-end-column="71" />
+          <folding />
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/app/src/main/java/de/braeuer/matthias/photobooth/FragmentHolder.java">
+      <provider selected="true" editor-type-id="text-editor">
+        <state vertical-scroll-proportion="0.09758898">
+          <caret line="7" column="24" selection-start-line="7" selection-start-column="24" selection-end-line="7" selection-end-column="24" />
+          <folding />
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/app/src/main/java/de/braeuer/matthias/photobooth/Image.java">
+      <provider selected="true" editor-type-id="text-editor">
+        <state vertical-scroll-proportion="0.19517796">
+          <caret line="13" column="50" selection-start-line="13" selection-start-column="50" selection-end-line="13" selection-end-column="50" />
+          <folding>
+            <element signature="e#744#745#0" expanded="true" />
+            <element signature="e#777#778#0" expanded="true" />
+          </folding>
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/app/src/main/java/de/braeuer/matthias/photobooth/AccessStorage.java">
+      <provider selected="true" editor-type-id="text-editor">
+        <state vertical-scroll-proportion="0.078071184">
+          <caret line="9" column="0" selection-start-line="9" selection-start-column="0" selection-end-line="16" selection-end-column="3" />
+          <folding />
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/app/src/main/java/de/braeuer/matthias/photobooth/UploadLocalImagesService.java">
+      <provider selected="true" editor-type-id="text-editor">
+        <state vertical-scroll-proportion="0.078071184">
+          <caret line="13" column="0" selection-start-line="13" selection-start-column="0" selection-end-line="20" selection-end-column="3" />
+          <folding />
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/app/src/main/java/de/braeuer/matthias/photobooth/listener/OnSavedInternalListener.java">
+      <provider selected="true" editor-type-id="text-editor">
+        <state vertical-scroll-proportion="0.039035592">
+          <caret line="2" column="0" selection-start-line="2" selection-start-column="0" selection-end-line="7" selection-end-column="3" />
+          <folding />
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/app/src/main/java/de/braeuer/matthias/photobooth/listener/OnDialogFragmentClosedListener.java">
+      <provider selected="true" editor-type-id="text-editor">
+        <state vertical-scroll-proportion="0.0">
+          <caret line="6" column="47" selection-start-line="6" selection-start-column="47" selection-end-line="6" selection-end-column="47" />
+          <folding />
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/app/src/main/java/de/braeuer/matthias/photobooth/listener/OnEmailAddressRemovedListener.java">
+      <provider selected="true" editor-type-id="text-editor">
+        <state vertical-scroll-proportion="0.0">
+          <caret line="6" column="46" selection-start-line="6" selection-start-column="46" selection-end-line="6" selection-end-column="46" />
+          <folding />
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/app/src/main/java/de/braeuer/matthias/photobooth/listener/OnHttpRequestDoneListener.java">
+      <provider selected="true" editor-type-id="text-editor">
+        <state vertical-scroll-proportion="0.25373134">
+          <caret line="13" column="0" selection-start-line="13" selection-start-column="0" selection-end-line="13" selection-end-column="0" />
           <folding />
         </state>
       </provider>

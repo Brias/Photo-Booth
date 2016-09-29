@@ -8,7 +8,12 @@ import java.util.HashMap;
 import de.braeuer.matthias.photobooth.listener.OnHttpRequestDoneListener;
 
 /**
- * Created by Matze on 09.06.2016.
+ * This class starts a new background thread and initializes the upload
+ *
+ * LICENSE: This file is subject of the GNU GENERAL PUBLIC LICENSE Version 3, 29 June 2007
+ *
+ * @author Matthias Bräuer
+ * @version $Id: UploadImage.java,v 1.0 2016/09/29 16:56:00 Exp $
  */
 public class UploadImage extends AsyncTask<Void, Void, String> {
 

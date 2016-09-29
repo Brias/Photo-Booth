@@ -22,7 +22,12 @@ import de.braeuer.matthias.photobooth.listener.OnHttpRequestDoneListener;
 import de.braeuer.matthias.photobooth.listener.OnSavedInternalListener;
 
 /**
- * Created by Matze on 24.06.2016.
+ * This class initializes the upload of an image
+ *
+ * LICENSE: This file is subject of the GNU GENERAL PUBLIC LICENSE Version 3, 29 June 2007
+ *
+ * @author Matthias Bräuer
+ * @version $Id: UploadConfirmDialogFragment.java,v 1.0 2016/09/29 16:55:00 Exp $
  */
 public class UploadConfirmDialogFragment extends BaseDialogFragment implements View.OnClickListener,
         OnHttpRequestDoneListener, OnSavedInternalListener {

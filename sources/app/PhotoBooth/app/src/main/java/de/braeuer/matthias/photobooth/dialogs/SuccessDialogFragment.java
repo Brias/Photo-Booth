@@ -12,7 +12,12 @@ import de.braeuer.matthias.photobooth.R;
 import de.braeuer.matthias.photobooth.listener.OnDialogFragmentClosedListener;
 
 /**
- * Created by Matze on 23.06.2016.
+ * This class shows an success fragment dialog, depending on the passed arguments
+ *
+ * LICENSE: This file is subject of the GNU GENERAL PUBLIC LICENSE Version 3, 29 June 2007
+ *
+ * @author Matthias Bräuer
+ * @version $Id: SuccessDialogFragment.java,v 1.0 2016/09/29 16:53:00 Exp $
  */
 public class SuccessDialogFragment extends BaseDialogFragment implements View.OnClickListener {
 
